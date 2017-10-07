@@ -60,26 +60,6 @@
         EM_USER_ROLE.USER_ID = #{param}
         AND EM_ROLE_ACL.ACC_RES_ID = '*'
   </select>
-  
-  <select id="SEARCH_CODE_LIST" resultType="java.util.Map">
-    SELECT 
-        EM_CODE.CATEGORY                AS "category",
-        EM_CODE.CATEGORY_DESC           AS "categoryDesc",
-        EM_CODE.CODE_SEQ                AS "codeSeq",
-        EM_CODE.CODE                    AS "code",
-        EM_CODE.CODE_VALUE              AS "codeValue",
-        EM_CODE.CODE_DESC               AS "codeDesc"
-    FROM EM_CODE 
-    ORDER BY CATEGORY,CODE_SEQ
-  </select>
-  <select id="SEARCH_MSG_LIST" resultType="java.util.Map">
-    SELECT 
-        EM_MSG.MSG_KEY                  AS "msgKey",
-        EM_MSG.MSG_VALUE                AS "msgValue"
-    FROM EM_MSG
-    ORDER BY 
-        MSG_KEY
-  </select>
 
 </mapper>
 
