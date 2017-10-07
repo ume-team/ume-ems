@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TBL">
+  <!-- EM数据源配置表 [EM_DS_CFG] -->
+  
+  <!-- Insert one -->
+  <insert id="EM_DS_CFG_INSERT" parameterType="org.umeframework.ems.entity.EmDsCfgDto">
+    INSERT INTO EM_DS_CFG (
+      ID,
+      NAME,
+      URL,
+      DRIVER_CLASS,
+      USERNAME,
+      PASSWORD,
+      MAX_WAIT,
+      MIN_IDLE,
+      MAX_IDLE,
+      MAX_ACTIVE,
+      INITIAL_SIZE,
+      CREATE_AUTHOR,
+      CREATE_DATETIME,
+      UPDATE_AUTHOR,
+      UPDATE_DATETIME
+    ) VALUES (
+      #{id},
+      #{name},
+      #{url},
+      #{driverClass},
+      #{username},
+      #{password},
+      #{maxWait},
+      #{minIdle},
+      #{maxIdle},
+      #{maxActive},
+      #{initialSize},
+      #{createAuthor},
+      current_timestamp(),
+      #{updateAuthor},
+      current_timestamp()
+    )
+  </insert>
+
+  <!-- Update with optimism check) -->
+  <update id="EM_DS_CFG_UPDATE" parameterType="org.umeframework.ems.entity.EmDsCfgDto">
+    UPDATE EM_DS_CFG
+    SET
+      NAME = #{name},
+      URL = #{url},
+      DRIVER_CLASS = #{driverClass},
+      USERNAME = #{username},
+      PASSWORD = #{password},
+      MAX_WAIT = #{maxWait},
+      MIN_IDLE = #{minIdle},
+      MAX_IDLE = #{maxIdle},
+      MAX_ACTIVE = #{maxActive},
+      INITIAL_SIZE = #{initialSize},
+      CREATE_AUTHOR = #{createAuthor},
+      CREATE_DATETIME = #{createDatetime},
+      UPDATE_AUTHOR = #{updateAuthor},
+      UPDATE_DATETIME = current_timestamp() 
+    WHERE UPDATE_DATETIME = #{updateDatetime}
+      AND ID = #{id}
+  </update>
+
+  <!-- Smart update -->
+  <update id="EM_DS_CFG_SMART_UPDATE" parameterType="org.umeframework.ems.entity.EmDsCfgDto">
+    UPDATE EM_DS_CFG
+    <set>
+      <if test="name!=null">NAME = #{name},</if>
+      <if test="url!=null">URL = #{url},</if>
+      <if test="driverClass!=null">DRIVER_CLASS = #{driverClass},</if>
+      <if test="username!=null">USERNAME = #{username},</if>
+      <if test="password!=null">PASSWORD = #{password},</if>
+      <if test="maxWait!=null">MAX_WAIT = #{maxWait},</if>
+      <if test="minIdle!=null">MIN_IDLE = #{minIdle},</if>
+      <if test="maxIdle!=null">MAX_IDLE = #{maxIdle},</if>
+      <if test="maxActive!=null">MAX_ACTIVE = #{maxActive},</if>
+      <if test="initialSize!=null">INITIAL_SIZE = #{initialSize},</if>
+      <if test="createAuthor!=null">CREATE_AUTHOR = #{createAuthor},</if>
+      <if test="createDatetime!=null">CREATE_DATETIME = #{createDatetime},</if>
+      <if test="updateAuthor!=null">UPDATE_AUTHOR = #{updateAuthor},</if>
+      UPDATE_DATETIME = current_timestamp()
+    </set>
+    WHERE 
+       ID = #{id}
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </update>
+  
+  <!-- Delete one -->
+  <delete id="EM_DS_CFG_DELETE" parameterType="org.umeframework.ems.entity.EmDsCfgDto">
+    DELETE FROM EM_DS_CFG
+    WHERE
+      ID = #{id} 
+  </delete>
+
+  <!-- Find by primary key -->
+  <select id="EM_DS_CFG_FIND" resultType="org.umeframework.ems.entity.EmDsCfgDto">
+    SELECT
+      ID AS "id",
+      NAME AS "name",
+      URL AS "url",
+      DRIVER_CLASS AS "driverClass",
+      USERNAME AS "username",
+      PASSWORD AS "password",
+      MAX_WAIT AS "maxWait",
+      MIN_IDLE AS "minIdle",
+      MAX_IDLE AS "maxIdle",
+      MAX_ACTIVE AS "maxActive",
+      INITIAL_SIZE AS "initialSize",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_DS_CFG
+    WHERE
+      ID = #{id} 
+  </select>
+
+  <!-- Find by primary key for update with row lock -->
+  <select id="EM_DS_CFG_FIND_FOR_UPDATE" resultType="org.umeframework.ems.entity.EmDsCfgDto">
+    SELECT
+      ID AS "id",
+      NAME AS "name",
+      URL AS "url",
+      DRIVER_CLASS AS "driverClass",
+      USERNAME AS "username",
+      PASSWORD AS "password",
+      MAX_WAIT AS "maxWait",
+      MIN_IDLE AS "minIdle",
+      MAX_IDLE AS "maxIdle",
+      MAX_ACTIVE AS "maxActive",
+      INITIAL_SIZE AS "initialSize",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_DS_CFG
+    WHERE
+      ID = #{id} 
+    FOR UPDATE
+  </select>
+
+  <!-- Search multi by input condition -->
+  <select id="EM_DS_CFG_SEARCH" resultType="org.umeframework.ems.entity.EmDsCfgDto">
+    SELECT
+      ID AS "id",
+      NAME AS "name",
+      URL AS "url",
+      DRIVER_CLASS AS "driverClass",
+      USERNAME AS "username",
+      PASSWORD AS "password",
+      MAX_WAIT AS "maxWait",
+      MIN_IDLE AS "minIdle",
+      MAX_IDLE AS "maxIdle",
+      MAX_ACTIVE AS "maxActive",
+      INITIAL_SIZE AS "initialSize",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_DS_CFG
+    WHERE 1 = 1 
+      <if test="id != null">AND ID = #{id}</if>
+      <if test="name != null">AND NAME = #{name}</if>
+      <if test="url != null">AND URL = #{url}</if>
+      <if test="driverClass != null">AND DRIVER_CLASS = #{driverClass}</if>
+      <if test="username != null">AND USERNAME = #{username}</if>
+      <if test="password != null">AND PASSWORD = #{password}</if>
+      <if test="maxWait != null">AND MAX_WAIT = #{maxWait}</if>
+      <if test="minIdle != null">AND MIN_IDLE = #{minIdle}</if>
+      <if test="maxIdle != null">AND MAX_IDLE = #{maxIdle}</if>
+      <if test="maxActive != null">AND MAX_ACTIVE = #{maxActive}</if>
+      <if test="initialSize != null">AND INITIAL_SIZE = #{initialSize}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+    <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+    <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+    <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>
+  </select>
+
+  <!-- Search multi by input condition with like operator -->
+  <select id="EM_DS_CFG_LIKE_SEARCH" resultType="org.umeframework.ems.entity.EmDsCfgDto">
+    SELECT
+      ID AS "id",
+      NAME AS "name",
+      URL AS "url",
+      DRIVER_CLASS AS "driverClass",
+      USERNAME AS "username",
+      PASSWORD AS "password",
+      MAX_WAIT AS "maxWait",
+      MIN_IDLE AS "minIdle",
+      MAX_IDLE AS "maxIdle",
+      MAX_ACTIVE AS "maxActive",
+      INITIAL_SIZE AS "initialSize",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_DS_CFG
+    WHERE 1 = 1 
+      <if test="id != null">AND ID LIKE CONCAT('%', #{id}, '%')</if>
+      <if test="name != null">AND NAME LIKE CONCAT('%', #{name}, '%')</if>
+      <if test="url != null">AND URL LIKE CONCAT('%', #{url}, '%')</if>
+      <if test="driverClass != null">AND DRIVER_CLASS LIKE CONCAT('%', #{driverClass}, '%')</if>
+      <if test="username != null">AND USERNAME LIKE CONCAT('%', #{username}, '%')</if>
+      <if test="password != null">AND PASSWORD LIKE CONCAT('%', #{password}, '%')</if>
+      <if test="maxWait != null">AND MAX_WAIT LIKE CONCAT('%', #{maxWait}, '%')</if>
+      <if test="minIdle != null">AND MIN_IDLE LIKE CONCAT('%', #{minIdle}, '%')</if>
+      <if test="maxIdle != null">AND MAX_IDLE LIKE CONCAT('%', #{maxIdle}, '%')</if>
+      <if test="maxActive != null">AND MAX_ACTIVE LIKE CONCAT('%', #{maxActive}, '%')</if>
+      <if test="initialSize != null">AND INITIAL_SIZE LIKE CONCAT('%', #{initialSize}, '%')</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR LIKE CONCAT('%', #{createAuthor}, '%')</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR LIKE CONCAT('%', #{updateAuthor}, '%')</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+    <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+    <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+    <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>    
+  </select>
+
+  <!-- Search multi by dynamic conditions -->
+  <select id="EM_DS_CFG_DYNA_SEARCH" resultType="org.umeframework.ems.entity.EmDsCfgDto">
+    SELECT
+      ID AS "id",
+      NAME AS "name",
+      URL AS "url",
+      DRIVER_CLASS AS "driverClass",
+      USERNAME AS "username",
+      PASSWORD AS "password",
+      MAX_WAIT AS "maxWait",
+      MIN_IDLE AS "minIdle",
+      MAX_IDLE AS "maxIdle",
+      MAX_ACTIVE AS "maxActive",
+      INITIAL_SIZE AS "initialSize",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_DS_CFG
+    WHERE 1 = 1 
+      <if test="theSQLCondition != null"> AND ( ${theSQLCondition} )</if>
+      <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+      <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+      <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>
+  </select>
+  
+  <!-- Count by input condition -->
+  <select id="EM_DS_CFG_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM EM_DS_CFG
+    WHERE 1 = 1 
+      <if test="theSQLCondition != null"> AND ( ${theSQLCondition} )</if>
+      <if test="id != null">AND ID = #{id}</if>
+      <if test="name != null">AND NAME = #{name}</if>
+      <if test="url != null">AND URL = #{url}</if>
+      <if test="driverClass != null">AND DRIVER_CLASS = #{driverClass}</if>
+      <if test="username != null">AND USERNAME = #{username}</if>
+      <if test="password != null">AND PASSWORD = #{password}</if>
+      <if test="maxWait != null">AND MAX_WAIT = #{maxWait}</if>
+      <if test="minIdle != null">AND MIN_IDLE = #{minIdle}</if>
+      <if test="maxIdle != null">AND MAX_IDLE = #{maxIdle}</if>
+      <if test="maxActive != null">AND MAX_ACTIVE = #{maxActive}</if>
+      <if test="initialSize != null">AND INITIAL_SIZE = #{initialSize}</if>
+  </select>
+
+</mapper>
+

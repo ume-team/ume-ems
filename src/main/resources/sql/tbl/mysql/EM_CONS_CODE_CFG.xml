@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TBL">
+  <!-- EM 编码配置表 [EM_CONS_CODE_CFG] -->
+  
+  <!-- Insert one -->
+  <insert id="EM_CONS_CODE_CFG_INSERT" parameterType="org.umeframework.ems.entity.EmConsCodeCfgDto">
+    INSERT INTO EM_CONS_CODE_CFG (
+      CONS_ID,
+      CONS_SEQ,
+      CONS_NAME,
+      CONS_DESC,
+      DISP_VALUE,
+      STORE_VALUE,
+      STORE_TYPE,
+      CREATE_AUTHOR,
+      CREATE_DATETIME,
+      UPDATE_AUTHOR,
+      UPDATE_DATETIME
+    ) VALUES (
+      #{consId},
+      #{consSeq},
+      #{consName},
+      #{consDesc},
+      #{dispValue},
+      #{storeValue},
+      #{storeType},
+      #{createAuthor},
+      current_timestamp(),
+      #{updateAuthor},
+      current_timestamp()
+    )
+  </insert>
+
+  <!-- Update with optimism check) -->
+  <update id="EM_CONS_CODE_CFG_UPDATE" parameterType="org.umeframework.ems.entity.EmConsCodeCfgDto">
+    UPDATE EM_CONS_CODE_CFG
+    SET
+      CONS_NAME = #{consName},
+      CONS_DESC = #{consDesc},
+      DISP_VALUE = #{dispValue},
+      STORE_VALUE = #{storeValue},
+      STORE_TYPE = #{storeType},
+      CREATE_AUTHOR = #{createAuthor},
+      CREATE_DATETIME = #{createDatetime},
+      UPDATE_AUTHOR = #{updateAuthor},
+      UPDATE_DATETIME = current_timestamp() 
+    WHERE UPDATE_DATETIME = #{updateDatetime}
+      AND CONS_ID = #{consId}
+      AND CONS_SEQ = #{consSeq}
+  </update>
+
+  <!-- Smart update -->
+  <update id="EM_CONS_CODE_CFG_SMART_UPDATE" parameterType="org.umeframework.ems.entity.EmConsCodeCfgDto">
+    UPDATE EM_CONS_CODE_CFG
+    <set>
+      <if test="consName!=null">CONS_NAME = #{consName},</if>
+      <if test="consDesc!=null">CONS_DESC = #{consDesc},</if>
+      <if test="dispValue!=null">DISP_VALUE = #{dispValue},</if>
+      <if test="storeValue!=null">STORE_VALUE = #{storeValue},</if>
+      <if test="storeType!=null">STORE_TYPE = #{storeType},</if>
+      <if test="createAuthor!=null">CREATE_AUTHOR = #{createAuthor},</if>
+      <if test="createDatetime!=null">CREATE_DATETIME = #{createDatetime},</if>
+      <if test="updateAuthor!=null">UPDATE_AUTHOR = #{updateAuthor},</if>
+      UPDATE_DATETIME = current_timestamp()
+    </set>
+    WHERE 
+       CONS_ID = #{consId}
+       AND  CONS_SEQ = #{consSeq}
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </update>
+  
+  <!-- Delete one -->
+  <delete id="EM_CONS_CODE_CFG_DELETE" parameterType="org.umeframework.ems.entity.EmConsCodeCfgDto">
+    DELETE FROM EM_CONS_CODE_CFG
+    WHERE
+      CONS_ID = #{consId} AND 
+      CONS_SEQ = #{consSeq} 
+  </delete>
+
+  <!-- Find by primary key -->
+  <select id="EM_CONS_CODE_CFG_FIND" resultType="org.umeframework.ems.entity.EmConsCodeCfgDto">
+    SELECT
+      CONS_ID AS "consId",
+      CONS_SEQ AS "consSeq",
+      CONS_NAME AS "consName",
+      CONS_DESC AS "consDesc",
+      DISP_VALUE AS "dispValue",
+      STORE_VALUE AS "storeValue",
+      STORE_TYPE AS "storeType",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_CONS_CODE_CFG
+    WHERE
+      CONS_ID = #{consId} AND 
+      CONS_SEQ = #{consSeq} 
+  </select>
+
+  <!-- Find by primary key for update with row lock -->
+  <select id="EM_CONS_CODE_CFG_FIND_FOR_UPDATE" resultType="org.umeframework.ems.entity.EmConsCodeCfgDto">
+    SELECT
+      CONS_ID AS "consId",
+      CONS_SEQ AS "consSeq",
+      CONS_NAME AS "consName",
+      CONS_DESC AS "consDesc",
+      DISP_VALUE AS "dispValue",
+      STORE_VALUE AS "storeValue",
+      STORE_TYPE AS "storeType",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_CONS_CODE_CFG
+    WHERE
+      CONS_ID = #{consId} AND 
+      CONS_SEQ = #{consSeq} 
+    FOR UPDATE
+  </select>
+
+  <!-- Search multi by input condition -->
+  <select id="EM_CONS_CODE_CFG_SEARCH" resultType="org.umeframework.ems.entity.EmConsCodeCfgDto">
+    SELECT
+      CONS_ID AS "consId",
+      CONS_SEQ AS "consSeq",
+      CONS_NAME AS "consName",
+      CONS_DESC AS "consDesc",
+      DISP_VALUE AS "dispValue",
+      STORE_VALUE AS "storeValue",
+      STORE_TYPE AS "storeType",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_CONS_CODE_CFG
+    WHERE 1 = 1 
+      <if test="consId != null">AND CONS_ID = #{consId}</if>
+      <if test="consSeq != null">AND CONS_SEQ = #{consSeq}</if>
+      <if test="consName != null">AND CONS_NAME = #{consName}</if>
+      <if test="consDesc != null">AND CONS_DESC = #{consDesc}</if>
+      <if test="dispValue != null">AND DISP_VALUE = #{dispValue}</if>
+      <if test="storeValue != null">AND STORE_VALUE = #{storeValue}</if>
+      <if test="storeType != null">AND STORE_TYPE = #{storeType}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+    <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+    <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+    <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>
+  </select>
+
+  <!-- Search multi by input condition with like operator -->
+  <select id="EM_CONS_CODE_CFG_LIKE_SEARCH" resultType="org.umeframework.ems.entity.EmConsCodeCfgDto">
+    SELECT
+      CONS_ID AS "consId",
+      CONS_SEQ AS "consSeq",
+      CONS_NAME AS "consName",
+      CONS_DESC AS "consDesc",
+      DISP_VALUE AS "dispValue",
+      STORE_VALUE AS "storeValue",
+      STORE_TYPE AS "storeType",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_CONS_CODE_CFG
+    WHERE 1 = 1 
+      <if test="consId != null">AND CONS_ID LIKE CONCAT('%', #{consId}, '%')</if>
+      <if test="consSeq != null">AND CONS_SEQ = #{consSeq}</if>
+      <if test="consName != null">AND CONS_NAME LIKE CONCAT('%', #{consName}, '%')</if>
+      <if test="consDesc != null">AND CONS_DESC LIKE CONCAT('%', #{consDesc}, '%')</if>
+      <if test="dispValue != null">AND DISP_VALUE LIKE CONCAT('%', #{dispValue}, '%')</if>
+      <if test="storeValue != null">AND STORE_VALUE LIKE CONCAT('%', #{storeValue}, '%')</if>
+      <if test="storeType != null">AND STORE_TYPE = #{storeType}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR LIKE CONCAT('%', #{createAuthor}, '%')</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR LIKE CONCAT('%', #{updateAuthor}, '%')</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+    <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+    <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+    <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>    
+  </select>
+
+  <!-- Search multi by dynamic conditions -->
+  <select id="EM_CONS_CODE_CFG_DYNA_SEARCH" resultType="org.umeframework.ems.entity.EmConsCodeCfgDto">
+    SELECT
+      CONS_ID AS "consId",
+      CONS_SEQ AS "consSeq",
+      CONS_NAME AS "consName",
+      CONS_DESC AS "consDesc",
+      DISP_VALUE AS "dispValue",
+      STORE_VALUE AS "storeValue",
+      STORE_TYPE AS "storeType",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_CONS_CODE_CFG
+    WHERE 1 = 1 
+      <if test="theSQLCondition != null"> AND ( ${theSQLCondition} )</if>
+      <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+      <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+      <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>
+  </select>
+  
+  <!-- Count by input condition -->
+  <select id="EM_CONS_CODE_CFG_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM EM_CONS_CODE_CFG
+    WHERE 1 = 1 
+      <if test="theSQLCondition != null"> AND ( ${theSQLCondition} )</if>
+      <if test="consId != null">AND CONS_ID = #{consId}</if>
+      <if test="consSeq != null">AND CONS_SEQ = #{consSeq}</if>
+      <if test="consName != null">AND CONS_NAME = #{consName}</if>
+      <if test="consDesc != null">AND CONS_DESC = #{consDesc}</if>
+      <if test="dispValue != null">AND DISP_VALUE = #{dispValue}</if>
+      <if test="storeValue != null">AND STORE_VALUE = #{storeValue}</if>
+      <if test="storeType != null">AND STORE_TYPE = #{storeType}</if>
+  </select>
+
+</mapper>
+

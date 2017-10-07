@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT" follow="true">
+			<PatternLayout>
+                <pattern>[%d{MMdd HH:mm:ss.SSS}][%5p][%X{thread}][%X{system}][%X{service}][%X{client}][%X{user}] %m%n</pattern>
+			</PatternLayout>
+		</Console>
+        <RollingFile 
+                name="RollingFile" 
+                fileName="log/ume-ems.log" 
+                filePattern="log/$${date:yyyy-MM}/ume-ems-%d{MMdd}-%i.log">
+            <!-- <PatternLayout pattern="[%d{MMdd HH:mm:ss.SSS}][%5p][%X{thread}][%X{system}][%X{service}][%X{client}][%X{user}] %m%n"/> -->
+            <PatternLayout>
+                <pattern>[%d{MMdd HH:mm:ss.SSS}][%5p][%X{thread}][%X{system}][%X{service}][%X{client}][%X{user}] %m%n</pattern>
+            </PatternLayout>
+
+            <SizeBasedTriggeringPolicy size="20MB"/>
+        </RollingFile>
+
+	</Appenders>
+	<Loggers>
+		<Logger name="org.apache.catalina.util.LifecycleBase" level="warn" />
+		<Logger name="org.apache.coyote.http11.Http11NioProtocol" level="warn" />
+		<Logger name="org.apache.tomcat.util.net.NioSelectorPool" level="warn" />
+		<Logger name="org.springframework" level="warn" />
+		
+		<Root level="info">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</Root>
+	</Loggers>
+</Configuration>

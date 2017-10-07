@@ -1,0 +1,6 @@
+
+	<!-- Add to context.xml -->
+	<ResourceLink global="jdbc/GenericDataSource" name="jdbc/GenericDataSource" type="javax.sql.DataSource"/> 
+	<ResourceLink global="jdbc/ReferDataSource" name="jdbc/ReferDataSource" type="javax.sql.DataSource"/>
+
+

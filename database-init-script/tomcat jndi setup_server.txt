@@ -1,0 +1,3 @@
+	<!-- Add to server.xml -->
+    <Resource driverClassName="com.mysql.jdbc.Driver" maxActive="100" maxIdle="2" maxWait="5000" name="jdbc/GenericDataSource" password="ZAQ12wsx" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/rhinoadmindb?characterEncoding=UTF-8" username="root"/>
+    <Resource driverClassName="com.mysql.jdbc.Driver" maxActive="100" maxIdle="2" maxWait="5000" name="jdbc/ReferDataSource" password="ZAQ12wsx" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/rhinospidb?characterEncoding=UTF-8" username="root"/>

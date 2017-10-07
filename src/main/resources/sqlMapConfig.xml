@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <properties resource="application.properties"></properties>
+	
+	<settings>
+		<setting name="cacheEnabled" value="false"/>
+	</settings>
+
+	<typeHandlers>
+		<typeHandler javaType="java.sql.Blob" handler="org.umeframework.dora.dao.lob.ex.BlobTypeHandler"/>
+		<typeHandler javaType="java.sql.Clob" handler="org.umeframework.dora.dao.lob.ex.ClobTypeHandler"/>
+	</typeHandlers>
+
+	<mappers>
+	    <!-- Customized SQL mapping -->
+        <mapper resource="sql/cmt/QUERY.xml" />
+        
+        <!-- Table based SQL mapping -->
+        <mapper resource="${ume.sqlMapFile.location}/EM_CONS_CODE_CFG.xml" />
+        <mapper resource="${ume.sqlMapFile.location}/EM_CONS_SQL_CFG.xml" />
+        <mapper resource="${ume.sqlMapFile.location}/EM_DS_CFG.xml" />
+        <mapper resource="${ume.sqlMapFile.location}/EM_RESOURCE.xml" />
+        <mapper resource="${ume.sqlMapFile.location}/EM_ROLE.xml" />
+        <mapper resource="${ume.sqlMapFile.location}/EM_ROLE_ACL.xml" />
+        <mapper resource="${ume.sqlMapFile.location}/EM_SEQ.xml" />
+        <mapper resource="${ume.sqlMapFile.location}/EM_TBL_CFG.xml" />
+        <mapper resource="${ume.sqlMapFile.location}/EM_TBL_COL_CFG.xml" />
+        <mapper resource="${ume.sqlMapFile.location}/EM_USER.xml" />
+        <mapper resource="${ume.sqlMapFile.location}/EM_USER_ROLE.xml" />
+	</mappers>
+
+</configuration>

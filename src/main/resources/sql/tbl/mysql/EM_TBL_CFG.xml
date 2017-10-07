@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TBL">
+  <!-- EM实体展示配置表 [EM_TBL_CFG] -->
+  
+  <!-- Insert one -->
+  <insert id="EM_TBL_CFG_INSERT" parameterType="org.umeframework.ems.entity.EmTblCfgDto">
+    INSERT INTO EM_TBL_CFG (
+      ENT_ID,
+      ENT_NAME,
+      ENT_TYPE,
+      ENT_LAYOUT,
+      REF_TBL_ID,
+      REF_TBL_DATASOURCE,
+      REF_TBL_READONLY_COLS,
+      REF_TBL_HIDE_COLS,
+      REF_TBL_DISABLE_COLS,
+      PRE_PROC_DISP,
+      PRE_PROC_SAVE,
+      PRE_PROC_VALIDATE,
+      CUS_ENTITY_MANAGER,
+      CREATE_AUTHOR,
+      CREATE_DATETIME,
+      UPDATE_AUTHOR,
+      UPDATE_DATETIME
+    ) VALUES (
+      #{entId},
+      #{entName},
+      #{entType},
+      #{entLayout},
+      #{refTblId},
+      #{refTblDatasource},
+      #{refTblReadonlyCols},
+      #{refTblHideCols},
+      #{refTblDisableCols},
+      #{preProcDisp},
+      #{preProcSave},
+      #{preProcValidate},
+      #{cusEntityManager},
+      #{createAuthor},
+      current_timestamp(),
+      #{updateAuthor},
+      current_timestamp()
+    )
+  </insert>
+
+  <!-- Update with optimism check) -->
+  <update id="EM_TBL_CFG_UPDATE" parameterType="org.umeframework.ems.entity.EmTblCfgDto">
+    UPDATE EM_TBL_CFG
+    SET
+      ENT_NAME = #{entName},
+      ENT_TYPE = #{entType},
+      ENT_LAYOUT = #{entLayout},
+      REF_TBL_ID = #{refTblId},
+      REF_TBL_DATASOURCE = #{refTblDatasource},
+      REF_TBL_READONLY_COLS = #{refTblReadonlyCols},
+      REF_TBL_HIDE_COLS = #{refTblHideCols},
+      REF_TBL_DISABLE_COLS = #{refTblDisableCols},
+      PRE_PROC_DISP = #{preProcDisp},
+      PRE_PROC_SAVE = #{preProcSave},
+      PRE_PROC_VALIDATE = #{preProcValidate},
+      CUS_ENTITY_MANAGER = #{cusEntityManager},
+      CREATE_AUTHOR = #{createAuthor},
+      CREATE_DATETIME = #{createDatetime},
+      UPDATE_AUTHOR = #{updateAuthor},
+      UPDATE_DATETIME = current_timestamp() 
+    WHERE UPDATE_DATETIME = #{updateDatetime}
+      AND ENT_ID = #{entId}
+  </update>
+
+  <!-- Smart update -->
+  <update id="EM_TBL_CFG_SMART_UPDATE" parameterType="org.umeframework.ems.entity.EmTblCfgDto">
+    UPDATE EM_TBL_CFG
+    <set>
+      <if test="entName!=null">ENT_NAME = #{entName},</if>
+      <if test="entType!=null">ENT_TYPE = #{entType},</if>
+      <if test="entLayout!=null">ENT_LAYOUT = #{entLayout},</if>
+      <if test="refTblId!=null">REF_TBL_ID = #{refTblId},</if>
+      <if test="refTblDatasource!=null">REF_TBL_DATASOURCE = #{refTblDatasource},</if>
+      <if test="refTblReadonlyCols!=null">REF_TBL_READONLY_COLS = #{refTblReadonlyCols},</if>
+      <if test="refTblHideCols!=null">REF_TBL_HIDE_COLS = #{refTblHideCols},</if>
+      <if test="refTblDisableCols!=null">REF_TBL_DISABLE_COLS = #{refTblDisableCols},</if>
+      <if test="preProcDisp!=null">PRE_PROC_DISP = #{preProcDisp},</if>
+      <if test="preProcSave!=null">PRE_PROC_SAVE = #{preProcSave},</if>
+      <if test="preProcValidate!=null">PRE_PROC_VALIDATE = #{preProcValidate},</if>
+      <if test="cusEntityManager!=null">CUS_ENTITY_MANAGER = #{cusEntityManager},</if>
+      <if test="createAuthor!=null">CREATE_AUTHOR = #{createAuthor},</if>
+      <if test="createDatetime!=null">CREATE_DATETIME = #{createDatetime},</if>
+      <if test="updateAuthor!=null">UPDATE_AUTHOR = #{updateAuthor},</if>
+      UPDATE_DATETIME = current_timestamp()
+    </set>
+    WHERE 
+       ENT_ID = #{entId}
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </update>
+  
+  <!-- Delete one -->
+  <delete id="EM_TBL_CFG_DELETE" parameterType="org.umeframework.ems.entity.EmTblCfgDto">
+    DELETE FROM EM_TBL_CFG
+    WHERE
+      ENT_ID = #{entId} 
+  </delete>
+
+  <!-- Find by primary key -->
+  <select id="EM_TBL_CFG_FIND" resultType="org.umeframework.ems.entity.EmTblCfgDto">
+    SELECT
+      ENT_ID AS "entId",
+      ENT_NAME AS "entName",
+      ENT_TYPE AS "entType",
+      ENT_LAYOUT AS "entLayout",
+      REF_TBL_ID AS "refTblId",
+      REF_TBL_DATASOURCE AS "refTblDatasource",
+      REF_TBL_READONLY_COLS AS "refTblReadonlyCols",
+      REF_TBL_HIDE_COLS AS "refTblHideCols",
+      REF_TBL_DISABLE_COLS AS "refTblDisableCols",
+      PRE_PROC_DISP AS "preProcDisp",
+      PRE_PROC_SAVE AS "preProcSave",
+      PRE_PROC_VALIDATE AS "preProcValidate",
+      CUS_ENTITY_MANAGER AS "cusEntityManager",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_TBL_CFG
+    WHERE
+      ENT_ID = #{entId} 
+  </select>
+
+  <!-- Find by primary key for update with row lock -->
+  <select id="EM_TBL_CFG_FIND_FOR_UPDATE" resultType="org.umeframework.ems.entity.EmTblCfgDto">
+    SELECT
+      ENT_ID AS "entId",
+      ENT_NAME AS "entName",
+      ENT_TYPE AS "entType",
+      ENT_LAYOUT AS "entLayout",
+      REF_TBL_ID AS "refTblId",
+      REF_TBL_DATASOURCE AS "refTblDatasource",
+      REF_TBL_READONLY_COLS AS "refTblReadonlyCols",
+      REF_TBL_HIDE_COLS AS "refTblHideCols",
+      REF_TBL_DISABLE_COLS AS "refTblDisableCols",
+      PRE_PROC_DISP AS "preProcDisp",
+      PRE_PROC_SAVE AS "preProcSave",
+      PRE_PROC_VALIDATE AS "preProcValidate",
+      CUS_ENTITY_MANAGER AS "cusEntityManager",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_TBL_CFG
+    WHERE
+      ENT_ID = #{entId} 
+    FOR UPDATE
+  </select>
+
+  <!-- Search multi by input condition -->
+  <select id="EM_TBL_CFG_SEARCH" resultType="org.umeframework.ems.entity.EmTblCfgDto">
+    SELECT
+      ENT_ID AS "entId",
+      ENT_NAME AS "entName",
+      ENT_TYPE AS "entType",
+      ENT_LAYOUT AS "entLayout",
+      REF_TBL_ID AS "refTblId",
+      REF_TBL_DATASOURCE AS "refTblDatasource",
+      REF_TBL_READONLY_COLS AS "refTblReadonlyCols",
+      REF_TBL_HIDE_COLS AS "refTblHideCols",
+      REF_TBL_DISABLE_COLS AS "refTblDisableCols",
+      PRE_PROC_DISP AS "preProcDisp",
+      PRE_PROC_SAVE AS "preProcSave",
+      PRE_PROC_VALIDATE AS "preProcValidate",
+      CUS_ENTITY_MANAGER AS "cusEntityManager",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_TBL_CFG
+    WHERE 1 = 1 
+      <if test="entId != null">AND ENT_ID = #{entId}</if>
+      <if test="entName != null">AND ENT_NAME = #{entName}</if>
+      <if test="entType != null">AND ENT_TYPE = #{entType}</if>
+      <if test="entLayout != null">AND ENT_LAYOUT = #{entLayout}</if>
+      <if test="refTblId != null">AND REF_TBL_ID = #{refTblId}</if>
+      <if test="refTblDatasource != null">AND REF_TBL_DATASOURCE = #{refTblDatasource}</if>
+      <if test="refTblReadonlyCols != null">AND REF_TBL_READONLY_COLS = #{refTblReadonlyCols}</if>
+      <if test="refTblHideCols != null">AND REF_TBL_HIDE_COLS = #{refTblHideCols}</if>
+      <if test="refTblDisableCols != null">AND REF_TBL_DISABLE_COLS = #{refTblDisableCols}</if>
+      <if test="preProcDisp != null">AND PRE_PROC_DISP = #{preProcDisp}</if>
+      <if test="preProcSave != null">AND PRE_PROC_SAVE = #{preProcSave}</if>
+      <if test="preProcValidate != null">AND PRE_PROC_VALIDATE = #{preProcValidate}</if>
+      <if test="cusEntityManager != null">AND CUS_ENTITY_MANAGER = #{cusEntityManager}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+    <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+    <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+    <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>
+  </select>
+
+  <!-- Search multi by input condition with like operator -->
+  <select id="EM_TBL_CFG_LIKE_SEARCH" resultType="org.umeframework.ems.entity.EmTblCfgDto">
+    SELECT
+      ENT_ID AS "entId",
+      ENT_NAME AS "entName",
+      ENT_TYPE AS "entType",
+      ENT_LAYOUT AS "entLayout",
+      REF_TBL_ID AS "refTblId",
+      REF_TBL_DATASOURCE AS "refTblDatasource",
+      REF_TBL_READONLY_COLS AS "refTblReadonlyCols",
+      REF_TBL_HIDE_COLS AS "refTblHideCols",
+      REF_TBL_DISABLE_COLS AS "refTblDisableCols",
+      PRE_PROC_DISP AS "preProcDisp",
+      PRE_PROC_SAVE AS "preProcSave",
+      PRE_PROC_VALIDATE AS "preProcValidate",
+      CUS_ENTITY_MANAGER AS "cusEntityManager",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_TBL_CFG
+    WHERE 1 = 1 
+      <if test="entId != null">AND ENT_ID LIKE CONCAT('%', #{entId}, '%')</if>
+      <if test="entName != null">AND ENT_NAME LIKE CONCAT('%', #{entName}, '%')</if>
+      <if test="entType != null">AND ENT_TYPE = #{entType}</if>
+      <if test="entLayout != null">AND ENT_LAYOUT LIKE CONCAT('%', #{entLayout}, '%')</if>
+      <if test="refTblId != null">AND REF_TBL_ID LIKE CONCAT('%', #{refTblId}, '%')</if>
+      <if test="refTblDatasource != null">AND REF_TBL_DATASOURCE LIKE CONCAT('%', #{refTblDatasource}, '%')</if>
+      <if test="refTblReadonlyCols != null">AND REF_TBL_READONLY_COLS LIKE CONCAT('%', #{refTblReadonlyCols}, '%')</if>
+      <if test="refTblHideCols != null">AND REF_TBL_HIDE_COLS LIKE CONCAT('%', #{refTblHideCols}, '%')</if>
+      <if test="refTblDisableCols != null">AND REF_TBL_DISABLE_COLS LIKE CONCAT('%', #{refTblDisableCols}, '%')</if>
+      <if test="preProcDisp != null">AND PRE_PROC_DISP LIKE CONCAT('%', #{preProcDisp}, '%')</if>
+      <if test="preProcSave != null">AND PRE_PROC_SAVE LIKE CONCAT('%', #{preProcSave}, '%')</if>
+      <if test="preProcValidate != null">AND PRE_PROC_VALIDATE LIKE CONCAT('%', #{preProcValidate}, '%')</if>
+      <if test="cusEntityManager != null">AND CUS_ENTITY_MANAGER LIKE CONCAT('%', #{cusEntityManager}, '%')</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR LIKE CONCAT('%', #{createAuthor}, '%')</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR LIKE CONCAT('%', #{updateAuthor}, '%')</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+    <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+    <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+    <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>    
+  </select>
+
+  <!-- Search multi by dynamic conditions -->
+  <select id="EM_TBL_CFG_DYNA_SEARCH" resultType="org.umeframework.ems.entity.EmTblCfgDto">
+    SELECT
+      ENT_ID AS "entId",
+      ENT_NAME AS "entName",
+      ENT_TYPE AS "entType",
+      ENT_LAYOUT AS "entLayout",
+      REF_TBL_ID AS "refTblId",
+      REF_TBL_DATASOURCE AS "refTblDatasource",
+      REF_TBL_READONLY_COLS AS "refTblReadonlyCols",
+      REF_TBL_HIDE_COLS AS "refTblHideCols",
+      REF_TBL_DISABLE_COLS AS "refTblDisableCols",
+      PRE_PROC_DISP AS "preProcDisp",
+      PRE_PROC_SAVE AS "preProcSave",
+      PRE_PROC_VALIDATE AS "preProcValidate",
+      CUS_ENTITY_MANAGER AS "cusEntityManager",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_TBL_CFG
+    WHERE 1 = 1 
+      <if test="theSQLCondition != null"> AND ( ${theSQLCondition} )</if>
+      <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+      <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+      <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>
+  </select>
+  
+  <!-- Count by input condition -->
+  <select id="EM_TBL_CFG_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM EM_TBL_CFG
+    WHERE 1 = 1 
+      <if test="theSQLCondition != null"> AND ( ${theSQLCondition} )</if>
+      <if test="entId != null">AND ENT_ID = #{entId}</if>
+      <if test="entName != null">AND ENT_NAME = #{entName}</if>
+      <if test="entType != null">AND ENT_TYPE = #{entType}</if>
+      <if test="entLayout != null">AND ENT_LAYOUT = #{entLayout}</if>
+      <if test="refTblId != null">AND REF_TBL_ID = #{refTblId}</if>
+      <if test="refTblDatasource != null">AND REF_TBL_DATASOURCE = #{refTblDatasource}</if>
+      <if test="refTblReadonlyCols != null">AND REF_TBL_READONLY_COLS = #{refTblReadonlyCols}</if>
+      <if test="refTblHideCols != null">AND REF_TBL_HIDE_COLS = #{refTblHideCols}</if>
+      <if test="refTblDisableCols != null">AND REF_TBL_DISABLE_COLS = #{refTblDisableCols}</if>
+      <if test="preProcDisp != null">AND PRE_PROC_DISP = #{preProcDisp}</if>
+      <if test="preProcSave != null">AND PRE_PROC_SAVE = #{preProcSave}</if>
+      <if test="preProcValidate != null">AND PRE_PROC_VALIDATE = #{preProcValidate}</if>
+      <if test="cusEntityManager != null">AND CUS_ENTITY_MANAGER = #{cusEntityManager}</if>
+  </select>
+
+</mapper>
+

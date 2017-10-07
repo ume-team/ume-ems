@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TBL">
+  <!-- EM实体属性配置表 [EM_TBL_COL_CFG] -->
+  
+  <!-- Insert one -->
+  <insert id="EM_TBL_COL_CFG_INSERT" parameterType="org.umeframework.ems.entity.EmTblColCfgDto">
+    INSERT INTO EM_TBL_COL_CFG (
+      ENT_ID,
+      COL_ID,
+      COL_NAME,
+      DATA_SUB_TYPE,
+      NOT_NULL,
+      DEFAULT_VALUE,
+      DATA_LENGTH_MIN,
+      DATA_LENGTH_MAX,
+      DATA_RANGE_MIN,
+      DATA_RANGE_MAX,
+      CONSTRAINT_TYPE,
+      CONSTRAINT_REF,
+      DISP_TYPE,
+      DISP_FORMAT,
+      EDIT_FORMAT,
+      PRE_PROC_DISP,
+      PRE_PROC_SAVE,
+      CREATE_AUTHOR,
+      CREATE_DATETIME,
+      UPDATE_AUTHOR,
+      UPDATE_DATETIME
+    ) VALUES (
+      #{entId},
+      #{colId},
+      #{colName},
+      #{dataSubType},
+      #{notNull},
+      #{defaultValue},
+      #{dataLengthMin},
+      #{dataLengthMax},
+      #{dataRangeMin},
+      #{dataRangeMax},
+      #{constraintType},
+      #{constraintRef},
+      #{dispType},
+      #{dispFormat},
+      #{editFormat},
+      #{preProcDisp},
+      #{preProcSave},
+      #{createAuthor},
+      current_timestamp(),
+      #{updateAuthor},
+      current_timestamp()
+    )
+  </insert>
+
+  <!-- Update with optimism check) -->
+  <update id="EM_TBL_COL_CFG_UPDATE" parameterType="org.umeframework.ems.entity.EmTblColCfgDto">
+    UPDATE EM_TBL_COL_CFG
+    SET
+      COL_NAME = #{colName},
+      DATA_SUB_TYPE = #{dataSubType},
+      NOT_NULL = #{notNull},
+      DEFAULT_VALUE = #{defaultValue},
+      DATA_LENGTH_MIN = #{dataLengthMin},
+      DATA_LENGTH_MAX = #{dataLengthMax},
+      DATA_RANGE_MIN = #{dataRangeMin},
+      DATA_RANGE_MAX = #{dataRangeMax},
+      CONSTRAINT_TYPE = #{constraintType},
+      CONSTRAINT_REF = #{constraintRef},
+      DISP_TYPE = #{dispType},
+      DISP_FORMAT = #{dispFormat},
+      EDIT_FORMAT = #{editFormat},
+      PRE_PROC_DISP = #{preProcDisp},
+      PRE_PROC_SAVE = #{preProcSave},
+      CREATE_AUTHOR = #{createAuthor},
+      CREATE_DATETIME = #{createDatetime},
+      UPDATE_AUTHOR = #{updateAuthor},
+      UPDATE_DATETIME = current_timestamp() 
+    WHERE UPDATE_DATETIME = #{updateDatetime}
+      AND ENT_ID = #{entId}
+      AND COL_ID = #{colId}
+  </update>
+
+  <!-- Smart update -->
+  <update id="EM_TBL_COL_CFG_SMART_UPDATE" parameterType="org.umeframework.ems.entity.EmTblColCfgDto">
+    UPDATE EM_TBL_COL_CFG
+    <set>
+      <if test="colName!=null">COL_NAME = #{colName},</if>
+      <if test="dataSubType!=null">DATA_SUB_TYPE = #{dataSubType},</if>
+      <if test="notNull!=null">NOT_NULL = #{notNull},</if>
+      <if test="defaultValue!=null">DEFAULT_VALUE = #{defaultValue},</if>
+      <if test="dataLengthMin!=null">DATA_LENGTH_MIN = #{dataLengthMin},</if>
+      <if test="dataLengthMax!=null">DATA_LENGTH_MAX = #{dataLengthMax},</if>
+      <if test="dataRangeMin!=null">DATA_RANGE_MIN = #{dataRangeMin},</if>
+      <if test="dataRangeMax!=null">DATA_RANGE_MAX = #{dataRangeMax},</if>
+      <if test="constraintType!=null">CONSTRAINT_TYPE = #{constraintType},</if>
+      <if test="constraintRef!=null">CONSTRAINT_REF = #{constraintRef},</if>
+      <if test="dispType!=null">DISP_TYPE = #{dispType},</if>
+      <if test="dispFormat!=null">DISP_FORMAT = #{dispFormat},</if>
+      <if test="editFormat!=null">EDIT_FORMAT = #{editFormat},</if>
+      <if test="preProcDisp!=null">PRE_PROC_DISP = #{preProcDisp},</if>
+      <if test="preProcSave!=null">PRE_PROC_SAVE = #{preProcSave},</if>
+      <if test="createAuthor!=null">CREATE_AUTHOR = #{createAuthor},</if>
+      <if test="createDatetime!=null">CREATE_DATETIME = #{createDatetime},</if>
+      <if test="updateAuthor!=null">UPDATE_AUTHOR = #{updateAuthor},</if>
+      UPDATE_DATETIME = current_timestamp()
+    </set>
+    WHERE 
+       ENT_ID = #{entId}
+       AND  COL_ID = #{colId}
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </update>
+  
+  <!-- Delete one -->
+  <delete id="EM_TBL_COL_CFG_DELETE" parameterType="org.umeframework.ems.entity.EmTblColCfgDto">
+    DELETE FROM EM_TBL_COL_CFG
+    WHERE
+      ENT_ID = #{entId} AND 
+      COL_ID = #{colId} 
+  </delete>
+
+  <!-- Find by primary key -->
+  <select id="EM_TBL_COL_CFG_FIND" resultType="org.umeframework.ems.entity.EmTblColCfgDto">
+    SELECT
+      ENT_ID AS "entId",
+      COL_ID AS "colId",
+      COL_NAME AS "colName",
+      DATA_SUB_TYPE AS "dataSubType",
+      NOT_NULL AS "notNull",
+      DEFAULT_VALUE AS "defaultValue",
+      DATA_LENGTH_MIN AS "dataLengthMin",
+      DATA_LENGTH_MAX AS "dataLengthMax",
+      DATA_RANGE_MIN AS "dataRangeMin",
+      DATA_RANGE_MAX AS "dataRangeMax",
+      CONSTRAINT_TYPE AS "constraintType",
+      CONSTRAINT_REF AS "constraintRef",
+      DISP_TYPE AS "dispType",
+      DISP_FORMAT AS "dispFormat",
+      EDIT_FORMAT AS "editFormat",
+      PRE_PROC_DISP AS "preProcDisp",
+      PRE_PROC_SAVE AS "preProcSave",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_TBL_COL_CFG
+    WHERE
+      ENT_ID = #{entId} AND 
+      COL_ID = #{colId} 
+  </select>
+
+  <!-- Find by primary key for update with row lock -->
+  <select id="EM_TBL_COL_CFG_FIND_FOR_UPDATE" resultType="org.umeframework.ems.entity.EmTblColCfgDto">
+    SELECT
+      ENT_ID AS "entId",
+      COL_ID AS "colId",
+      COL_NAME AS "colName",
+      DATA_SUB_TYPE AS "dataSubType",
+      NOT_NULL AS "notNull",
+      DEFAULT_VALUE AS "defaultValue",
+      DATA_LENGTH_MIN AS "dataLengthMin",
+      DATA_LENGTH_MAX AS "dataLengthMax",
+      DATA_RANGE_MIN AS "dataRangeMin",
+      DATA_RANGE_MAX AS "dataRangeMax",
+      CONSTRAINT_TYPE AS "constraintType",
+      CONSTRAINT_REF AS "constraintRef",
+      DISP_TYPE AS "dispType",
+      DISP_FORMAT AS "dispFormat",
+      EDIT_FORMAT AS "editFormat",
+      PRE_PROC_DISP AS "preProcDisp",
+      PRE_PROC_SAVE AS "preProcSave",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_TBL_COL_CFG
+    WHERE
+      ENT_ID = #{entId} AND 
+      COL_ID = #{colId} 
+    FOR UPDATE
+  </select>
+
+  <!-- Search multi by input condition -->
+  <select id="EM_TBL_COL_CFG_SEARCH" resultType="org.umeframework.ems.entity.EmTblColCfgDto">
+    SELECT
+      ENT_ID AS "entId",
+      COL_ID AS "colId",
+      COL_NAME AS "colName",
+      DATA_SUB_TYPE AS "dataSubType",
+      NOT_NULL AS "notNull",
+      DEFAULT_VALUE AS "defaultValue",
+      DATA_LENGTH_MIN AS "dataLengthMin",
+      DATA_LENGTH_MAX AS "dataLengthMax",
+      DATA_RANGE_MIN AS "dataRangeMin",
+      DATA_RANGE_MAX AS "dataRangeMax",
+      CONSTRAINT_TYPE AS "constraintType",
+      CONSTRAINT_REF AS "constraintRef",
+      DISP_TYPE AS "dispType",
+      DISP_FORMAT AS "dispFormat",
+      EDIT_FORMAT AS "editFormat",
+      PRE_PROC_DISP AS "preProcDisp",
+      PRE_PROC_SAVE AS "preProcSave",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_TBL_COL_CFG
+    WHERE 1 = 1 
+      <if test="entId != null">AND ENT_ID = #{entId}</if>
+      <if test="colId != null">AND COL_ID = #{colId}</if>
+      <if test="colName != null">AND COL_NAME = #{colName}</if>
+      <if test="dataSubType != null">AND DATA_SUB_TYPE = #{dataSubType}</if>
+      <if test="notNull != null">AND NOT_NULL = #{notNull}</if>
+      <if test="defaultValue != null">AND DEFAULT_VALUE = #{defaultValue}</if>
+      <if test="dataLengthMin != null">AND DATA_LENGTH_MIN = #{dataLengthMin}</if>
+      <if test="dataLengthMax != null">AND DATA_LENGTH_MAX = #{dataLengthMax}</if>
+      <if test="dataRangeMin != null">AND DATA_RANGE_MIN = #{dataRangeMin}</if>
+      <if test="dataRangeMax != null">AND DATA_RANGE_MAX = #{dataRangeMax}</if>
+      <if test="constraintType != null">AND CONSTRAINT_TYPE = #{constraintType}</if>
+      <if test="constraintRef != null">AND CONSTRAINT_REF = #{constraintRef}</if>
+      <if test="dispType != null">AND DISP_TYPE = #{dispType}</if>
+      <if test="dispFormat != null">AND DISP_FORMAT = #{dispFormat}</if>
+      <if test="editFormat != null">AND EDIT_FORMAT = #{editFormat}</if>
+      <if test="preProcDisp != null">AND PRE_PROC_DISP = #{preProcDisp}</if>
+      <if test="preProcSave != null">AND PRE_PROC_SAVE = #{preProcSave}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+    <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+    <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+    <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>
+  </select>
+
+  <!-- Search multi by input condition with like operator -->
+  <select id="EM_TBL_COL_CFG_LIKE_SEARCH" resultType="org.umeframework.ems.entity.EmTblColCfgDto">
+    SELECT
+      ENT_ID AS "entId",
+      COL_ID AS "colId",
+      COL_NAME AS "colName",
+      DATA_SUB_TYPE AS "dataSubType",
+      NOT_NULL AS "notNull",
+      DEFAULT_VALUE AS "defaultValue",
+      DATA_LENGTH_MIN AS "dataLengthMin",
+      DATA_LENGTH_MAX AS "dataLengthMax",
+      DATA_RANGE_MIN AS "dataRangeMin",
+      DATA_RANGE_MAX AS "dataRangeMax",
+      CONSTRAINT_TYPE AS "constraintType",
+      CONSTRAINT_REF AS "constraintRef",
+      DISP_TYPE AS "dispType",
+      DISP_FORMAT AS "dispFormat",
+      EDIT_FORMAT AS "editFormat",
+      PRE_PROC_DISP AS "preProcDisp",
+      PRE_PROC_SAVE AS "preProcSave",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_TBL_COL_CFG
+    WHERE 1 = 1 
+      <if test="entId != null">AND ENT_ID LIKE CONCAT('%', #{entId}, '%')</if>
+      <if test="colId != null">AND COL_ID LIKE CONCAT('%', #{colId}, '%')</if>
+      <if test="colName != null">AND COL_NAME LIKE CONCAT('%', #{colName}, '%')</if>
+      <if test="dataSubType != null">AND DATA_SUB_TYPE LIKE CONCAT('%', #{dataSubType}, '%')</if>
+      <if test="notNull != null">AND NOT_NULL = #{notNull}</if>
+      <if test="defaultValue != null">AND DEFAULT_VALUE LIKE CONCAT('%', #{defaultValue}, '%')</if>
+      <if test="dataLengthMin != null">AND DATA_LENGTH_MIN = #{dataLengthMin}</if>
+      <if test="dataLengthMax != null">AND DATA_LENGTH_MAX = #{dataLengthMax}</if>
+      <if test="dataRangeMin != null">AND DATA_RANGE_MIN LIKE CONCAT('%', #{dataRangeMin}, '%')</if>
+      <if test="dataRangeMax != null">AND DATA_RANGE_MAX LIKE CONCAT('%', #{dataRangeMax}, '%')</if>
+      <if test="constraintType != null">AND CONSTRAINT_TYPE = #{constraintType}</if>
+      <if test="constraintRef != null">AND CONSTRAINT_REF LIKE CONCAT('%', #{constraintRef}, '%')</if>
+      <if test="dispType != null">AND DISP_TYPE = #{dispType}</if>
+      <if test="dispFormat != null">AND DISP_FORMAT LIKE CONCAT('%', #{dispFormat}, '%')</if>
+      <if test="editFormat != null">AND EDIT_FORMAT LIKE CONCAT('%', #{editFormat}, '%')</if>
+      <if test="preProcDisp != null">AND PRE_PROC_DISP LIKE CONCAT('%', #{preProcDisp}, '%')</if>
+      <if test="preProcSave != null">AND PRE_PROC_SAVE LIKE CONCAT('%', #{preProcSave}, '%')</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR LIKE CONCAT('%', #{createAuthor}, '%')</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR LIKE CONCAT('%', #{updateAuthor}, '%')</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+    <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+    <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+    <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>    
+  </select>
+
+  <!-- Search multi by dynamic conditions -->
+  <select id="EM_TBL_COL_CFG_DYNA_SEARCH" resultType="org.umeframework.ems.entity.EmTblColCfgDto">
+    SELECT
+      ENT_ID AS "entId",
+      COL_ID AS "colId",
+      COL_NAME AS "colName",
+      DATA_SUB_TYPE AS "dataSubType",
+      NOT_NULL AS "notNull",
+      DEFAULT_VALUE AS "defaultValue",
+      DATA_LENGTH_MIN AS "dataLengthMin",
+      DATA_LENGTH_MAX AS "dataLengthMax",
+      DATA_RANGE_MIN AS "dataRangeMin",
+      DATA_RANGE_MAX AS "dataRangeMax",
+      CONSTRAINT_TYPE AS "constraintType",
+      CONSTRAINT_REF AS "constraintRef",
+      DISP_TYPE AS "dispType",
+      DISP_FORMAT AS "dispFormat",
+      EDIT_FORMAT AS "editFormat",
+      PRE_PROC_DISP AS "preProcDisp",
+      PRE_PROC_SAVE AS "preProcSave",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_TBL_COL_CFG
+    WHERE 1 = 1 
+      <if test="theSQLCondition != null"> AND ( ${theSQLCondition} )</if>
+      <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+      <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+      <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>
+  </select>
+  
+  <!-- Count by input condition -->
+  <select id="EM_TBL_COL_CFG_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM EM_TBL_COL_CFG
+    WHERE 1 = 1 
+      <if test="theSQLCondition != null"> AND ( ${theSQLCondition} )</if>
+      <if test="entId != null">AND ENT_ID = #{entId}</if>
+      <if test="colId != null">AND COL_ID = #{colId}</if>
+      <if test="colName != null">AND COL_NAME = #{colName}</if>
+      <if test="dataSubType != null">AND DATA_SUB_TYPE = #{dataSubType}</if>
+      <if test="notNull != null">AND NOT_NULL = #{notNull}</if>
+      <if test="defaultValue != null">AND DEFAULT_VALUE = #{defaultValue}</if>
+      <if test="dataLengthMin != null">AND DATA_LENGTH_MIN = #{dataLengthMin}</if>
+      <if test="dataLengthMax != null">AND DATA_LENGTH_MAX = #{dataLengthMax}</if>
+      <if test="dataRangeMin != null">AND DATA_RANGE_MIN = #{dataRangeMin}</if>
+      <if test="dataRangeMax != null">AND DATA_RANGE_MAX = #{dataRangeMax}</if>
+      <if test="constraintType != null">AND CONSTRAINT_TYPE = #{constraintType}</if>
+      <if test="constraintRef != null">AND CONSTRAINT_REF = #{constraintRef}</if>
+      <if test="dispType != null">AND DISP_TYPE = #{dispType}</if>
+      <if test="dispFormat != null">AND DISP_FORMAT = #{dispFormat}</if>
+      <if test="editFormat != null">AND EDIT_FORMAT = #{editFormat}</if>
+      <if test="preProcDisp != null">AND PRE_PROC_DISP = #{preProcDisp}</if>
+      <if test="preProcSave != null">AND PRE_PROC_SAVE = #{preProcSave}</if>
+  </select>
+
+</mapper>
+

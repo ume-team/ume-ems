@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TBL">
+  <!-- 定时任务管理表 [EM_TASK_MGR] -->
+  
+  <!-- Insert one -->
+  <insert id="EM_TASK_MGR_INSERT" parameterType="org.umeframework.ems.entity.EmTaskMgrDto">
+    INSERT INTO EM_TASK_MGR (
+      TASK_ID,
+      TASK_NAME,
+      TASK_ENABLE,
+      TASK_STATUS,
+      CREATE_AUTHOR,
+      CREATE_DATETIME,
+      UPDATE_AUTHOR,
+      UPDATE_DATETIME
+    ) VALUES (
+      #{taskId},
+      #{taskName},
+      #{taskEnable},
+      #{taskStatus},
+      #{createAuthor},
+      current_timestamp(),
+      #{updateAuthor},
+      current_timestamp()
+    )
+  </insert>
+
+  <!-- Update with optimism check) -->
+  <update id="EM_TASK_MGR_UPDATE" parameterType="org.umeframework.ems.entity.EmTaskMgrDto">
+    UPDATE EM_TASK_MGR
+    SET
+      TASK_NAME = #{taskName},
+      TASK_ENABLE = #{taskEnable},
+      TASK_STATUS = #{taskStatus},
+      CREATE_AUTHOR = #{createAuthor},
+      CREATE_DATETIME = #{createDatetime},
+      UPDATE_AUTHOR = #{updateAuthor},
+      UPDATE_DATETIME = current_timestamp() 
+    WHERE UPDATE_DATETIME = #{updateDatetime}
+      AND TASK_ID = #{taskId}
+  </update>
+
+  <!-- Smart update -->
+  <update id="EM_TASK_MGR_SMART_UPDATE" parameterType="org.umeframework.ems.entity.EmTaskMgrDto">
+    UPDATE EM_TASK_MGR
+    <set>
+      <if test="taskName!=null">TASK_NAME = #{taskName},</if>
+      <if test="taskEnable!=null">TASK_ENABLE = #{taskEnable},</if>
+      <if test="taskStatus!=null">TASK_STATUS = #{taskStatus},</if>
+      <if test="createAuthor!=null">CREATE_AUTHOR = #{createAuthor},</if>
+      <if test="createDatetime!=null">CREATE_DATETIME = #{createDatetime},</if>
+      <if test="updateAuthor!=null">UPDATE_AUTHOR = #{updateAuthor},</if>
+      UPDATE_DATETIME = current_timestamp()
+    </set>
+    WHERE 
+       TASK_ID = #{taskId}
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </update>
+  
+  <!-- Delete one -->
+  <delete id="EM_TASK_MGR_DELETE" parameterType="org.umeframework.ems.entity.EmTaskMgrDto">
+    DELETE FROM EM_TASK_MGR
+    WHERE
+      TASK_ID = #{taskId} 
+  </delete>
+
+  <!-- Find by primary key -->
+  <select id="EM_TASK_MGR_FIND" resultType="org.umeframework.ems.entity.EmTaskMgrDto">
+    SELECT
+      TASK_ID AS "taskId",
+      TASK_NAME AS "taskName",
+      TASK_ENABLE AS "taskEnable",
+      TASK_STATUS AS "taskStatus",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_TASK_MGR
+    WHERE
+      TASK_ID = #{taskId} 
+  </select>
+
+  <!-- Find by primary key for update with row lock -->
+  <select id="EM_TASK_MGR_FIND_FOR_UPDATE" resultType="org.umeframework.ems.entity.EmTaskMgrDto">
+    SELECT
+      TASK_ID AS "taskId",
+      TASK_NAME AS "taskName",
+      TASK_ENABLE AS "taskEnable",
+      TASK_STATUS AS "taskStatus",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_TASK_MGR
+    WHERE
+      TASK_ID = #{taskId} 
+    FOR UPDATE
+  </select>
+
+  <!-- Search multi by input condition -->
+  <select id="EM_TASK_MGR_SEARCH" resultType="org.umeframework.ems.entity.EmTaskMgrDto">
+    SELECT
+      TASK_ID AS "taskId",
+      TASK_NAME AS "taskName",
+      TASK_ENABLE AS "taskEnable",
+      TASK_STATUS AS "taskStatus",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_TASK_MGR
+    WHERE 1 = 1 
+      <if test="taskId != null">AND TASK_ID = #{taskId}</if>
+      <if test="taskName != null">AND TASK_NAME = #{taskName}</if>
+      <if test="taskEnable != null">AND TASK_ENABLE = #{taskEnable}</if>
+      <if test="taskStatus != null">AND TASK_STATUS = #{taskStatus}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+    <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+    <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+    <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>
+  </select>
+
+  <!-- Search multi by input condition with like operator -->
+  <select id="EM_TASK_MGR_LIKE_SEARCH" resultType="org.umeframework.ems.entity.EmTaskMgrDto">
+    SELECT
+      TASK_ID AS "taskId",
+      TASK_NAME AS "taskName",
+      TASK_ENABLE AS "taskEnable",
+      TASK_STATUS AS "taskStatus",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_TASK_MGR
+    WHERE 1 = 1 
+      <if test="taskId != null">AND TASK_ID LIKE CONCAT('%', #{taskId}, '%')</if>
+      <if test="taskName != null">AND TASK_NAME LIKE CONCAT('%', #{taskName}, '%')</if>
+      <if test="taskEnable != null">AND TASK_ENABLE = #{taskEnable}</if>
+      <if test="taskStatus != null">AND TASK_STATUS LIKE CONCAT('%', #{taskStatus}, '%')</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR LIKE CONCAT('%', #{createAuthor}, '%')</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR LIKE CONCAT('%', #{updateAuthor}, '%')</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+    <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+    <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+    <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>    
+  </select>
+
+  <!-- Search multi by dynamic conditions -->
+  <select id="EM_TASK_MGR_DYNA_SEARCH" resultType="org.umeframework.ems.entity.EmTaskMgrDto">
+    SELECT
+      TASK_ID AS "taskId",
+      TASK_NAME AS "taskName",
+      TASK_ENABLE AS "taskEnable",
+      TASK_STATUS AS "taskStatus",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_TASK_MGR
+    WHERE 1 = 1 
+      <if test="theSQLCondition != null"> AND ( ${theSQLCondition} )</if>
+      <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+      <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+      <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>
+  </select>
+  
+  <!-- Count by input condition -->
+  <select id="EM_TASK_MGR_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM EM_TASK_MGR
+    WHERE 1 = 1 
+      <if test="theSQLCondition != null"> AND ( ${theSQLCondition} )</if>
+      <if test="taskId != null">AND TASK_ID = #{taskId}</if>
+      <if test="taskName != null">AND TASK_NAME = #{taskName}</if>
+      <if test="taskEnable != null">AND TASK_ENABLE = #{taskEnable}</if>
+      <if test="taskStatus != null">AND TASK_STATUS = #{taskStatus}</if>
+  </select>
+
+</mapper>
+
