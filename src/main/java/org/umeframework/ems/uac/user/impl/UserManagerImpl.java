@@ -22,10 +22,10 @@ import org.umeframework.ems.uac.user.UserManager;
 @Service
 public class UserManagerImpl extends BaseDBComponent implements UserManager, MessageConst {
 	/**
-	 * emUserService
+	 * userService
 	 */
 	@Resource
-	UmeUserCrudService emUserService;
+	UmeUserCrudService userService;
 
 	/*
 	 * (non-Javadoc)
@@ -36,7 +36,7 @@ public class UserManagerImpl extends BaseDBComponent implements UserManager, Mes
 	synchronized public void changePassword(String userId, String userPassword, String newPassword) {
 		UmeUserDto user = new UmeUserDto();
 		user.setUserId(userId);
-		UmeUserDto exist = emUserService.find(user);
+		UmeUserDto exist = userService.find(user);
 		if (exist == null) {
 			throw new ApplicationException(M001);
 		}
@@ -44,7 +44,7 @@ public class UserManagerImpl extends BaseDBComponent implements UserManager, Mes
 			throw new ApplicationException(M002);
 		}
 		user.setUserPassword(newPassword);
-		emUserService.update(user);
+		userService.update(user);
 	}
 
 	/*
@@ -59,7 +59,7 @@ public class UserManagerImpl extends BaseDBComponent implements UserManager, Mes
 			throw new ApplicationException(M002);
 		}
 		user.setUserPassword(CodecUtil.encodeMD5Hex(userPassword));
-		emUserService.create(user);
+		userService.create(user);
 	}
 
 	/*
@@ -71,14 +71,14 @@ public class UserManagerImpl extends BaseDBComponent implements UserManager, Mes
 	public void updateUser(UmeUserDto user) {
 		UmeUserDto param = new UmeUserDto();
 		param.setUserId(user.getUserId());
-		UmeUserDto exist = emUserService.find(param);
+		UmeUserDto exist = userService.find(param);
 		if (exist == null) {
 			throw new ApplicationException(M001);
 		}
 		if (!exist.getUserPassword().equals(CodecUtil.encodeMD5Hex(user.getUserPassword()))) {
 			throw new ApplicationException(M002);
 		}
-		emUserService.update(user);
+		userService.update(user);
 	}
 
 }
