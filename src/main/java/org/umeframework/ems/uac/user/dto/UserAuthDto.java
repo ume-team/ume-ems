@@ -1,4 +1,4 @@
-package org.umeframework.ems.auth.dto;
+package org.umeframework.ems.uac.user.dto;
 
 import java.io.Serializable;
 import java.util.Map;

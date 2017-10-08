@@ -1,65 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="CMT">
-
-  <!-- Search user access resources -->
-  <select id="SEARCH_USER_ACL" resultType="java.util.HashMap" parameterType="java.lang.String">
-    SELECT
-        EM_ROLE.ROLE_ID             AS "roleId",
-        EM_ROLE.ROLE_NAME           AS "roleName",
-        EM_RESOURCE.RES_ID          AS "resId",
-        EM_RESOURCE.RES_TYPE        AS "resType",
-        EM_RESOURCE.RES_NAME        AS "resName",
-        EM_RESOURCE.RES_GROUP       AS "resGroup",
-        EM_RESOURCE.RES_INDEX       AS "resIndex",
-        EM_RESOURCE.RES_LINK        AS "resLink",
-        EM_ROLE_ACL.ACC_RES_ID      AS "accResId",
-        EM_ROLE_ACL.ACC_LEVEL       AS "accLevel"
-    FROM EM_ROLE_ACL
-        LEFT JOIN EM_RESOURCE       ON (EM_ROLE_ACL.ACC_RES_ID = EM_RESOURCE.RES_ID AND EM_ROLE_ACL.ACC_RES_TYPE = EM_RESOURCE.RES_TYPE)
-        LEFT JOIN EM_ROLE           ON EM_ROLE_ACL.ROLE_ID = EM_ROLE.ROLE_ID
-        LEFT JOIN EM_USER_ROLE      ON EM_ROLE_ACL.ROLE_ID = EM_USER_ROLE.ROLE_ID
-    WHERE 
-           (EM_RESOURCE.RES_STATUS IS NULL OR EM_RESOURCE.RES_STATUS &lt;&gt; 0)
-        AND EM_USER_ROLE.USER_ID = #{param}
-        AND EM_ROLE_ACL.ACC_RES_ID &lt;&gt; '*'
-        AND EM_RESOURCE.RES_ID IS NOT NULL
-        AND EM_ROLE.ROLE_ID IS NOT NULL
-    ORDER BY
-        EM_ROLE_ACL.ROLE_ID,
-        EM_ROLE_ACL.ACC_RES_TYPE,
-        EM_ROLE_ACL.ACC_RES_ID
-  </select>
-
-  <select id="SEARCH_ALL_RESOURCE_AS_USER_ACL" resultType="java.util.HashMap" parameterType="java.lang.String">
-    SELECT
-        EM_RESOURCE.RES_ID          AS "resId",
-        EM_RESOURCE.RES_TYPE        AS "resType",
-        EM_RESOURCE.RES_NAME        AS "resName",
-        EM_RESOURCE.RES_GROUP       AS "resGroup",
-        EM_RESOURCE.RES_INDEX       AS "resIndex",
-        EM_RESOURCE.RES_LINK        AS "resLink"
-    FROM EM_RESOURCE
-    WHERE
-           (EM_RESOURCE.RES_STATUS IS NULL OR EM_RESOURCE.RES_STATUS &lt;&gt; 0)
-        AND EM_RESOURCE.RES_ID LIKE CONCAT(#{param}, '%')
-    ORDER BY
-        EM_RESOURCE.RES_GROUP, EM_RESOURCE.RES_INDEX
-  </select>
-
-  <select id="SEARCH_MAX_ACC_LEVEL" resultType="java.util.HashMap" parameterType="java.lang.String">
-    SELECT
-        EM_ROLE.ROLE_NAME           AS "roleName",
-        EM_ROLE_ACL.ROLE_ID         AS "roleId",
-        EM_ROLE_ACL.ACC_LEVEL       AS "accLevel"
-    FROM EM_ROLE_ACL
-        LEFT JOIN EM_USER_ROLE      ON EM_ROLE_ACL.ROLE_ID = EM_USER_ROLE.ROLE_ID
-        LEFT JOIN EM_ROLE           ON EM_ROLE_ACL.ROLE_ID = EM_ROLE.ROLE_ID
-    WHERE
-        EM_USER_ROLE.USER_ID = #{param}
-        AND EM_ROLE_ACL.ACC_RES_ID = '*'
-  </select>
+<mapper namespace="org.umeframework.ems.sample.entity" >
+    <!-- Place customize SQL query statement in this file  -->
 
 </mapper>
 

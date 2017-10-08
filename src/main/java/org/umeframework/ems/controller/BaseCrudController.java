@@ -17,11 +17,11 @@ import org.umeframework.dora.service.BaseComponent;
 import org.umeframework.dora.service.user.UserLoginService;
 import org.umeframework.dora.util.ReflectUtil;
 import org.umeframework.dora.util.StringUtil;
-import org.umeframework.ems.auth.dto.UserAuthDto;
 import org.umeframework.ems.crud.EntityCrudManager;
 import org.umeframework.ems.desc.EntityDescManager;
 import org.umeframework.ems.desc.dto.EmDescDto;
 import org.umeframework.ems.entity.EmRoleAclDto;
+import org.umeframework.ems.uac.user.dto.UserAuthDto;
 
 import javax.annotation.Resource;
 

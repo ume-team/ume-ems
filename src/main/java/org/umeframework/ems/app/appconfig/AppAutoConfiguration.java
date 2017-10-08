@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.umeframework.dora.service.user.UserAuthenticator;
-import org.umeframework.ems.auth.dto.UserAuthDto;
-import org.umeframework.ems.auth.impl.UserAuthenticatorImpl;
+import org.umeframework.ems.uac.user.dto.UserAuthDto;
+import org.umeframework.ems.uac.user.impl.DefaultAuthenticatorImpl;
 import org.umeframework.ems.util.UtilFactory;
 
 /**
@@ -104,7 +104,7 @@ public class AppAutoConfiguration {
 	 */
 	@Bean(name = "userAuthenticator")
 	public UserAuthenticator<?> userAuthenticator() {
-		UserAuthenticator<UserAuthDto> instance = new UserAuthenticatorImpl();
+		UserAuthenticator<UserAuthDto> instance = new DefaultAuthenticatorImpl();
 		return instance;
 	}
 
