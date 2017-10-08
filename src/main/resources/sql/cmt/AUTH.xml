@@ -21,10 +21,10 @@
         LEFT JOIN UME_ROLE           ON UME_ROLE_ACL.ROLE_ID = UME_ROLE.ROLE_ID
         LEFT JOIN UME_USER_ROLE      ON UME_ROLE_ACL.ROLE_ID = UME_USER_ROLE.ROLE_ID
     WHERE 
-           (UME_RESOURCE.RES_STATUS IS NULL OR UME_RESOURCE.RES_STATUS &lt;&gt; 0)
+           (UME_RESOURCE.RES_STATUS IS NULL OR UME_RESOURCE.RES_STATUS = 1)
         AND UME_USER_ROLE.USER_ID = #{param}
-        AND UME_ROLE_ACL.ACC_RES_ID &lt;&gt; '*'
-        AND UME_RESOURCE.RES_ID IS NOT NULL
+        <!-- AND UME_ROLE_ACL.ACC_RES_ID &lt;&gt; '*' -->
+        <!-- AND UME_RESOURCE.RES_ID IS NOT NULL -->
         AND UME_ROLE.ROLE_ID IS NOT NULL
     ORDER BY
         UME_ROLE_ACL.ROLE_ID,
@@ -34,6 +34,7 @@
 
   <select id="SEARCH_ALL_RESOURCE_AS_USER_ACL" resultType="java.util.HashMap" parameterType="java.lang.String">
     SELECT
+        UME_RESOURCE.RES_ID          AS "accResId",
         UME_RESOURCE.RES_ID          AS "resId",
         UME_RESOURCE.RES_TYPE        AS "resType",
         UME_RESOURCE.RES_NAME        AS "resName",
@@ -42,7 +43,7 @@
         UME_RESOURCE.RES_LINK        AS "resLink"
     FROM UME_RESOURCE
     WHERE
-           (UME_RESOURCE.RES_STATUS IS NULL OR UME_RESOURCE.RES_STATUS &lt;&gt; 0)
+           (UME_RESOURCE.RES_STATUS IS NULL OR UME_RESOURCE.RES_STATUS = 1)
         AND UME_RESOURCE.RES_ID LIKE CONCAT(#{param}, '%')
     ORDER BY
         UME_RESOURCE.RES_GROUP, UME_RESOURCE.RES_INDEX

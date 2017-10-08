@@ -116,6 +116,7 @@ public abstract class BaseAuthenticator extends BaseDBComponent implements UserA
 				for (Map<String, Object> e : accResList) {
 					e.put(UmeRoleDto.Property.roleId, roleId);
 					e.put(UmeRoleAclDto.Property.accLevel, accLevel);
+					//e.put(UmeRoleAclDto.Property.accResId, e.get(UmeResourceDto.Property.resId));
 					this.saveAs(accResMapA, e);
 					Integer resType = (Integer) e.get(UmeResourceDto.Property.resType);
 					accResTypeList.add(resType);
