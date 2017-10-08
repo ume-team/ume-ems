@@ -1377,3 +1377,46 @@ com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Table 'umedbm01.ume_u
 [1008 19:01:16.104][ INFO][31][sys][EMS00001][0:0:0:0:0:0:0:1][] User login: admin
 [1008 19:01:16.285][ INFO][31][sys][EMS00001][0:0:0:0:0:0:0:1][] Service take time:390
 [1008 19:01:59.455][ INFO][22][][][][] Temp memory cache instance shutdown.
+[1008 19:02:15.709][ INFO][38][][][][] Load system property 'ume.jdbc.defaultAutoCommit' from application.properties
+[1008 19:02:15.710][ INFO][38][][][][] Load system property 'ume.serviceMapping.location' from application.properties
+[1008 19:02:15.710][ INFO][38][][][][] Load system property 'ume.sqlMapConfig.location' from application.properties
+[1008 19:02:15.710][ INFO][38][][][][] Load system property 'ume.home.page' from application.properties
+[1008 19:02:15.710][ INFO][38][][][][] Load system property 'ume.jdbc.initialSize' from application.properties
+[1008 19:02:15.711][ INFO][38][][][][] Load system property 'ume.jdbc.minIdle' from application.properties
+[1008 19:02:15.711][ INFO][38][][][][] Load system property 'ume.jdbc.driverClassName' from application.properties
+[1008 19:02:15.711][ INFO][38][][][][] Load system property 'ume.sqlMapFile.location' from application.properties
+[1008 19:02:15.711][ INFO][38][][][][] Load system property 'ume.jdbc.maxIdle' from application.properties
+[1008 19:02:15.712][ INFO][38][][][][] Load system property 'ume.jdbc.maxWait' from application.properties
+[1008 19:02:15.712][ INFO][38][][][][] Load system property 'server.contextPath' from application.properties
+[1008 19:02:15.712][ INFO][38][][][][] Load system property 'ume.jdbc.url' from application.properties
+[1008 19:02:15.712][ INFO][38][][][][] Load system property 'ume.jdbc.maxActive' from application.properties
+[1008 19:02:15.712][ INFO][38][][][][] Load system property 'ume.jdbc.password' from application.properties
+[1008 19:02:15.713][ INFO][38][][][][] Load system property 'ume.serviceWhiteList.location' from application.properties
+[1008 19:02:15.713][ INFO][38][][][][] Load system property 'ume.jdbc.username' from application.properties
+[1008 19:02:15.713][ INFO][38][][][][] Load system property 'server.port' from application.properties
+[1008 19:02:15.714][ INFO][38][][][][] Load system property 'server.sessionTimeout' from application.properties
+[1008 19:02:15.714][ INFO][38][][][][] Load system property 'ume.messageProperties.location' from application.properties
+[1008 19:02:22.091][ INFO][38][][][][] Temp memory cache instance start.
+[1008 19:02:22.273][ INFO][38][][][][] Initialized EMS99903,enable
+[1008 19:02:22.275][ INFO][38][][][][] Initialized EMS30002,enable
+[1008 19:02:22.275][ INFO][38][][][][] Initialized EMS99902,enable
+[1008 19:02:22.276][ INFO][38][][][][] Initialized EMS30001,enable
+[1008 19:02:22.277][ INFO][38][][][][] Initialized EMS99901,enable
+[1008 19:02:22.277][ INFO][38][][][][] Initialized EMS00002,enable
+[1008 19:02:22.278][ INFO][38][][][][] Initialized EMS10010,enable
+[1008 19:02:22.279][ INFO][38][][][][] Initialized EMS00001,enable
+[1008 19:02:22.281][ INFO][38][][][][] Initialized EMS00000,enable
+[1008 19:02:26.622][ INFO][38][][][][] Initialized EMS50002,enable
+[1008 19:02:32.308][ INFO][38][][][][] Initialized EMS50001,enable
+[1008 19:02:32.311][ INFO][38][][][][] Initialized EMS20002,enable
+[1008 19:02:32.312][ INFO][38][][][][] Initialized EMS20001,enable
+[1008 19:02:32.314][ INFO][38][][][][] Initialized EMS40004,enable
+[1008 19:02:32.316][ INFO][38][][][][] Initialized EMS90032,enable
+[1008 19:02:32.317][ INFO][38][][][][] Initialized EMS90031,enable
+[1008 19:02:32.318][ INFO][38][][][][] Initialized EMS10003,enable
+[1008 19:02:32.319][ INFO][38][][][][] Initialized EMS10002,enable
+[1008 19:02:32.320][ INFO][38][][][][] Initialized EMS10001,enable
+[1008 19:02:32.321][ INFO][38][][][][] Initialized EMS99906,enable
+[1008 19:02:32.321][ INFO][38][][][][] Initialized EMS99905,enable
+[1008 19:02:32.321][ INFO][38][][][][] Initialized EMS99904,enable
+[1008 19:02:32.322][ INFO][38][][][][] Service mapping initialize successful.
