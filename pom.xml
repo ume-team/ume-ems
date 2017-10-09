@@ -15,7 +15,7 @@
 	<parent>
 		<groupId>org.umeframework</groupId>
 		<artifactId>umeframework-boot</artifactId>
-		<version>1.0.1.RELEASE</version>
+		<version>1.0.2.RELEASE</version>
 	</parent>
 
     <url>http://umeframework.org</url>
