@@ -87,6 +87,7 @@ public class BaseCrudController extends BaseComponent {
 
 		accessDefine.put(OperateCategory.create.toString(), 4);
 		accessDefine.put(OperateCategory.createMulti.toString(), 4);
+		
 		accessDefine.put(OperateCategory.delete.toString(), 4);
 		accessDefine.put(OperateCategory.deleteMulti.toString(), 4);
 	}
@@ -111,7 +112,7 @@ public class BaseCrudController extends BaseComponent {
 	 * @param entId
 	 * @param jsonInput
 	 * @return
-	 * @throws TimeoutException 
+	 * @throws TimeoutException
 	 */
 	public Object execute(String category, String entId, String jsonInput) throws TimeoutException {
 		category = String.valueOf(category.charAt(0)).toLowerCase() + category.substring(1);
@@ -124,7 +125,7 @@ public class BaseCrudController extends BaseComponent {
 			Method serviceMethod = getServiceMethod(entId, category);
 			params = getInputParams(entId, jsonInput, serviceMethod);
 			EntityCrudManager<?, ?> entityCrudManager = this.getCRUDManager(entId);
-			
+
 			params = doBefore(category, entId, params);
 			result = serviceMethod.invoke(entityCrudManager, params);
 			result = doAfter(category, entId, params, result);
@@ -165,7 +166,7 @@ public class BaseCrudController extends BaseComponent {
 	 * @param options
 	 */
 	protected void doException(String category, String entId, Object[] params, Throwable e) {
-		throw new ApplicationException(e, "APMSG40002", new Object[] { category, entId});
+		throw new ApplicationException(e, "APMSG40002", new Object[] { category, entId });
 	}
 
 	/**
@@ -182,7 +183,7 @@ public class BaseCrudController extends BaseComponent {
 	 * 
 	 * @param entId
 	 * @param category
-	 * @throws TimeoutException 
+	 * @throws TimeoutException
 	 */
 	protected void checkAuthorization(String entId, String category) throws TimeoutException {
 		String token = SessionContext.open().get(SessionContext.Key.Token);
@@ -197,10 +198,14 @@ public class BaseCrudController extends BaseComponent {
 			if (!accessDefine.containsKey(category)) {
 				throw new ApplicationException("Unsupport operation category:" + category);
 			}
-			if (accLevel < accessDefine.get(category)) {
-				throw new ApplicationException(
-						"Access level mismatch, require " + category + " but current is " + accLevel);
+			int operationLevel = accessDefine.get(category);
+			if ((operationLevel & accLevel) != operationLevel) {
+				throw new ApplicationException("Access level mismatch, require " + operationLevel + " but current is " + accLevel);
 			}
+			// if (accLevel < accessDefine.get(category)) {
+			// throw new ApplicationException(
+			// "Access level mismatch, require " + category + " but current is " + accLevel);
+			// }
 		}
 	}
 
@@ -235,11 +240,10 @@ public class BaseCrudController extends BaseComponent {
 			params = new Object[inParamClasses.length];
 			params[0] = entId;
 			for (int i = 1; i < inParamClasses.length; i++) {
-				params[i] = ajaxParser.parse(jsonParam, inParamClasses[i], genericParamTypes[i],
-						serviceMethodParamAnnos[i]);
+				params[i] = ajaxParser.parse(jsonParam, inParamClasses[i], genericParamTypes[i], serviceMethodParamAnnos[i]);
 			}
 		} catch (Throwable e) {
-			throw new ApplicationException(e, "APMSG40002", new Object[] { entId, serviceMethod.getName(), jsonParam});
+			throw new ApplicationException(e, "APMSG40002", new Object[] { entId, serviceMethod.getName(), jsonParam });
 		}
 		return params;
 	}
@@ -258,7 +262,7 @@ public class BaseCrudController extends BaseComponent {
 			entityCRUDManager = beanFactory.getBean(emName);
 		}
 		if (em == null) {
-			throw new ApplicationException("APMSG30002", new Object[] { emName});
+			throw new ApplicationException("APMSG30002", new Object[] { emName });
 		}
 		return em;
 	}
