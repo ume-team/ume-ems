@@ -88,8 +88,8 @@ public class BaseCrudController extends BaseComponent {
 		accessDefine.put(OperateCategory.create.toString(), 4);
 		accessDefine.put(OperateCategory.createMulti.toString(), 4);
 		
-		accessDefine.put(OperateCategory.delete.toString(), 4);
-		accessDefine.put(OperateCategory.deleteMulti.toString(), 4);
+		accessDefine.put(OperateCategory.delete.toString(), 8);
+		accessDefine.put(OperateCategory.deleteMulti.toString(), 8);
 	}
 
 	/**
