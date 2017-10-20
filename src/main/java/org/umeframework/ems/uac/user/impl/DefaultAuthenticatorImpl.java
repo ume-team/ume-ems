@@ -8,7 +8,6 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.umeframework.dora.exception.ApplicationException;
 import org.umeframework.dora.util.CodecUtil;
-import org.umeframework.dora.util.DateUtil;
 import org.umeframework.ems.uac.entity.UmeUserDto;
 import org.umeframework.ems.uac.user.dto.UserAuthDto;
 
@@ -57,8 +56,7 @@ public class DefaultAuthenticatorImpl extends BaseAuthenticator {
 	 */
 	public String createToken(UserAuthDto userAuthDto) {
 		// use default token generate rule if no business token provided
-		String token = CodecUtil.encodeMD5Hex(DateUtil.dateToString(userAuthDto.getLastTransactionTime(), DateUtil.FORMAT.YYYYMMDDHHMMSSMMM))
-		        + System.currentTimeMillis();
+		String token = CodecUtil.encodeMD5Hex(super.getCurrentTimestamp().toString()) + System.currentTimeMillis();
 		return token;
 	}
 

@@ -14,8 +14,8 @@
 
 	<mappers>
 	    <!-- Customized SQL mapping -->
-        <mapper resource="sql/cmt/AUTH.xml" />
-        <mapper resource="sql/cmt/QUERY.xml" />
+        <mapper resource="${ume.sqlMapFile.location}/@AUTH.xml" />
+        <mapper resource="${ume.sqlMapFile.location}/@QUERY.xml" />
         
         <!-- Table based SQL mapping -->
         <mapper resource="${ume.sqlMapFile.location}/EM_CONS_CODE_CFG.xml" />
