@@ -41,10 +41,10 @@ public class UserManagerImpl extends BaseDBComponent implements UserManager, Mes
 		user.setUserId(userId);
 		UmeUserDto exist = userService.find(user);
 		if (exist == null) {
-			throw new ApplicationException(M001);
+			throw new ApplicationException(UME_AUTH_MSG_001);
 		}
 		if (!exist.getUserPassword().equals(CodecUtil.encodeMD5Hex(exist.getUserPassword()))) {
-			throw new ApplicationException(M002);
+			throw new ApplicationException(UME_AUTH_MSG_002);
 		}
 		user.setUserPassword(newPassword);
 		userService.update(user);
@@ -59,7 +59,7 @@ public class UserManagerImpl extends BaseDBComponent implements UserManager, Mes
 	synchronized public void createUser(UmeUserDto user) {
 		String userPassword = user.getUserPassword();
 		if (StringUtil.isEmpty(userPassword)) {
-			throw new ApplicationException(M002);
+			throw new ApplicationException(UME_AUTH_MSG_002);
 		}
 		user.setUserPassword(CodecUtil.encodeMD5Hex(userPassword));
 		userService.create(user);
@@ -76,10 +76,10 @@ public class UserManagerImpl extends BaseDBComponent implements UserManager, Mes
 		param.setUserId(user.getUserId());
 		UmeUserDto exist = userService.find(param);
 		if (exist == null) {
-			throw new ApplicationException(M001);
+			throw new ApplicationException(UME_AUTH_MSG_001);
 		}
 		if (!exist.getUserPassword().equals(CodecUtil.encodeMD5Hex(user.getUserPassword()))) {
-			throw new ApplicationException(M002);
+			throw new ApplicationException(UME_AUTH_MSG_002);
 		}
 		userService.update(user);
 	}

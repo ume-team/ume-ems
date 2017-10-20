@@ -1,5 +1,5 @@
 /*
- * Copyright 2014-2017 UME Framework Group, Apache License Version 2.0
+ * Copyright 2014_2017 UME Framework Group, Apache License Version 2.0
  */
 package org.umeframework.ems.uac.message;
 
@@ -11,8 +11,8 @@ package org.umeframework.ems.uac.message;
  */
 public interface MessageConst {
 	// User authentication message
-	String M001 = "UME-AUTH-MSG-001::User not exist.";
-	String M002 = "UME-AUTH-MSG-002::Please input correct user password.";
-	String M003 = "UME-AUTH-MSG-003::User was disable currently.";
+	String UME_AUTH_MSG_001 = "UME_AUTH_MSG_001::User not exist.";
+	String UME_AUTH_MSG_002 = "UME_AUTH_MSG_002::Please input correct user password.";
+	String UME_AUTH_MSG_003 = "UME_AUTH_MSG_003::User was disable currently.";
 
 }

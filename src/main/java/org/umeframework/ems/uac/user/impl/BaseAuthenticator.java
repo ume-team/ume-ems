@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.umeframework.dora.bean.BeanUtil;
 import org.umeframework.dora.service.BaseDBComponent;
+import org.umeframework.dora.service.TableEntity;
 import org.umeframework.dora.service.user.UserAuthenticator;
 import org.umeframework.ems.uac.entity.UmeResourceDto;
 import org.umeframework.ems.uac.entity.UmeRoleAclDto;
@@ -37,14 +39,10 @@ public abstract class BaseAuthenticator extends BaseDBComponent implements UserA
 	 */
 	private String sqlFindUserDefaultACL = "org.umeframework.ems.uac.entity.SEARCH_ALL_RESOURCE_AS_USER_ACL";
 	/**
-	 * sqlFindBizUser
-	 */
-	private String sqlFindBizUser = "org.umeframework.ems.uac.entity.UME_USER_FIND";
-	/**
 	 * keyUID
 	 */
-	private String keyUID = "userId";
-	
+	private String keyUID = UmeUserDto.Property.userId;
+
 	/**
 	 * findBizUser
 	 * 
@@ -53,27 +51,71 @@ public abstract class BaseAuthenticator extends BaseDBComponent implements UserA
 	 * @param options
 	 * @return
 	 */
-	abstract public Map<String, Object> findBizUser(String loginId, String loginPassword, String... options);
+	abstract public Object findBizUser(String loginId, String loginPassword, String... options);
+
+	/**
+	 * createToken
+	 * 
+	 * @param userAuthDto
+	 * @return
+	 */
+	abstract public String createToken(UserAuthDto userAuthDto);
 
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.umeframework.dora.service.com.UserAuthenticator#doAuthentication(java.lang.String, java.lang.String)
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public UserAuthDto getUserObject(String loginId, String loginPassword, String... options) {
-		Map<String, Object> bizUser = findBizUser(loginId, loginPassword, options);
-		bizUser.remove(UmeUserDto.Property.userPassword);
-		bizUser.remove(UmeUserDto.Property.userStatus);
-		bizUser.remove(UmeUserDto.Property.createAuthor);
-		bizUser.remove(UmeUserDto.Property.createDatetime);
-		bizUser.remove(UmeUserDto.Property.updateAuthor);
-		bizUser.remove(UmeUserDto.Property.updateDatetime);
+		Object bizUser = findBizUser(loginId, loginPassword, options);
+		Map<String, Object> bizUserMap = null;
+
+		if (bizUser instanceof Map) {
+			bizUserMap = (Map<String, Object>) bizUser;
+			if (bizUserMap.containsKey(UmeUserDto.Property.userPassword)) {
+				bizUserMap.remove(UmeUserDto.Property.userPassword);
+			}
+			if (bizUserMap.containsKey(UmeUserDto.Property.userStatus)) {
+				bizUserMap.remove(UmeUserDto.Property.userStatus);
+			}
+			if (bizUserMap.containsKey(UmeUserDto.Property.createAuthor)) {
+				bizUserMap.remove(UmeUserDto.Property.createAuthor);
+			}
+			if (bizUserMap.containsKey(UmeUserDto.Property.createDatetime)) {
+				bizUserMap.remove(UmeUserDto.Property.createDatetime);
+			}
+			if (bizUserMap.containsKey(UmeUserDto.Property.updateAuthor)) {
+				bizUserMap.remove(UmeUserDto.Property.updateAuthor);
+			}
+			if (bizUserMap.containsKey(UmeUserDto.Property.updateDatetime)) {
+				bizUserMap.remove(UmeUserDto.Property.updateDatetime);
+			}
+		} else if (bizUser instanceof TableEntity) {
+			((TableEntity) bizUser).clearDefaultProperties();
+			try {
+				BeanUtil.setBeanProperty(bizUser, UmeUserDto.Property.userPassword, null);
+			} catch (Exception e) {
+				// Ignore set exception here
+			}
+		}
+		// Prepare return instance
 		UserAuthDto userAuth = new UserAuthDto();
 		userAuth.setUser(bizUser);
-		String uid = bizUser.get(keyUID).toString();
-		userAuth.setUid(uid);
+		Object uid = null;
+		try {
+			uid = BeanUtil.getBeanProperty(bizUser, this.getKeyUID());
+		} catch (Exception e) {
+			// Ignore set exception here
+		}
+		if (uid != null) {
+			userAuth.setUid(uid.toString());
+		}
+		String token = this.createToken(userAuth);
+		userAuth.setToken(token);
 
+		// Invoke authorization process
 		this.doAuthorization(userAuth);
 		return userAuth;
 	}
@@ -119,7 +161,7 @@ public abstract class BaseAuthenticator extends BaseDBComponent implements UserA
 				for (Map<String, Object> e : accResList) {
 					e.put(UmeRoleDto.Property.roleId, roleId);
 					e.put(UmeRoleAclDto.Property.accLevel, accLevel);
-					//e.put(UmeRoleAclDto.Property.accResId, e.get(UmeResourceDto.Property.resId));
+					// e.put(UmeRoleAclDto.Property.accResId, e.get(UmeResourceDto.Property.resId));
 					this.saveAs(accResMapA, e);
 					Integer resType = (Integer) e.get(UmeResourceDto.Property.resType);
 					accResTypeList.add(resType);
@@ -175,7 +217,8 @@ public abstract class BaseAuthenticator extends BaseDBComponent implements UserA
 	}
 
 	/**
-	 * @param sqlFindUserACL the sqlFindUserACL to set
+	 * @param sqlFindUserACL
+	 *            the sqlFindUserACL to set
 	 */
 	public void setSqlFindUserACL(String sqlFindUserACL) {
 		this.sqlFindUserACL = sqlFindUserACL;
@@ -189,26 +232,26 @@ public abstract class BaseAuthenticator extends BaseDBComponent implements UserA
 	}
 
 	/**
-	 * @param sqlFindUserDefaultACL the sqlFindUserDefaultACL to set
+	 * @param sqlFindUserDefaultACL
+	 *            the sqlFindUserDefaultACL to set
 	 */
 	public void setSqlFindUserDefaultACL(String sqlFindUserDefaultACL) {
 		this.sqlFindUserDefaultACL = sqlFindUserDefaultACL;
 	}
 
 	/**
-	 * @return the sqlFindBizUser
+	 * @return the keyUID
 	 */
-	public String getSqlFindBizUser() {
-		return sqlFindBizUser;
+	public String getKeyUID() {
+		return keyUID;
 	}
 
 	/**
-	 * @param sqlFindBizUser the sqlFindBizUser to set
+	 * @param keyUID
+	 *            the keyUID to set
 	 */
-	public void setSqlFindBizUser(String sqlFindBizUser) {
-		this.sqlFindBizUser = sqlFindBizUser;
+	public void setKeyUID(String keyUID) {
+		this.keyUID = keyUID;
 	}
-
-
 
 }
