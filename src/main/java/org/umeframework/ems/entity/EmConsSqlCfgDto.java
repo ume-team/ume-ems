@@ -1,28 +1,27 @@
+
 package org.umeframework.ems.entity;
 
 import java.io.Serializable;
-
-import javax.persistence.Table;
-
-import org.umeframework.dora.service.TableEntity;
-import org.umeframework.dora.type.ColumnDesc;
-import org.umeframework.dora.type.TableDesc;
-import org.umeframework.dora.validation.constraints.NotEmpty;
 import org.umeframework.dora.validation.constraints.Size;
-
+import org.umeframework.dora.type.ColumnDesc;
+import org.umeframework.dora.validation.constraints.NotEmpty;
+import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import org.umeframework.dora.type.TableDesc;
 import javax.persistence.Id;
+import org.umeframework.dora.bean.BeanUtil;
+import org.umeframework.dora.service.TableEntity;
 
 /**
- * Data transfer object mapping to table "EM 制约（SQL）配置表"
+ * Entity class map to table "EM 制约（SQL）配置表"
  *
- * @author DORA generator
+ * @author ume-team
  */
 @Entity
 @Table(name="EM_CONS_SQL_CFG")
 @TableDesc(label="EM 制约（SQL）配置表")
-public class EmConsSqlCfgDto extends TableEntity implements Serializable, Comparable<EmConsSqlCfgDto> {
+public class EmConsSqlCfgDto extends TableEntity implements Serializable {
    /**
     * Default serial version code
     */
@@ -73,27 +72,25 @@ public class EmConsSqlCfgDto extends TableEntity implements Serializable, Compar
    /**
     * Create Author (default setting while insert)
     */
-    @Size(min=32, max=32)
-    @ColumnDesc(index=(5 + 1), type="VARCHAR", label="Create Auther")
-    @Column(name="CREATE_AUTHER", nullable=true, length=32)
+    @ColumnDesc(index=(5 + 1), type="VARCHAR", label="createAuthor")
+    @Column(name="CREATE_AUTHOR", nullable=true, length=32)
     private String createAuthor;
    /**
     * Create Datetime (default setting while insert)
     */
-    @ColumnDesc(index=(5 + 2), type="TIMESTAMP", label="Create Datetime")
+    @ColumnDesc(index=(5 + 2), type="TIMESTAMP", label="createDatetime")
     @Column(name="CREATE_DATETIME", nullable=true)
     private java.sql.Timestamp createDatetime;
    /**
     * Update Author (refresh on each update)
     */
-    @Size(min=32, max=32)
-    @ColumnDesc(index=(5 + 3), type="VARCHAR", label="Update Auther")
-    @Column(name="UPDATE_AUTHER", nullable=true, length=32)
+    @ColumnDesc(index=(5 + 3), type="VARCHAR", label="updateAuthor")
+    @Column(name="UPDATE_AUTHOR", nullable=true, length=32)
     private String updateAuthor;
    /**
     * Update Datetime (refresh on each update)
     */
-    @ColumnDesc(index=(5 + 4), type="TIMESTAMP", label="Update Datetime")
+    @ColumnDesc(index=(5 + 4), type="TIMESTAMP", label="updateDatetime")
     @Column(name="UPDATE_DATETIME", nullable=true)
     private java.sql.Timestamp updateDatetime;
 
@@ -223,16 +220,6 @@ public class EmConsSqlCfgDto extends TableEntity implements Serializable, Compar
         this.updateDatetime = updateDatetime;
     }
 
-    /* (non-Javadoc)
-     * @see java.lang.Comparable compareTo(Object})
-     */
-    @Override
-    public int compareTo(
-            EmConsSqlCfgDto targetObj) {
-        // default 0 no support sort
-        return 0;
-    }
-
     /**
      * Create bean instance copy with selected properties
      * 
@@ -248,30 +235,30 @@ public class EmConsSqlCfgDto extends TableEntity implements Serializable, Compar
         EmConsSqlCfgDto newInstance = new EmConsSqlCfgDto();
         for (Property property : selectProperties) {
             String name = property.toString();
-            Object value = org.umeframework.dora.bean.BeanUtil.getBeanProperty(this, name);
-            org.umeframework.dora.bean.BeanUtil.setBeanProperty(newInstance, name, value);
+            Object value = BeanUtil.getBeanProperty(this, name);
+            BeanUtil.setBeanProperty(newInstance, name, value);
         }
         return newInstance;
     }
     
     /**
-     * Enumerate all SQL ID define in SQL-MAP
+     * Constant declare: SQL ID in config file
      */
     public static class SQLID {
-        public static final String INSERT = "TBL.EM_CONS_SQL_CFG_INSERT"; 
-        public static final String UPDATE = "TBL.EM_CONS_SQL_CFG_UPDATE"; 
-        public static final String SMART_UPDATE = "TBL.EM_CONS_SQL_CFG_SMART_UPDATE"; 
-        public static final String DELETE = "TBL.EM_CONS_SQL_CFG_DELETE"; 
-        public static final String FIND = "TBL.EM_CONS_SQL_CFG_FIND"; 
-        public static final String FIND_FOR_UPDATE = "TBL.EM_CONS_SQL_CFG_FIND_FOR_UPDATE"; 
-        public static final String SEARCH = "TBL.EM_CONS_SQL_CFG_SEARCH"; 
-        public static final String LIKE_SEARCH = "TBL.EM_CONS_SQL_CFG_LIKE_SEARCH"; 
-        public static final String DYNA_SEARCH = "TBL.EM_CONS_SQL_CFG_DYNA_SEARCH"; 
-        public static final String COUNT = "TBL.EM_CONS_SQL_CFG_COUNT";
+        public static final String INSERT = "org.umeframework.ems.entity.EM_CONS_SQL_CFG_INSERT"; 
+        public static final String UPDATE = "org.umeframework.ems.entity.EM_CONS_SQL_CFG_UPDATE"; 
+        public static final String SMART_UPDATE = "org.umeframework.ems.entity.EM_CONS_SQL_CFG_SMART_UPDATE"; 
+        public static final String DELETE = "org.umeframework.ems.entity.EM_CONS_SQL_CFG_DELETE"; 
+        public static final String FIND = "org.umeframework.ems.entity.EM_CONS_SQL_CFG_FIND"; 
+        public static final String FIND_FOR_UPDATE = "org.umeframework.ems.entity.EM_CONS_SQL_CFG_FIND_FOR_UPDATE"; 
+        public static final String SEARCH = "org.umeframework.ems.entity.EM_CONS_SQL_CFG_SEARCH"; 
+        public static final String LIKE_SEARCH = "org.umeframework.ems.entity.EM_CONS_SQL_CFG_LIKE_SEARCH"; 
+        public static final String DYNA_SEARCH = "org.umeframework.ems.entity.EM_CONS_SQL_CFG_DYNA_SEARCH"; 
+        public static final String COUNT = "org.umeframework.ems.entity.EM_CONS_SQL_CFG_COUNT";
     } 
 
     /**
-     * Enumerate all bean properties
+     * Constant declare: entity property name.<br>
      */
     public static class Property {
         public static final String consId = "consId";
@@ -283,17 +270,10 @@ public class EmConsSqlCfgDto extends TableEntity implements Serializable, Compar
         public static final String createDatetime = "createDatetime";
         public static final String updateAuthor = "updateAuthor";
         public static final String updateDatetime = "updateDatetime";
-        public static final String theSchema = "theSchema";
-        public static final String theDivision = "theDivision";
-        public static final String theOrderByCondition = "theOrderByCondition";
-        public static final String theGroupByCondition = "theGroupByCondition";
-        public static final String theSQLCondition = "theSQLCondition";
-        public static final String theFetchSize = "theFetchSize";
-        public static final String theFetchStart = "theFetchStart";   
     }
     
     /**
-     * Enumerate all table column names which map to bean properties
+     * Constant declare: column name map with bean property.<br>
      */
     public static class ColumnName {
         public static final String CONS_ID = "CONS_ID";
@@ -307,10 +287,8 @@ public class EmConsSqlCfgDto extends TableEntity implements Serializable, Compar
         public static final String UPDATE_DATETIME = "UPDATE_DATETIME";
     }
     /**
-     * Enumerate table name
+     * Constant declare: table name.<br>
      */
-    public static class TableName {
-        public static final String EM_CONS_SQL_CFG = "EM_CONS_SQL_CFG";
-    }
+    public static String TableName = "EM_CONS_SQL_CFG";
 
 }

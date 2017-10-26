@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="TBL">
+<mapper namespace="org.umeframework.ems.entity">
   <!-- EM实体属性配置表 [EM_TBL_COL_CFG] -->
   
   <!-- Insert one -->
@@ -79,6 +79,7 @@
     WHERE UPDATE_DATETIME = #{updateDatetime}
       AND ENT_ID = #{entId}
       AND COL_ID = #{colId}
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
   </update>
 
   <!-- Smart update -->
@@ -180,7 +181,7 @@
     FOR UPDATE
   </select>
 
-  <!-- Search multi by input condition -->
+  <!-- Search -->
   <select id="EM_TBL_COL_CFG_SEARCH" resultType="org.umeframework.ems.entity.EmTblColCfgDto">
     SELECT
       ENT_ID AS "entId",
@@ -232,7 +233,7 @@
     <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>
   </select>
 
-  <!-- Search multi by input condition with like operator -->
+  <!-- Like Search -->
   <select id="EM_TBL_COL_CFG_LIKE_SEARCH" resultType="org.umeframework.ems.entity.EmTblColCfgDto">
     SELECT
       ENT_ID AS "entId",
@@ -262,15 +263,15 @@
       <if test="colId != null">AND COL_ID LIKE CONCAT('%', #{colId}, '%')</if>
       <if test="colName != null">AND COL_NAME LIKE CONCAT('%', #{colName}, '%')</if>
       <if test="dataSubType != null">AND DATA_SUB_TYPE LIKE CONCAT('%', #{dataSubType}, '%')</if>
-      <if test="notNull != null">AND NOT_NULL = #{notNull}</if>
+      <if test="notNull != null">AND NOT_NULL LIKE CONCAT('%', #{notNull}, '%')</if>
       <if test="defaultValue != null">AND DEFAULT_VALUE LIKE CONCAT('%', #{defaultValue}, '%')</if>
-      <if test="dataLengthMin != null">AND DATA_LENGTH_MIN = #{dataLengthMin}</if>
-      <if test="dataLengthMax != null">AND DATA_LENGTH_MAX = #{dataLengthMax}</if>
+      <if test="dataLengthMin != null">AND DATA_LENGTH_MIN LIKE CONCAT('%', #{dataLengthMin}, '%')</if>
+      <if test="dataLengthMax != null">AND DATA_LENGTH_MAX LIKE CONCAT('%', #{dataLengthMax}, '%')</if>
       <if test="dataRangeMin != null">AND DATA_RANGE_MIN LIKE CONCAT('%', #{dataRangeMin}, '%')</if>
       <if test="dataRangeMax != null">AND DATA_RANGE_MAX LIKE CONCAT('%', #{dataRangeMax}, '%')</if>
-      <if test="constraintType != null">AND CONSTRAINT_TYPE = #{constraintType}</if>
+      <if test="constraintType != null">AND CONSTRAINT_TYPE LIKE CONCAT('%', #{constraintType}, '%')</if>
       <if test="constraintRef != null">AND CONSTRAINT_REF LIKE CONCAT('%', #{constraintRef}, '%')</if>
-      <if test="dispType != null">AND DISP_TYPE = #{dispType}</if>
+      <if test="dispType != null">AND DISP_TYPE LIKE CONCAT('%', #{dispType}, '%')</if>
       <if test="dispFormat != null">AND DISP_FORMAT LIKE CONCAT('%', #{dispFormat}, '%')</if>
       <if test="editFormat != null">AND EDIT_FORMAT LIKE CONCAT('%', #{editFormat}, '%')</if>
       <if test="preProcDisp != null">AND PRE_PROC_DISP LIKE CONCAT('%', #{preProcDisp}, '%')</if>
@@ -283,8 +284,8 @@
     <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
     <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>    
   </select>
-
-  <!-- Search multi by dynamic conditions -->
+  
+  <!-- Dynamic Search -->
   <select id="EM_TBL_COL_CFG_DYNA_SEARCH" resultType="org.umeframework.ems.entity.EmTblColCfgDto">
     SELECT
       ENT_ID AS "entId",
@@ -310,6 +311,23 @@
       UPDATE_DATETIME AS "updateDatetime"
     FROM EM_TBL_COL_CFG
     WHERE 1 = 1 
+      <if test="entId != null">AND ( ${entId} )</if>
+      <if test="colId != null">AND ( ${colId} )</if>
+      <if test="colName != null">AND ( ${colName} )</if>
+      <if test="dataSubType != null">AND ( ${dataSubType} )</if>
+      <if test="notNull != null">AND ( ${notNull} )</if>
+      <if test="defaultValue != null">AND ( ${defaultValue} )</if>
+      <if test="dataLengthMin != null">AND ( ${dataLengthMin} )</if>
+      <if test="dataLengthMax != null">AND ( ${dataLengthMax} )</if>
+      <if test="dataRangeMin != null">AND ( ${dataRangeMin} )</if>
+      <if test="dataRangeMax != null">AND ( ${dataRangeMax} )</if>
+      <if test="constraintType != null">AND ( ${constraintType} )</if>
+      <if test="constraintRef != null">AND ( ${constraintRef} )</if>
+      <if test="dispType != null">AND ( ${dispType} )</if>
+      <if test="dispFormat != null">AND ( ${dispFormat} )</if>
+      <if test="editFormat != null">AND ( ${editFormat} )</if>
+      <if test="preProcDisp != null">AND ( ${preProcDisp} )</if>
+      <if test="preProcSave != null">AND ( ${preProcSave} )</if>
       <if test="theSQLCondition != null"> AND ( ${theSQLCondition} )</if>
       <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
       <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="TBL">
+<mapper namespace="org.umeframework.ems.entity">
   <!-- EM实体展示配置表 [EM_TBL_CFG] -->
   
   <!-- Insert one -->
@@ -67,6 +67,7 @@
       UPDATE_DATETIME = current_timestamp() 
     WHERE UPDATE_DATETIME = #{updateDatetime}
       AND ENT_ID = #{entId}
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
   </update>
 
   <!-- Smart update -->
@@ -153,7 +154,7 @@
     FOR UPDATE
   </select>
 
-  <!-- Search multi by input condition -->
+  <!-- Search -->
   <select id="EM_TBL_CFG_SEARCH" resultType="org.umeframework.ems.entity.EmTblCfgDto">
     SELECT
       ENT_ID AS "entId",
@@ -197,7 +198,7 @@
     <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>
   </select>
 
-  <!-- Search multi by input condition with like operator -->
+  <!-- Like Search -->
   <select id="EM_TBL_CFG_LIKE_SEARCH" resultType="org.umeframework.ems.entity.EmTblCfgDto">
     SELECT
       ENT_ID AS "entId",
@@ -221,7 +222,7 @@
     WHERE 1 = 1 
       <if test="entId != null">AND ENT_ID LIKE CONCAT('%', #{entId}, '%')</if>
       <if test="entName != null">AND ENT_NAME LIKE CONCAT('%', #{entName}, '%')</if>
-      <if test="entType != null">AND ENT_TYPE = #{entType}</if>
+      <if test="entType != null">AND ENT_TYPE LIKE CONCAT('%', #{entType}, '%')</if>
       <if test="entLayout != null">AND ENT_LAYOUT LIKE CONCAT('%', #{entLayout}, '%')</if>
       <if test="refTblId != null">AND REF_TBL_ID LIKE CONCAT('%', #{refTblId}, '%')</if>
       <if test="refTblDatasource != null">AND REF_TBL_DATASOURCE LIKE CONCAT('%', #{refTblDatasource}, '%')</if>
@@ -240,8 +241,8 @@
     <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
     <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>    
   </select>
-
-  <!-- Search multi by dynamic conditions -->
+  
+  <!-- Dynamic Search -->
   <select id="EM_TBL_CFG_DYNA_SEARCH" resultType="org.umeframework.ems.entity.EmTblCfgDto">
     SELECT
       ENT_ID AS "entId",
@@ -263,6 +264,19 @@
       UPDATE_DATETIME AS "updateDatetime"
     FROM EM_TBL_CFG
     WHERE 1 = 1 
+      <if test="entId != null">AND ( ${entId} )</if>
+      <if test="entName != null">AND ( ${entName} )</if>
+      <if test="entType != null">AND ( ${entType} )</if>
+      <if test="entLayout != null">AND ( ${entLayout} )</if>
+      <if test="refTblId != null">AND ( ${refTblId} )</if>
+      <if test="refTblDatasource != null">AND ( ${refTblDatasource} )</if>
+      <if test="refTblReadonlyCols != null">AND ( ${refTblReadonlyCols} )</if>
+      <if test="refTblHideCols != null">AND ( ${refTblHideCols} )</if>
+      <if test="refTblDisableCols != null">AND ( ${refTblDisableCols} )</if>
+      <if test="preProcDisp != null">AND ( ${preProcDisp} )</if>
+      <if test="preProcSave != null">AND ( ${preProcSave} )</if>
+      <if test="preProcValidate != null">AND ( ${preProcValidate} )</if>
+      <if test="cusEntityManager != null">AND ( ${cusEntityManager} )</if>
       <if test="theSQLCondition != null"> AND ( ${theSQLCondition} )</if>
       <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
       <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>

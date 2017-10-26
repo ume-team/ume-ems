@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="TBL">
+<mapper namespace="org.umeframework.ems.entity">
   <!-- EM 制约（SQL）配置表 [EM_CONS_SQL_CFG] -->
   
   <!-- Insert one -->
@@ -43,6 +43,7 @@
       UPDATE_DATETIME = current_timestamp() 
     WHERE UPDATE_DATETIME = #{updateDatetime}
       AND CONS_ID = #{consId}
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
   </update>
 
   <!-- Smart update -->
@@ -105,7 +106,7 @@
     FOR UPDATE
   </select>
 
-  <!-- Search multi by input condition -->
+  <!-- Search -->
   <select id="EM_CONS_SQL_CFG_SEARCH" resultType="org.umeframework.ems.entity.EmConsSqlCfgDto">
     SELECT
       CONS_ID AS "consId",
@@ -133,7 +134,7 @@
     <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>
   </select>
 
-  <!-- Search multi by input condition with like operator -->
+  <!-- Like Search -->
   <select id="EM_CONS_SQL_CFG_LIKE_SEARCH" resultType="org.umeframework.ems.entity.EmConsSqlCfgDto">
     SELECT
       CONS_ID AS "consId",
@@ -160,8 +161,8 @@
     <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
     <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>    
   </select>
-
-  <!-- Search multi by dynamic conditions -->
+  
+  <!-- Dynamic Search -->
   <select id="EM_CONS_SQL_CFG_DYNA_SEARCH" resultType="org.umeframework.ems.entity.EmConsSqlCfgDto">
     SELECT
       CONS_ID AS "consId",
@@ -175,6 +176,11 @@
       UPDATE_DATETIME AS "updateDatetime"
     FROM EM_CONS_SQL_CFG
     WHERE 1 = 1 
+      <if test="consId != null">AND ( ${consId} )</if>
+      <if test="consName != null">AND ( ${consName} )</if>
+      <if test="consDesc != null">AND ( ${consDesc} )</if>
+      <if test="consSqlr != null">AND ( ${consSqlr} )</if>
+      <if test="consSqlu != null">AND ( ${consSqlu} )</if>
       <if test="theSQLCondition != null"> AND ( ${theSQLCondition} )</if>
       <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
       <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>

@@ -53,8 +53,8 @@ http://localhost:8081/ume-ems/rest/sys/EMS10010/["UME_ROLE_ACL"]
 http://localhost:8081/ume-ems/rest/sys/EMS40004/["DS99","123^56^136^145","3306","umedbm01","doraTestAdm","doraTestAdm123","mysql"]
 
 ## SQL console query
-http://localhost:8081/ume-ems/rest/sys/EMS90031/["DEFAULT","em_user","*",{"user_status":">0"}]
-http://localhost:8081/ume-ems/rest/sys/EMS90032/["DEFAULT","em_user","*",{"user_status":">0"}]
+http://localhost:8081/ume-ems/rest/sys/EMS90031/["DEFAULT","UME_USER","*",{"user_status":">0"}]
+http://localhost:8081/ume-ems/rest/sys/EMS90032/["DEFAULT","UME_USER","*",{"user_status":">0"}]
 
 
 

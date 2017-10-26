@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.umeframework.ems.entity">
+  <!-- 采番表 [EM_SEQ] -->
+  
+  <!-- Insert one -->
+  <insert id="EM_SEQ_INSERT" parameterType="org.umeframework.ems.entity.EmSeqDto">
+    INSERT INTO EM_SEQ (
+      ITEM_NAME,
+      MIN_VALUE,
+      MAX_VALUE,
+      CURRENT_INDEX,
+      INCREMENT_VALUE,
+      ITEM_LENGTH,
+      PREFIX,
+      POSTFIX,
+      REPEATABLE,
+      FORMATTER,
+      CREATE_AUTHOR,
+      CREATE_DATETIME,
+      UPDATE_AUTHOR,
+      UPDATE_DATETIME
+    ) VALUES (
+      #{itemName},
+      #{minValue},
+      #{maxValue},
+      #{currentIndex},
+      #{incrementValue},
+      #{itemLength},
+      #{prefix},
+      #{postfix},
+      #{repeatable},
+      #{formatter},
+      #{createAuthor},
+      current_timestamp(),
+      #{updateAuthor},
+      current_timestamp()
+    )
+  </insert>
+
+  <!-- Update with optimism check) -->
+  <update id="EM_SEQ_UPDATE" parameterType="org.umeframework.ems.entity.EmSeqDto">
+    UPDATE EM_SEQ
+    SET
+      MIN_VALUE = #{minValue},
+      MAX_VALUE = #{maxValue},
+      CURRENT_INDEX = #{currentIndex},
+      INCREMENT_VALUE = #{incrementValue},
+      ITEM_LENGTH = #{itemLength},
+      PREFIX = #{prefix},
+      POSTFIX = #{postfix},
+      REPEATABLE = #{repeatable},
+      FORMATTER = #{formatter},
+      CREATE_AUTHOR = #{createAuthor},
+      CREATE_DATETIME = #{createDatetime},
+      UPDATE_AUTHOR = #{updateAuthor},
+      UPDATE_DATETIME = current_timestamp() 
+    WHERE UPDATE_DATETIME = #{updateDatetime}
+      AND ITEM_NAME = #{itemName}
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </update>
+
+  <!-- Smart update -->
+  <update id="EM_SEQ_SMART_UPDATE" parameterType="org.umeframework.ems.entity.EmSeqDto">
+    UPDATE EM_SEQ
+    <set>
+      <if test="minValue!=null">MIN_VALUE = #{minValue},</if>
+      <if test="maxValue!=null">MAX_VALUE = #{maxValue},</if>
+      <if test="currentIndex!=null">CURRENT_INDEX = #{currentIndex},</if>
+      <if test="incrementValue!=null">INCREMENT_VALUE = #{incrementValue},</if>
+      <if test="itemLength!=null">ITEM_LENGTH = #{itemLength},</if>
+      <if test="prefix!=null">PREFIX = #{prefix},</if>
+      <if test="postfix!=null">POSTFIX = #{postfix},</if>
+      <if test="repeatable!=null">REPEATABLE = #{repeatable},</if>
+      <if test="formatter!=null">FORMATTER = #{formatter},</if>
+      <if test="createAuthor!=null">CREATE_AUTHOR = #{createAuthor},</if>
+      <if test="createDatetime!=null">CREATE_DATETIME = #{createDatetime},</if>
+      <if test="updateAuthor!=null">UPDATE_AUTHOR = #{updateAuthor},</if>
+      UPDATE_DATETIME = current_timestamp()
+    </set>
+    WHERE 
+       ITEM_NAME = #{itemName}
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </update>
+  
+  <!-- Delete one -->
+  <delete id="EM_SEQ_DELETE" parameterType="org.umeframework.ems.entity.EmSeqDto">
+    DELETE FROM EM_SEQ
+    WHERE
+      ITEM_NAME = #{itemName} 
+  </delete>
+
+  <!-- Find by primary key -->
+  <select id="EM_SEQ_FIND" resultType="org.umeframework.ems.entity.EmSeqDto">
+    SELECT
+      ITEM_NAME AS "itemName",
+      MIN_VALUE AS "minValue",
+      MAX_VALUE AS "maxValue",
+      CURRENT_INDEX AS "currentIndex",
+      INCREMENT_VALUE AS "incrementValue",
+      ITEM_LENGTH AS "itemLength",
+      PREFIX AS "prefix",
+      POSTFIX AS "postfix",
+      REPEATABLE AS "repeatable",
+      FORMATTER AS "formatter",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_SEQ
+    WHERE
+      ITEM_NAME = #{itemName} 
+  </select>
+
+  <!-- Find by primary key for update with row lock -->
+  <select id="EM_SEQ_FIND_FOR_UPDATE" resultType="org.umeframework.ems.entity.EmSeqDto">
+    SELECT
+      ITEM_NAME AS "itemName",
+      MIN_VALUE AS "minValue",
+      MAX_VALUE AS "maxValue",
+      CURRENT_INDEX AS "currentIndex",
+      INCREMENT_VALUE AS "incrementValue",
+      ITEM_LENGTH AS "itemLength",
+      PREFIX AS "prefix",
+      POSTFIX AS "postfix",
+      REPEATABLE AS "repeatable",
+      FORMATTER AS "formatter",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_SEQ
+    WHERE
+      ITEM_NAME = #{itemName} 
+    FOR UPDATE
+  </select>
+
+  <!-- Search -->
+  <select id="EM_SEQ_SEARCH" resultType="org.umeframework.ems.entity.EmSeqDto">
+    SELECT
+      ITEM_NAME AS "itemName",
+      MIN_VALUE AS "minValue",
+      MAX_VALUE AS "maxValue",
+      CURRENT_INDEX AS "currentIndex",
+      INCREMENT_VALUE AS "incrementValue",
+      ITEM_LENGTH AS "itemLength",
+      PREFIX AS "prefix",
+      POSTFIX AS "postfix",
+      REPEATABLE AS "repeatable",
+      FORMATTER AS "formatter",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_SEQ
+    WHERE 1 = 1 
+      <if test="itemName != null">AND ITEM_NAME = #{itemName}</if>
+      <if test="minValue != null">AND MIN_VALUE = #{minValue}</if>
+      <if test="maxValue != null">AND MAX_VALUE = #{maxValue}</if>
+      <if test="currentIndex != null">AND CURRENT_INDEX = #{currentIndex}</if>
+      <if test="incrementValue != null">AND INCREMENT_VALUE = #{incrementValue}</if>
+      <if test="itemLength != null">AND ITEM_LENGTH = #{itemLength}</if>
+      <if test="prefix != null">AND PREFIX = #{prefix}</if>
+      <if test="postfix != null">AND POSTFIX = #{postfix}</if>
+      <if test="repeatable != null">AND REPEATABLE = #{repeatable}</if>
+      <if test="formatter != null">AND FORMATTER = #{formatter}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+    <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+    <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+    <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>
+  </select>
+
+  <!-- Like Search -->
+  <select id="EM_SEQ_LIKE_SEARCH" resultType="org.umeframework.ems.entity.EmSeqDto">
+    SELECT
+      ITEM_NAME AS "itemName",
+      MIN_VALUE AS "minValue",
+      MAX_VALUE AS "maxValue",
+      CURRENT_INDEX AS "currentIndex",
+      INCREMENT_VALUE AS "incrementValue",
+      ITEM_LENGTH AS "itemLength",
+      PREFIX AS "prefix",
+      POSTFIX AS "postfix",
+      REPEATABLE AS "repeatable",
+      FORMATTER AS "formatter",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_SEQ
+    WHERE 1 = 1 
+      <if test="itemName != null">AND ITEM_NAME LIKE CONCAT('%', #{itemName}, '%')</if>
+      <if test="minValue != null">AND MIN_VALUE LIKE CONCAT('%', #{minValue}, '%')</if>
+      <if test="maxValue != null">AND MAX_VALUE LIKE CONCAT('%', #{maxValue}, '%')</if>
+      <if test="currentIndex != null">AND CURRENT_INDEX LIKE CONCAT('%', #{currentIndex}, '%')</if>
+      <if test="incrementValue != null">AND INCREMENT_VALUE LIKE CONCAT('%', #{incrementValue}, '%')</if>
+      <if test="itemLength != null">AND ITEM_LENGTH LIKE CONCAT('%', #{itemLength}, '%')</if>
+      <if test="prefix != null">AND PREFIX LIKE CONCAT('%', #{prefix}, '%')</if>
+      <if test="postfix != null">AND POSTFIX LIKE CONCAT('%', #{postfix}, '%')</if>
+      <if test="repeatable != null">AND REPEATABLE LIKE CONCAT('%', #{repeatable}, '%')</if>
+      <if test="formatter != null">AND FORMATTER LIKE CONCAT('%', #{formatter}, '%')</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR LIKE CONCAT('%', #{createAuthor}, '%')</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR LIKE CONCAT('%', #{updateAuthor}, '%')</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME &gt; #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME &gt; #{updateDatetime}</if>
+    <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+    <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+    <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>    
+  </select>
+  
+  <!-- Dynamic Search -->
+  <select id="EM_SEQ_DYNA_SEARCH" resultType="org.umeframework.ems.entity.EmSeqDto">
+    SELECT
+      ITEM_NAME AS "itemName",
+      MIN_VALUE AS "minValue",
+      MAX_VALUE AS "maxValue",
+      CURRENT_INDEX AS "currentIndex",
+      INCREMENT_VALUE AS "incrementValue",
+      ITEM_LENGTH AS "itemLength",
+      PREFIX AS "prefix",
+      POSTFIX AS "postfix",
+      REPEATABLE AS "repeatable",
+      FORMATTER AS "formatter",
+      CREATE_AUTHOR AS "createAuthor",
+      CREATE_DATETIME AS "createDatetime",
+      UPDATE_AUTHOR AS "updateAuthor",
+      UPDATE_DATETIME AS "updateDatetime"
+    FROM EM_SEQ
+    WHERE 1 = 1 
+      <if test="itemName != null">AND ( ${itemName} )</if>
+      <if test="minValue != null">AND ( ${minValue} )</if>
+      <if test="maxValue != null">AND ( ${maxValue} )</if>
+      <if test="currentIndex != null">AND ( ${currentIndex} )</if>
+      <if test="incrementValue != null">AND ( ${incrementValue} )</if>
+      <if test="itemLength != null">AND ( ${itemLength} )</if>
+      <if test="prefix != null">AND ( ${prefix} )</if>
+      <if test="postfix != null">AND ( ${postfix} )</if>
+      <if test="repeatable != null">AND ( ${repeatable} )</if>
+      <if test="formatter != null">AND ( ${formatter} )</if>
+      <if test="theSQLCondition != null"> AND ( ${theSQLCondition} )</if>
+      <if test="theOrderByCondition != null"> ORDER BY ${theOrderByCondition}</if>
+      <if test="theGroupByCondition != null"> GROUP BY ${theGroupByCondition}</if>
+      <if test="theFetchSize != null">LIMIT ${theFetchStart} , ${theFetchSize}</if>
+  </select>
+  
+  <!-- Count by input condition -->
+  <select id="EM_SEQ_COUNT" resultType="java.lang.Integer">
+    SELECT count(*)
+    FROM EM_SEQ
+    WHERE 1 = 1 
+      <if test="theSQLCondition != null"> AND ( ${theSQLCondition} )</if>
+      <if test="itemName != null">AND ITEM_NAME = #{itemName}</if>
+      <if test="minValue != null">AND MIN_VALUE = #{minValue}</if>
+      <if test="maxValue != null">AND MAX_VALUE = #{maxValue}</if>
+      <if test="currentIndex != null">AND CURRENT_INDEX = #{currentIndex}</if>
+      <if test="incrementValue != null">AND INCREMENT_VALUE = #{incrementValue}</if>
+      <if test="itemLength != null">AND ITEM_LENGTH = #{itemLength}</if>
+      <if test="prefix != null">AND PREFIX = #{prefix}</if>
+      <if test="postfix != null">AND POSTFIX = #{postfix}</if>
+      <if test="repeatable != null">AND REPEATABLE = #{repeatable}</if>
+      <if test="formatter != null">AND FORMATTER = #{formatter}</if>
+  </select>
+
+</mapper>
+

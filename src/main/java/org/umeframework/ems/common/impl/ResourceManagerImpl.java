@@ -15,7 +15,7 @@ import org.umeframework.dora.util.StringUtil;
 import org.umeframework.ems.common.ResourceManager;
 import org.umeframework.ems.desc.EntityDescManager;
 import org.umeframework.ems.entity.EmDsCfgDto;
-import org.umeframework.ems.entity.EmResourceDto;
+import org.umeframework.uac.entity.UmeResourceDto;
 import org.umeframework.ems.entity.EmTblCfgDto;
 import org.umeframework.ems.jdbc.DynaDaoManager;
 
@@ -80,7 +80,7 @@ public class ResourceManagerImpl extends BaseDBComponent implements ResourceMana
             String tblId = names[0];
             String tblName = names[1];
 
-            EmResourceDto emRes = new EmResourceDto();
+            UmeResourceDto emRes = new UmeResourceDto();
             emRes.setResId(tblId);
             emRes.setResName(tblName);
             emRes.setResIndex(index + 1);
@@ -106,9 +106,9 @@ public class ResourceManagerImpl extends BaseDBComponent implements ResourceMana
 
             StringBuilder msg = new StringBuilder();
             try {
-                int existRes = getDao().count(EmResourceDto.SQLID.COUNT, emRes);
+                int existRes = getDao().count(UmeResourceDto.SQLID.COUNT, emRes);
                 if (existRes == 0) {
-                    int result = getDao().update(EmResourceDto.SQLID.INSERT, emRes);
+                    int result = getDao().update(UmeResourceDto.SQLID.INSERT, emRes);
                     if (result == 1) {
                         msg.append(result + " record insert into [EM_RES]. ");
                     }
@@ -148,11 +148,11 @@ public class ResourceManagerImpl extends BaseDBComponent implements ResourceMana
         if (StringUtil.isEmpty(resGroup)) {
         	throw new ApplicationException("APMSG10006", new Object[] { resGroup});
         }
-        EmResourceDto param = new EmResourceDto();
+        UmeResourceDto param = new UmeResourceDto();
         param.setResGroup(resGroup);
-        List<EmResourceDto> emResList = getDao().queryForObjectList(EmResourceDto.SQLID.SEARCH, param, EmResourceDto.class);
+        List<UmeResourceDto> emResList = getDao().queryForObjectList(UmeResourceDto.SQLID.SEARCH, param, UmeResourceDto.class);
         List<String> msgList = new ArrayList<String>();
-        for (EmResourceDto emRes : emResList) {
+        for (UmeResourceDto emRes : emResList) {
             EmTblCfgDto entEnt = new EmTblCfgDto();
             String resId = emRes.getResId();
             entEnt.setEntId(resId);
@@ -162,7 +162,7 @@ public class ResourceManagerImpl extends BaseDBComponent implements ResourceMana
             if (result > 0) {
                 msg.append(result + " record(s) removed from [EM_ENT_CFG]. ");
             }
-            result = getDao().update(EmResourceDto.SQLID.DELETE, emRes);
+            result = getDao().update(UmeResourceDto.SQLID.DELETE, emRes);
             if (result > 0) {
                 msg.append(result + " record(s) removed from [EM_RES]. ");
             }
@@ -186,12 +186,12 @@ public class ResourceManagerImpl extends BaseDBComponent implements ResourceMana
         if (StringUtil.isEmpty(resGroup) || StringUtil.isEmpty(tableId)) {
         	throw new ApplicationException("APMSG10006", new Object[] { "Resource Group and Table"});
         }
-        EmResourceDto param = new EmResourceDto();
+        UmeResourceDto param = new UmeResourceDto();
         param.setResId(tableId);
         param.setResGroup(resGroup);
-        List<EmResourceDto> emResList = getDao().queryForObjectList(EmResourceDto.SQLID.SEARCH, param, EmResourceDto.class);
+        List<UmeResourceDto> emResList = getDao().queryForObjectList(UmeResourceDto.SQLID.SEARCH, param, UmeResourceDto.class);
         List<String> msgList = new ArrayList<String>();
-        for (EmResourceDto emRes : emResList) {
+        for (UmeResourceDto emRes : emResList) {
             EmTblCfgDto entEnt = new EmTblCfgDto();
             String resId = emRes.getResId();
             entEnt.setEntId(resId);
@@ -201,7 +201,7 @@ public class ResourceManagerImpl extends BaseDBComponent implements ResourceMana
             if (result > 0) {
                 msg.append(result + " recoed(s) removed from [EM_ENT_CFG]. ");
             }
-            result = getDao().update(EmResourceDto.SQLID.DELETE, emRes);
+            result = getDao().update(UmeResourceDto.SQLID.DELETE, emRes);
             if (result > 0) {
                 msg.append(result + " recoed(s) removed from [EM_RES]. ");
             }

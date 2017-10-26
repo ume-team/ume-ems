@@ -53,10 +53,10 @@ public class AutoSequenceImpl extends BaseDBComponent implements AutoSequence {
 				throw new RuntimeException("No found valid sequence item:" + itemName + " current=" + itemName);
 			}
 
-			long current = seq.getCurrentIndex();
-			long increment = seq.getIncrementValue();
+			int current = seq.getCurrentIndex();
+			int increment = seq.getIncrementValue();
 
-			long nextValue = current + increment;
+			int nextValue = current + increment;
 			if (nextValue > seq.getMaxValue()) {
 				if (getRepeatable().equalsIgnoreCase(seq.getRepeatable())) {
 					nextValue = seq.getMinValue();

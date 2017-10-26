@@ -17,6 +17,13 @@
 		<artifactId>umeframework-boot</artifactId>
 		<version>1.0.2.RELEASE</version>
 	</parent>
+     <dependencies>
+       <dependency>
+            <groupId>org.umeframework</groupId>
+            <artifactId>ume-uac</artifactId>
+            <version>1.0.1.RELEASE</version>
+       </dependency>
+     </dependencies>
 
     <url>http://umeframework.org</url>
     <developers>
