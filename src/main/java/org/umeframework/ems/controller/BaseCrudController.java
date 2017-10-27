@@ -23,8 +23,8 @@ import org.umeframework.dora.util.StringUtil;
 import org.umeframework.ems.crud.EntityCrudManager;
 import org.umeframework.ems.desc.EntityDescManager;
 import org.umeframework.ems.desc.dto.EmDescDto;
-import org.umeframework.uac.entity.UmeRoleAclDto;
-import org.umeframework.uac.user.dto.UserAuthDto;
+import org.umeframework.ems.uac.entity.UmeRoleAclDto;
+import org.umeframework.ems.uac.user.dto.UserAuthDto;
 
 import javax.annotation.Resource;
 

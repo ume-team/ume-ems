@@ -15,7 +15,7 @@ import org.umeframework.dora.util.StringUtil;
 import org.umeframework.ems.common.ResourceManager;
 import org.umeframework.ems.desc.EntityDescManager;
 import org.umeframework.ems.entity.EmDsCfgDto;
-import org.umeframework.uac.entity.UmeResourceDto;
+import org.umeframework.ems.uac.entity.UmeResourceDto;
 import org.umeframework.ems.entity.EmTblCfgDto;
 import org.umeframework.ems.jdbc.DynaDaoManager;
 
