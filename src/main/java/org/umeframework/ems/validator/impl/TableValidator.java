@@ -11,6 +11,7 @@ import org.umeframework.dora.util.StringUtil;
 import org.umeframework.dora.util.ValidatorUtil;
 import org.umeframework.ems.desc.dto.EmColDescDto;
 import org.umeframework.ems.desc.dto.EmDescDto;
+import org.umeframework.ems.message.MessageConst;
 import org.umeframework.ems.validator.Validator;
 
 /**
@@ -20,7 +21,7 @@ import org.umeframework.ems.validator.Validator;
  *
  */
 @Service
-public class TableValidator implements Validator {
+public class TableValidator implements Validator, MessageConst {
 
 	/**
 	 * 检查数据异常
@@ -66,7 +67,7 @@ public class TableValidator implements Validator {
 		boolean notNull = colCfg.getNotNull() != null && colCfg.getNotNull() == 1;
 		boolean pkFlag = colCfg.getPkFlag() != null && colCfg.getPkFlag() == 1;
 		if ((notNull || pkFlag) && ValidatorUtil.isEmpty(colValue)) {
-			ve.add("VEMSG-NOTNULL", colName);
+			ve.add(UME_EMS_VEMSG_NOTNULL, colName);
 			return;
 		}
 		if (colValue == null || colValue.equals("")) {
@@ -84,15 +85,15 @@ public class TableValidator implements Validator {
 		Integer dataScale = colCfg.getDataScale();
 		// 数据长度检查
 		if (dataLength != null && dataLength > 0 && dataLength < colValue.length()) {
-			ve.add("VEMSG-LEN-MAX", colName, dataLength);
+			ve.add(UME_EMS_VEMSG_LEN_MAX, colName, dataLength);
 		}
 		if (dataPrecision != null && dataPrecision > 0 && dataPrecision + 1 < colValue.length()) {
-			ve.add("VEMSG-LEN-PRECISION", colName, dataPrecision);
+			ve.add(UME_EMS_VEMSG_LEN_PRECISION, colName, dataPrecision);
 		}
 		if (dataScale != null && dataScale > 0  && colValue.contains(".")) {
 			String scalePart = colValue.split("\\.")[1];
 			if (dataScale < scalePart.length()) {
-				ve.add("VEMSG-LEN-SCALE", colName, dataScale);
+				ve.add(UME_EMS_VEMSG_LEN_SCALE, colName, dataScale);
 			}
 		}
 	}
@@ -115,19 +116,19 @@ public class TableValidator implements Validator {
 		switch (colType) {
 		case java.sql.Types.DATE: {
 			if (!ValidatorUtil.matchedDateFormat(colValue, "yyyy-MM-dd")) {
-				ve.add("VEMSG-FMT-DATE", colName, "yyyy-MM-dd");
+				ve.add(UME_EMS_VEMSG_FMT_DATE, colName, "yyyy-MM-dd");
 			}
 			break;
 		}
 		case java.sql.Types.TIMESTAMP: {
 			if (!ValidatorUtil.matchedDateFormat(colValue, "yyyy-MM-dd HH:mm:ss.SSS") && !ValidatorUtil.matchedDateFormat(colValue, "yyyy-MM-dd HH:mm:ss")) {
-				ve.add("VEMSG-FMT-DATETIME", colName, "yyyy-MM-dd HH:mm:ss.SSS or yyyy-MM-dd HH:mm:ss");
+				ve.add(UME_EMS_VEMSG_FMT_DATETIME, colName, "yyyy-MM-dd HH:mm:ss.SSS or yyyy-MM-dd HH:mm:ss");
 			}
 			break;
 		}
 		case java.sql.Types.TIME: {
 			if (!ValidatorUtil.matchedDateFormat(colValue, "HH:mm:ss")) {
-				ve.add("VEMSG-FMT-TIME", colName, "HH:mm:ss");
+				ve.add(UME_EMS_VEMSG_FMT_TIME, colName, "HH:mm:ss");
 			}
 			break;
 		}
@@ -137,7 +138,7 @@ public class TableValidator implements Validator {
 		case java.sql.Types.DECIMAL:
 		case java.sql.Types.NUMERIC: {
 			if (!ValidatorUtil.isDecimal(colValue)) {
-				ve.add("VEMSG-FMT-DECIMAL", colName);
+				ve.add(UME_EMS_VEMSG_FMT_DECIMAL, colName);
 			}
 			break;
 		}
@@ -146,20 +147,20 @@ public class TableValidator implements Validator {
 		case java.sql.Types.INTEGER:
 		case java.sql.Types.BIGINT: {
 			if (!ValidatorUtil.isInteger(colValue)) {
-				ve.add("VEMSG-FMT-NUMERIC", colName);
+				ve.add(UME_EMS_VEMSG_FMT_INT, colName);
 			}
 			break;
 		}
 		case java.sql.Types.BOOLEAN: {
 			colValue = colValue.toLowerCase();
 			if (!"true".equals(colValue) && !"false".equals(colValue)) {
-				ve.add("VEMSG-FMT-BOOL", colName);
+				ve.add(UME_EMS_VEMSG_FMT_BOOL, colName);
 			}
 			break;
 		}
 		case java.sql.Types.BIT: {
 			if (!"0".equals(colValue) && !"1".equals(colValue)) {
-				ve.add("VEMSG-FMT-BIT", colName);
+				ve.add(UME_EMS_VEMSG_FMT_BIT, colName);
 			}
 			break;
 		}

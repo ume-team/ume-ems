@@ -15,6 +15,7 @@ import org.umeframework.ems.desc.EntityDescManager;
 import org.umeframework.ems.desc.dto.EmColDescDto;
 import org.umeframework.ems.desc.dto.EmDescDto;
 import org.umeframework.ems.jdbc.DynaDaoManager;
+import org.umeframework.ems.message.MessageConst;
 import org.umeframework.ems.util.JdbcTypeUtil;
 
 /**
@@ -22,7 +23,7 @@ import org.umeframework.ems.util.JdbcTypeUtil;
  * 
  * @author Yue MA
  */
-public abstract class BaseCrudComponent extends BaseComponent {
+public abstract class BaseCrudComponent extends BaseComponent implements MessageConst {
 	/**
 	 * Data source selector
 	 */
@@ -84,7 +85,7 @@ public abstract class BaseCrudComponent extends BaseComponent {
 				Object colActValue = JdbcTypeUtil.stringToObject(colStrValue, colCfg.getDataJdbcType());
 				mapObj.put(colId, colActValue);
 			} catch (Exception ex) {
-				throw new ApplicationException(ex, "APMSG20003", new Object[] { colId });
+				throw new ApplicationException(ex, UME_EMS_MSG_203, new Object[] { colId });
 			}
 		}
 
@@ -113,7 +114,7 @@ public abstract class BaseCrudComponent extends BaseComponent {
 				colValue = doConvert(colPreProcSave.split(","), colValue);
 				param.put(colId, colValue);
 			} catch (Throwable ex) {
-				throw new ApplicationException(ex, "APMSG20003", new Object[] { colId });
+				throw new ApplicationException(ex, UME_EMS_MSG_203, new Object[] { colId });
 			}
 		}
 	}
@@ -135,7 +136,7 @@ public abstract class BaseCrudComponent extends BaseComponent {
 				param = doConvert(preProcSave.split(","), param);
 			}
 		} catch (Throwable ex) {
-			throw new ApplicationException(ex, "APMSG20003", new Object[] { desc.getEntCfg().getEntId() });
+			throw new ApplicationException(ex, UME_EMS_MSG_203, new Object[] { desc.getEntCfg().getEntId() });
 		}
 	}
 

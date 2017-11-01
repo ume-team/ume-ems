@@ -27,17 +27,17 @@ public class DefaultAuthenticatorImpl extends BaseAuthenticator<UmeUserDto> {
 	public UmeUserDto findBizUser(String loginId, String loginPassword, String... options) {
 		UmeUserDto bizUser = getDao().queryForObject(UmeUserDto.SQLID.FIND, loginId, UmeUserDto.class);
 		if (bizUser == null) {
-			throw new ApplicationException(UME_UAC_MSG_001);
+			throw new ApplicationException(UME_EMS_UAC_MSG_001);
 		}
 		String password = bizUser.getUserPassword();
 
 		loginPassword = CodecUtil.encodeMD5Hex(loginPassword);
 		if (!loginPassword.equals(password)) {
-			throw new ApplicationException(UME_UAC_MSG_002);
+			throw new ApplicationException(UME_EMS_UAC_MSG_002);
 		}
 		Integer userStatus = (Integer) bizUser.getUserStatus();
 		if (0 == userStatus) {
-			throw new ApplicationException(UME_UAC_MSG_003);
+			throw new ApplicationException(UME_EMS_UAC_MSG_003);
 		}
 		return bizUser;
 	}

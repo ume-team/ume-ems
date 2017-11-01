@@ -18,6 +18,7 @@ import org.umeframework.ems.entity.EmDsCfgDto;
 import org.umeframework.ems.uac.entity.UmeResourceDto;
 import org.umeframework.ems.entity.EmTblCfgDto;
 import org.umeframework.ems.jdbc.DynaDaoManager;
+import org.umeframework.ems.message.MessageConst;
 
 import javax.annotation.Resource;
 
@@ -28,7 +29,7 @@ import javax.annotation.Resource;
  *
  */
 @Service
-public class ResourceManagerImpl extends BaseDBComponent implements ResourceManager {
+public class ResourceManagerImpl extends BaseDBComponent implements ResourceManager,MessageConst {
     /**
      * EntityDESCManager instance
      */
@@ -146,7 +147,7 @@ public class ResourceManagerImpl extends BaseDBComponent implements ResourceMana
             String resGroup) {
 
         if (StringUtil.isEmpty(resGroup)) {
-        	throw new ApplicationException("APMSG10006", new Object[] { resGroup});
+        	throw new ApplicationException(UME_EMS_MSG_006, new Object[] { resGroup});
         }
         UmeResourceDto param = new UmeResourceDto();
         param.setResGroup(resGroup);
@@ -184,7 +185,7 @@ public class ResourceManagerImpl extends BaseDBComponent implements ResourceMana
             String tableId) {
 
         if (StringUtil.isEmpty(resGroup) || StringUtil.isEmpty(tableId)) {
-        	throw new ApplicationException("APMSG10006", new Object[] { "Resource Group and Table"});
+        	throw new ApplicationException(UME_EMS_MSG_006, new Object[] { "Resource Group and Table"});
         }
         UmeResourceDto param = new UmeResourceDto();
         param.setResId(tableId);

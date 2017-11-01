@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 import org.umeframework.dora.ajax.AjaxParser;
 import org.umeframework.dora.bean.BeanFactory;
@@ -23,10 +25,9 @@ import org.umeframework.dora.util.StringUtil;
 import org.umeframework.ems.crud.EntityCrudManager;
 import org.umeframework.ems.desc.EntityDescManager;
 import org.umeframework.ems.desc.dto.EmDescDto;
+import org.umeframework.ems.message.MessageConst;
 import org.umeframework.ems.uac.entity.UmeRoleAclDto;
 import org.umeframework.ems.uac.user.dto.UserAuthDto;
-
-import javax.annotation.Resource;
 
 /**
  * BaseCRUDController
@@ -35,7 +36,7 @@ import javax.annotation.Resource;
  *
  */
 @Service
-public class BaseCrudController extends BaseComponent {
+public class BaseCrudController extends BaseComponent implements MessageConst {
 	/**
 	 * BeanFactory instance
 	 */
@@ -166,7 +167,7 @@ public class BaseCrudController extends BaseComponent {
 	 * @param options
 	 */
 	protected void doException(String category, String entId, Object[] params, Throwable e) {
-		throw new ApplicationException(e, "APMSG40002", new Object[] { category, entId });
+		throw new ApplicationException(e, UME_EMS_MSG_402, new Object[] { category, entId });
 	}
 
 	/**
@@ -243,7 +244,7 @@ public class BaseCrudController extends BaseComponent {
 				params[i] = ajaxParser.parse(jsonParam, inParamClasses[i], genericParamTypes[i], serviceMethodParamAnnos[i]);
 			}
 		} catch (Throwable e) {
-			throw new ApplicationException(e, "APMSG40002", new Object[] { entId, serviceMethod.getName(), jsonParam });
+			throw new ApplicationException(e, UME_EMS_MSG_402, new Object[] { entId, serviceMethod.getName(), jsonParam });
 		}
 		return params;
 	}
@@ -262,7 +263,7 @@ public class BaseCrudController extends BaseComponent {
 			entityCRUDManager = beanFactory.getBean(emName);
 		}
 		if (em == null) {
-			throw new ApplicationException("APMSG30002", new Object[] { emName });
+			throw new ApplicationException(UME_EMS_MSG_302, new Object[] { emName });
 		}
 		return em;
 	}

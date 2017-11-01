@@ -26,6 +26,7 @@ import org.umeframework.dora.util.StringUtil;
 import org.umeframework.ems.jdbc.DynaDaoManager;
 import org.umeframework.ems.jdbc.SqlConsole;
 import org.umeframework.ems.jdbc.dto.SqlConsoleResultDto;
+import org.umeframework.ems.message.MessageConst;
 
 import javax.annotation.Resource;
 
@@ -37,7 +38,7 @@ import javax.annotation.Resource;
  *
  */
 @Service
-public class SqlConsoleImpl extends BaseComponent implements SqlConsole {
+public class SqlConsoleImpl extends BaseComponent implements SqlConsole,MessageConst {
     /**
      * Data source selector
      */
@@ -273,13 +274,13 @@ public class SqlConsoleImpl extends BaseComponent implements SqlConsole {
 
 		File file = new File(filePath);
 		if (!file.exists() || !file.isFile()) {
-			throw new ApplicationException("APMSG10005", new Object[] { filePath, "storage"});
+			throw new ApplicationException(UME_EMS_MSG_005, new Object[] { filePath, "storage"});
 		}
 		Map<Integer, String> sqlList = null;
 		try {
 			sqlList = readSqlList(new InputStreamReader(new FileInputStream(file), charSet));
 		} catch (IOException e) {
-			throw new ApplicationException(e, "APMSG10005", new Object[] { filePath, "storage"});
+			throw new ApplicationException(e, UME_EMS_MSG_005, new Object[] { filePath, "storage"});
 		}
 
 		return executeMulti(dsId, sqlList.values().toArray(new String[sqlList.values().size()]), true);
@@ -355,7 +356,6 @@ public class SqlConsoleImpl extends BaseComponent implements SqlConsole {
 			word = sql.substring(0, sql.indexOf('\t'));
 		} else {
 			word = sql;
-			// throw new ApplicationException("APMSG10004", sql);
 		}
 		return word;
 	}

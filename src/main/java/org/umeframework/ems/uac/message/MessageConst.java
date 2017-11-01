@@ -11,8 +11,8 @@ package org.umeframework.ems.uac.message;
  */
 public interface MessageConst {
 	// User authentication message
-	String UME_UAC_MSG_001 = "UME_UAC_MSG_001::User not exist.";
-	String UME_UAC_MSG_002 = "UME_UAC_MSG_002::Please input correct user password.";
-	String UME_UAC_MSG_003 = "UME_UAC_MSG_003::User was disable currently.";
+	String UME_EMS_UAC_MSG_001 = "UME_EMS_UAC_MSG_001::User not exist.";
+	String UME_EMS_UAC_MSG_002 = "UME_EMS_UAC_MSG_002::Please input correct user password.";
+	String UME_EMS_UAC_MSG_003 = "UME_EMS_UAC_MSG_003::User was disable currently.";
 
 }

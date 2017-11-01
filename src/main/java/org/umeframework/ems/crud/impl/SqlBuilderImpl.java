@@ -14,6 +14,7 @@ import org.umeframework.ems.crud.SqlBuilder;
 import org.umeframework.ems.desc.dto.EmColDescDto;
 import org.umeframework.ems.desc.dto.EmDescDto;
 import org.umeframework.ems.desc.dto.EmEntDescDto;
+import org.umeframework.ems.message.MessageConst;
 
 /**
  * Implement CRUD SQL building function for table base EmDescDTO.
@@ -21,7 +22,7 @@ import org.umeframework.ems.desc.dto.EmEntDescDto;
  * @author Yue MA
  */
 @Service
-public class SqlBuilderImpl implements SqlBuilder {
+public class SqlBuilderImpl implements SqlBuilder,MessageConst {
     /**
      * Default max query record start from 0
      */
@@ -369,7 +370,7 @@ public class SqlBuilderImpl implements SqlBuilder {
                         String key = entry.getKey();
                         if (!primaryKeySet.contains(key)) {
                             allKeysExsits = false;
-                            throw new ApplicationException("APMSG20001", new Object[] { desc.getEntCfg().getEntId()});
+                            throw new ApplicationException(UME_EMS_MSG_201, new Object[] { desc.getEntCfg().getEntId()});
                         }
                     }
                     if (allKeysExsits) {

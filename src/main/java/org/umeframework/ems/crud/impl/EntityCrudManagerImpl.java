@@ -16,6 +16,7 @@ import org.umeframework.dora.transaction.TransactionRequired;
 import org.umeframework.ems.crud.EntityCrudManager;
 import org.umeframework.ems.crud.SqlBuilder;
 import org.umeframework.ems.desc.dto.EmDescDto;
+import org.umeframework.ems.message.MessageConst;
 import org.umeframework.ems.validator.impl.TableExValidator;
 import org.umeframework.ems.validator.impl.TableValidator;
 
@@ -27,7 +28,7 @@ import javax.annotation.Resource;
  * @author Yue MA
  */
 @Service
-public class EntityCrudManagerImpl extends BaseCrudComponent implements EntityCrudManager<Map<String, String>, Map<String, Object>> {
+public class EntityCrudManagerImpl extends BaseCrudComponent implements MessageConst, EntityCrudManager<Map<String, String>, Map<String, Object>> {
 	/**
 	 * SQL builder
 	 */
@@ -54,7 +55,7 @@ public class EntityCrudManagerImpl extends BaseCrudComponent implements EntityCr
 			rows = dao.queryForMapList(sql, actualParams);
 
 		} catch (Exception ex) {
-			throw new ApplicationException(ex, "APMSG20001", new Object[] { desc.getEntCfg().getEntId()});
+			throw new ApplicationException(ex, UME_EMS_MSG_201, new Object[] { desc.getEntCfg().getEntId()});
 		}
 
 		return rows;
@@ -94,7 +95,7 @@ public class EntityCrudManagerImpl extends BaseCrudComponent implements EntityCr
 				row = doConvert(tblPreProcDisp.split(","), row);
 			}
 		} catch (Throwable ex) {
-			throw new ApplicationException(ex, "APMSG20001", new Object[] { desc.getEntCfg().getEntId()});
+			throw new ApplicationException(ex, UME_EMS_MSG_201, new Object[] { desc.getEntCfg().getEntId()});
 		}
 		return row;
 	}
@@ -118,7 +119,7 @@ public class EntityCrudManagerImpl extends BaseCrudComponent implements EntityCr
 			RdbDao dao = super.getDynaDaoManager().getDao(dsId);
 			result = dao.queryForObject(sql, actualParams, BigInteger.class);
 		} catch (Exception ex) {
-			throw new ApplicationException(ex, "APMSG20001", new Object[] { desc.getEntCfg().getEntId()});
+			throw new ApplicationException(ex, UME_EMS_MSG_201, new Object[] { desc.getEntCfg().getEntId()});
 		}
 		return result.longValue();
 	}
@@ -193,7 +194,7 @@ public class EntityCrudManagerImpl extends BaseCrudComponent implements EntityCr
 			}
 			result = dao.update(sql, actualParams);
 		} catch (Exception ex) {
-			throw new ApplicationException(ex, "APMSG20002", new Object[] { desc.getEntCfg().getEntId()});
+			throw new ApplicationException(ex, UME_EMS_MSG_202, new Object[] { desc.getEntCfg().getEntId()});
 		}
 		return result;
 	}
@@ -219,7 +220,7 @@ public class EntityCrudManagerImpl extends BaseCrudComponent implements EntityCr
 			RdbDao dao = super.getDynaDaoManager().getDao(dsId);
 			result = dao.update(sql, convertedParams);
 		} catch (Exception ex) {
-			throw new ApplicationException(ex, "APMSG20004", new Object[] { desc.getEntCfg().getEntId()});
+			throw new ApplicationException(ex, UME_EMS_MSG_204, new Object[] { desc.getEntCfg().getEntId()});
 		}
 		return result;
 	}

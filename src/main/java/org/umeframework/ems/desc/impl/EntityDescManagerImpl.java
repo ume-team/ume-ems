@@ -27,6 +27,7 @@ import org.umeframework.ems.entity.EmConsSqlCfgDto;
 import org.umeframework.ems.entity.EmTblCfgDto;
 import org.umeframework.ems.entity.EmTblColCfgDto;
 import org.umeframework.ems.jdbc.DynaDaoManager;
+import org.umeframework.ems.message.MessageConst;
 
 import javax.annotation.Resource;
 
@@ -37,7 +38,7 @@ import javax.annotation.Resource;
  *
  */
 @Service
-public class EntityDescManagerImpl extends BaseComponent implements EntityDescManager {
+public class EntityDescManagerImpl extends BaseComponent implements EntityDescManager, MessageConst {
 	/**
 	 * Cache configuration enable flag
 	 */
@@ -117,7 +118,7 @@ public class EntityDescManagerImpl extends BaseComponent implements EntityDescMa
 	@Override
 	public List<String> getTableListFromDictionary(String dsId, String schema, String tableName) {
 		if (StringUtil.isEmpty(schema)) {
-			throw new ApplicationException("APMSG10005", new Object[] { schema, "Database" });
+			throw new ApplicationException(UME_EMS_MSG_005, new Object[] { schema, "Database" });
 		}
 		String queryId = tableListQuerySQLProp.getProperty(dynaDaoManager.getDatebaseType(dsId));
 
@@ -153,7 +154,7 @@ public class EntityDescManagerImpl extends BaseComponent implements EntityDescMa
 		entCfgParam.setEntId(entId);
 		EmTblCfgDto tblCfg = masterCfgDao.queryForObject(EmTblCfgDto.SQLID.FIND, entCfgParam, EmTblCfgDto.class);
 		if (tblCfg == null) {
-			throw new ApplicationException("APMSG10001", new Object[] { entId });
+			throw new ApplicationException(UME_EMS_MSG_001, new Object[] { entId });
 		}
 
 		EmEntDescDto entDescDTO = new EmEntDescDto();
