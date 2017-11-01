@@ -1,7 +1,7 @@
 /*
  * Copyright 2014-2017 UME Framework Group, Apache License Version 2.0
  */
-package org.umeframework.ems.app.appconfig;
+package org.umeframework.ems.app;
 
 import java.util.Properties;
 
@@ -18,7 +18,7 @@ import org.umeframework.ems.util.UtilFactory;
  */
 @Configuration
 @ComponentScan(basePackages = "org.umeframework.ems")
-public class AppAutoConfiguration {
+public class EmsConfiguration {
 	/**
 	 * TABLE_DESC_QUERY_FOR_MYSQL
 	 */

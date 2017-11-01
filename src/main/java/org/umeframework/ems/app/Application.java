@@ -4,9 +4,9 @@
 package org.umeframework.ems.app;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
-import org.umeframework.ems.app.appconfig.AppAutoConfiguration;
 
 /**
  * Application
@@ -14,14 +14,13 @@ import org.umeframework.ems.app.appconfig.AppAutoConfiguration;
  * @author Yue MA
  */
 // @ImportResource("classpath:DoraAutoConfiguration.xml")
-@SpringBootApplication(exclude = {
+@SpringBootApplication
+@EnableAutoConfiguration(exclude = {
         org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration.class,
         org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration.class })
 @Import({
         // 启动UME框架的默认配置
-        org.umeframework.dora.appconfig.AutoConfiguration.class,
-        // 启动当前项目的自定义配置
-        AppAutoConfiguration.class })
+        org.umeframework.dora.appconfig.AutoConfiguration.class })
 public class Application {
 
 	/**
@@ -37,6 +36,5 @@ public class Application {
 				e.printStackTrace();
 			}
 		}
-
 	}
 }
