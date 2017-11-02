@@ -13,11 +13,10 @@
 	</typeHandlers>
 
 	<mappers>
-	    <!-- Customized SQL mapping -->
+	   <!-- 
         <mapper resource="${ume.sqlMapFile.location}/@AUTH.xml" />
         <mapper resource="${ume.sqlMapFile.location}/@EM_QUERY.xml" />
-        
-        <!-- Table based SQL mapping -->
+
         <mapper resource="${ume.sqlMapFile.location}/EM_CONS_CODE_CFG.xml" />
         <mapper resource="${ume.sqlMapFile.location}/EM_CONS_SQL_CFG.xml" />
         <mapper resource="${ume.sqlMapFile.location}/EM_DS_CFG.xml" />
@@ -30,6 +29,7 @@
         <mapper resource="${ume.sqlMapFile.location}/UME_ROLE_ACL.xml" />
         <mapper resource="${ume.sqlMapFile.location}/UME_USER.xml" />
         <mapper resource="${ume.sqlMapFile.location}/UME_USER_ROLE.xml" />
+         -->
 	</mappers>
 
 </configuration>
