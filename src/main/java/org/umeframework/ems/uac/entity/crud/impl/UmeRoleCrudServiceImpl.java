@@ -10,176 +10,189 @@ import org.umeframework.ems.uac.entity.UmeRoleDto;
 import org.umeframework.ems.uac.entity.crud.UmeRoleCrudService;
 
 /**
- * UME角色定义表:UME_ROLE<br>
- * Crud service implementation class.<br>
+ * UME角色定义表:UME_ROLE CRUD service implementation.<br>
  *
- * @author DORA.Generator
+ * @author UME-Generator
  */
 @org.springframework.stereotype.Service
 public class UmeRoleCrudServiceImpl extends BaseDBComponent implements UmeRoleCrudService {
+
     /* (non-Javadoc)
      * 
-     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService
+     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService#create
      */
     @Override
     @TransactionRequired
     public Integer create(UmeRoleDto entity) {
         validate(entity);
-        return getDao().update(UmeRoleDto.SQLID.INSERT, entity);
+        if (entity.getCreateAuthor() == null) {
+            entity.setCreateAuthor(super.getUid());
+        }
+        if (entity.getUpdateAuthor() == null) {
+            entity.setUpdateAuthor(super.getUid());
+        }
+        int result = super.getDao().update(UmeRoleDto.SQLID.INSERT, entity);
+        return result;
     }
     
     /* (non-Javadoc)
      * 
-     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService
+     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService#createList
      */
     @Override
     @TransactionRequired
     public List<Integer> createList(List<UmeRoleDto> entityList) {
         List<Integer> result = new ArrayList<Integer>(entityList.size());
         for (UmeRoleDto entity : entityList) {
-            result.add(create(entity));
+            result.add(this.create(entity));
         }
         return result;
     }
     
     /* (non-Javadoc)
      * 
-     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService
+     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService#createOrUpdate
      */
     @Override
     @TransactionRequired
     public Integer createOrUpdate(UmeRoleDto entity) {
-        UmeRoleDto existed = getDao().queryForObject(UmeRoleDto.SQLID.FIND, entity, UmeRoleDto.class);
+        UmeRoleDto existed = super.getDao().queryForObject(UmeRoleDto.SQLID.FIND, entity, UmeRoleDto.class);
         if (existed == null) {
-            return getDao().update(UmeRoleDto.SQLID.INSERT, entity);
+            return this.create(entity);
         } else {
             validate(entity);
-            return getDao().update(UmeRoleDto.SQLID.SMART_UPDATE, entity);
+            return this.update(entity);
         }
     }
     
     /* (non-Javadoc)
      * 
-     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService
+     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService#createOrUpdateList
      */
     @Override
     @TransactionRequired
     public List<Integer> createOrUpdateList(List<UmeRoleDto> entityList) {
         List<Integer> result = new ArrayList<Integer>(entityList.size());
         for (UmeRoleDto entity : entityList) {
-            result.add(createOrUpdate(entity));
+            result.add(this.createOrUpdate(entity));
         }
         return result;
     }
     
     /* (non-Javadoc)
      * 
-     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService
+     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService#update
      */
     @Override
     @TransactionRequired
     public Integer update(UmeRoleDto entity) {
         validate(entity);
-        return getDao().update(UmeRoleDto.SQLID.SMART_UPDATE, entity);
+        if (entity.getUpdateAuthor() == null) {
+            entity.setUpdateAuthor(super.getUid());
+        }
+        int result = super.getDao().update(UmeRoleDto.SQLID.SMART_UPDATE, entity);
+        return result;
     }
     
     /* (non-Javadoc)
      * 
-     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService
+     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService#updateList
      */
     @Override
     @TransactionRequired
     public List<Integer> updateList(List<UmeRoleDto> entityList) {
         List<Integer> result = new ArrayList<Integer>(entityList.size());
         for (UmeRoleDto entity : entityList) {
-            result.add(update(entity));
+            result.add(this.update(entity));
         }
         return result;
     }
     
     /* (non-Javadoc)
      * 
-     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService
+     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService#updateFully
      */
     @Override
     @TransactionRequired
     public Integer updateFully(UmeRoleDto entity) {
         validate(entity);
-        return getDao().update(UmeRoleDto.SQLID.UPDATE, entity);
+        int result = super.getDao().update(UmeRoleDto.SQLID.UPDATE, entity);
+        return result;
     }
     
     /* (non-Javadoc)
      * 
-     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService
+     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService#updateFullyList
      */
     @Override
     @TransactionRequired
     public List<Integer> updateFullyList(List<UmeRoleDto> entityList) {
         List<Integer> result = new ArrayList<Integer>(entityList.size());
         for (UmeRoleDto entity : entityList) {
-            result.add(updateFully(entity));
+            result.add(this.updateFully(entity));
         }
         return result;
     }
     
     /* (non-Javadoc)
      * 
-     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService
+     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService#delete
      */
     @Override
     @TransactionRequired
     public Integer delete(UmeRoleDto entity) {
-        return getDao().update(UmeRoleDto.SQLID.DELETE, entity);
+        int result = super.getDao().update(UmeRoleDto.SQLID.DELETE, entity);
+        return result;
     }
     
     /* (non-Javadoc)
      * 
-     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService
+     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService#deleteList
      */
     @Override
     @TransactionRequired
     public List<Integer> deleteList(List<UmeRoleDto> entityList) {
         List<Integer> result = new ArrayList<Integer>(entityList.size());
         for (UmeRoleDto entity : entityList) {
-            result.add(delete(entity));
+            result.add(this.delete(entity));
         }
         return result;
     }
     
     /* (non-Javadoc)
      * 
-     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService
+     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService#find
      */
     @Override
     public UmeRoleDto find(UmeRoleDto queryParam) {
-        return getDao().queryForObject(UmeRoleDto.SQLID.FIND, queryParam, UmeRoleDto.class);
+        return super.getDao().queryForObject(UmeRoleDto.SQLID.FIND, queryParam, UmeRoleDto.class);
     }
     
     /* (non-Javadoc)
      * 
-     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService
+     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService#findList
      */
     @Override
-    public List<UmeRoleDto> search(UmeRoleDto condition) {
-        return getDao().queryForObjectList(UmeRoleDto.SQLID.SEARCH, condition, UmeRoleDto.class);
+    public List<UmeRoleDto> findList(UmeRoleDto condition) {
+        return super.getDao().queryForObjectList(UmeRoleDto.SQLID.FIND_LIST, condition, UmeRoleDto.class);
     }
     
     /* (non-Javadoc)
      * 
-     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService
+     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService#findListLike
      */
     @Override
-    public List<UmeRoleDto> likeSearch(Map<String, String> condition) {
-        return getDao().queryForObjectList(UmeRoleDto.SQLID.LIKE_SEARCH, condition, UmeRoleDto.class);
+    public List<UmeRoleDto> findListLike(Map<String, String> condition) {
+        return super.getDao().queryForObjectList(UmeRoleDto.SQLID.FIND_LIST_LIKE, condition, UmeRoleDto.class);
     }
     
     /* (non-Javadoc)
      * 
-     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService
+     * @see org.umeframework.ems.uac.entity.crud.impl.UmeRoleCrudService#findListMatch
      */
     @Override
-    public List<UmeRoleDto> dynaSearch(Map<String, String> condition) {
-        return getDao().queryForObjectList(UmeRoleDto.SQLID.DYNA_SEARCH, condition, UmeRoleDto.class);
+    public List<UmeRoleDto> findListMatch(Map<String, String> dynaCondition) {
+        return super.getDao().queryForObjectList(UmeRoleDto.SQLID.FIND_LIST_MATCH, dynaCondition, UmeRoleDto.class);
     }
     
     /* (non-Javadoc)
@@ -188,7 +201,7 @@ public class UmeRoleCrudServiceImpl extends BaseDBComponent implements UmeRoleCr
      */
     @Override
     public Integer count(Map<String, String> condition) {
-        return getDao().count(UmeRoleDto.SQLID.COUNT, condition);
+        return super.getDao().count(UmeRoleDto.SQLID.COUNT, condition);
     }
 
     /**

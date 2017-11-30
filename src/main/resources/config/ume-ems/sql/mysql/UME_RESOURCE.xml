@@ -32,7 +32,7 @@
       current_timestamp()
     )
   </insert>
-
+  
   <!-- Update with optimism check) -->
   <update id="UME_RESOURCE_UPDATE" parameterType="org.umeframework.ems.uac.entity.UmeResourceDto">
     UPDATE UME_RESOURCE
@@ -78,6 +78,24 @@
     WHERE
       RES_ID = #{resId} AND 
       RES_TYPE = #{resType} 
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </delete>
+
+  <!-- Delete all matched records -->
+  <delete id="UME_RESOURCE_DELETE_ALL" parameterType="org.umeframework.ems.uac.entity.UmeResourceDto">
+    DELETE FROM UME_RESOURCE
+    WHERE 1=1
+      <if test="resId != null">AND RES_ID = #{resId}</if>
+      <if test="resType != null">AND RES_TYPE = #{resType}</if>
+      <if test="resName != null">AND RES_NAME = #{resName}</if>
+      <if test="resGroup != null">AND RES_GROUP = #{resGroup}</if>
+      <if test="resLink != null">AND RES_LINK = #{resLink}</if>
+      <if test="resIndex != null">AND RES_INDEX = #{resIndex}</if>
+      <if test="resStatus != null">AND RES_STATUS = #{resStatus}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
   </delete>
 
   <!-- Find by primary key -->
@@ -122,7 +140,7 @@
   </select>
 
   <!-- Search -->
-  <select id="UME_RESOURCE_SEARCH" resultType="org.umeframework.ems.uac.entity.UmeResourceDto">
+  <select id="UME_RESOURCE_FIND_LIST" resultType="org.umeframework.ems.uac.entity.UmeResourceDto">
     SELECT
       RES_ID AS "resId",
       RES_TYPE AS "resType",
@@ -154,7 +172,7 @@
   </select>
 
   <!-- Like Search -->
-  <select id="UME_RESOURCE_LIKE_SEARCH" resultType="org.umeframework.ems.uac.entity.UmeResourceDto">
+  <select id="UME_RESOURCE_FIND_LIST_LIKE" resultType="org.umeframework.ems.uac.entity.UmeResourceDto">
     SELECT
       RES_ID AS "resId",
       RES_TYPE AS "resType",
@@ -186,7 +204,7 @@
   </select>
   
   <!-- Dynamic Search -->
-  <select id="UME_RESOURCE_DYNA_SEARCH" resultType="org.umeframework.ems.uac.entity.UmeResourceDto">
+  <select id="UME_RESOURCE_FIND_LIST_MATCH" resultType="org.umeframework.ems.uac.entity.UmeResourceDto">
     SELECT
       RES_ID AS "resId",
       RES_TYPE AS "resType",
@@ -228,6 +246,8 @@
       <if test="resIndex != null">AND RES_INDEX = #{resIndex}</if>
       <if test="resStatus != null">AND RES_STATUS = #{resStatus}</if>
   </select>
+
+
 
 </mapper>
 

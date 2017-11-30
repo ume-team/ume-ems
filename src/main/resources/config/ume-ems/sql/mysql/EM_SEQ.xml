@@ -38,7 +38,7 @@
       current_timestamp()
     )
   </insert>
-
+  
   <!-- Update with optimism check) -->
   <update id="EM_SEQ_UPDATE" parameterType="org.umeframework.ems.entity.EmSeqDto">
     UPDATE EM_SEQ
@@ -89,6 +89,27 @@
     DELETE FROM EM_SEQ
     WHERE
       ITEM_NAME = #{itemName} 
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </delete>
+
+  <!-- Delete all matched records -->
+  <delete id="EM_SEQ_DELETE_ALL" parameterType="org.umeframework.ems.entity.EmSeqDto">
+    DELETE FROM EM_SEQ
+    WHERE 1=1
+      <if test="itemName != null">AND ITEM_NAME = #{itemName}</if>
+      <if test="minValue != null">AND MIN_VALUE = #{minValue}</if>
+      <if test="maxValue != null">AND MAX_VALUE = #{maxValue}</if>
+      <if test="currentIndex != null">AND CURRENT_INDEX = #{currentIndex}</if>
+      <if test="incrementValue != null">AND INCREMENT_VALUE = #{incrementValue}</if>
+      <if test="itemLength != null">AND ITEM_LENGTH = #{itemLength}</if>
+      <if test="prefix != null">AND PREFIX = #{prefix}</if>
+      <if test="postfix != null">AND POSTFIX = #{postfix}</if>
+      <if test="repeatable != null">AND REPEATABLE = #{repeatable}</if>
+      <if test="formatter != null">AND FORMATTER = #{formatter}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
   </delete>
 
   <!-- Find by primary key -->
@@ -137,7 +158,7 @@
   </select>
 
   <!-- Search -->
-  <select id="EM_SEQ_SEARCH" resultType="org.umeframework.ems.entity.EmSeqDto">
+  <select id="EM_SEQ_FIND_LIST" resultType="org.umeframework.ems.entity.EmSeqDto">
     SELECT
       ITEM_NAME AS "itemName",
       MIN_VALUE AS "minValue",
@@ -175,7 +196,7 @@
   </select>
 
   <!-- Like Search -->
-  <select id="EM_SEQ_LIKE_SEARCH" resultType="org.umeframework.ems.entity.EmSeqDto">
+  <select id="EM_SEQ_FIND_LIST_LIKE" resultType="org.umeframework.ems.entity.EmSeqDto">
     SELECT
       ITEM_NAME AS "itemName",
       MIN_VALUE AS "minValue",
@@ -213,7 +234,7 @@
   </select>
   
   <!-- Dynamic Search -->
-  <select id="EM_SEQ_DYNA_SEARCH" resultType="org.umeframework.ems.entity.EmSeqDto">
+  <select id="EM_SEQ_FIND_LIST_MATCH" resultType="org.umeframework.ems.entity.EmSeqDto">
     SELECT
       ITEM_NAME AS "itemName",
       MIN_VALUE AS "minValue",
@@ -264,6 +285,8 @@
       <if test="repeatable != null">AND REPEATABLE = #{repeatable}</if>
       <if test="formatter != null">AND FORMATTER = #{formatter}</if>
   </select>
+
+
 
 </mapper>
 

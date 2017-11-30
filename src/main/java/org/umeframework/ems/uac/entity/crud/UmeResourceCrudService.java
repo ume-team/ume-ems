@@ -5,12 +5,12 @@ import java.util.Map;
 import org.umeframework.ems.uac.entity.UmeResourceDto;
 
 /*
- * UME资源管理表:UME_RESOURCE<br>
- * Crud service interface declare.<br>
+ * UME资源管理表:UME_RESOURCE CRUD service interface declare.<br>
  *
- * @author DORA.Generator
+ * @author UME-Generator
  */
 public interface UmeResourceCrudService {
+
     /**
      * Insert entity.<br>
      * 
@@ -102,26 +102,26 @@ public interface UmeResourceCrudService {
     /**
      * Search entity list use equal match.<br>
      * 
-     * @param condition - query parameter
+     * @param condition - query parameter describe by entity
      * @return - matched entity instance list
      */
-    List<UmeResourceDto> search(UmeResourceDto condition);
+    List<UmeResourceDto> findList(UmeResourceDto condition);
     
     /**
      * Search entity list use like (%var%) match.<br>
      * 
-     * @param condition - query parameter
+     * @param condition - query parameter describe by map
      * @return - matched entity instance list
      */
-    List<UmeResourceDto> likeSearch(Map<String, String> condition);
+    List<UmeResourceDto> findListLike(Map<String, String> condition);
     
     /**
      * Search entity list use dynamic condition.<br>
      * 
-     * @param condition - query parameter
+     * @param dynaCondition - dynamic query parameter describe by map
      * @return - matched entity instance list
      */
-    List<UmeResourceDto> dynaSearch(Map<String, String> condition);
+    List<UmeResourceDto> findListMatch(Map<String, String> dynaCondition);
     
     /**
      * Count.<br>

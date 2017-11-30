@@ -40,7 +40,7 @@
       current_timestamp()
     )
   </insert>
-
+  
   <!-- Update with optimism check) -->
   <update id="EM_DS_CFG_UPDATE" parameterType="org.umeframework.ems.entity.EmDsCfgDto">
     UPDATE EM_DS_CFG
@@ -93,6 +93,28 @@
     DELETE FROM EM_DS_CFG
     WHERE
       ID = #{id} 
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </delete>
+
+  <!-- Delete all matched records -->
+  <delete id="EM_DS_CFG_DELETE_ALL" parameterType="org.umeframework.ems.entity.EmDsCfgDto">
+    DELETE FROM EM_DS_CFG
+    WHERE 1=1
+      <if test="id != null">AND ID = #{id}</if>
+      <if test="name != null">AND NAME = #{name}</if>
+      <if test="url != null">AND URL = #{url}</if>
+      <if test="driverClass != null">AND DRIVER_CLASS = #{driverClass}</if>
+      <if test="username != null">AND USERNAME = #{username}</if>
+      <if test="password != null">AND PASSWORD = #{password}</if>
+      <if test="maxWait != null">AND MAX_WAIT = #{maxWait}</if>
+      <if test="minIdle != null">AND MIN_IDLE = #{minIdle}</if>
+      <if test="maxIdle != null">AND MAX_IDLE = #{maxIdle}</if>
+      <if test="maxActive != null">AND MAX_ACTIVE = #{maxActive}</if>
+      <if test="initialSize != null">AND INITIAL_SIZE = #{initialSize}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
   </delete>
 
   <!-- Find by primary key -->
@@ -143,7 +165,7 @@
   </select>
 
   <!-- Search -->
-  <select id="EM_DS_CFG_SEARCH" resultType="org.umeframework.ems.entity.EmDsCfgDto">
+  <select id="EM_DS_CFG_FIND_LIST" resultType="org.umeframework.ems.entity.EmDsCfgDto">
     SELECT
       ID AS "id",
       NAME AS "name",
@@ -183,7 +205,7 @@
   </select>
 
   <!-- Like Search -->
-  <select id="EM_DS_CFG_LIKE_SEARCH" resultType="org.umeframework.ems.entity.EmDsCfgDto">
+  <select id="EM_DS_CFG_FIND_LIST_LIKE" resultType="org.umeframework.ems.entity.EmDsCfgDto">
     SELECT
       ID AS "id",
       NAME AS "name",
@@ -223,7 +245,7 @@
   </select>
   
   <!-- Dynamic Search -->
-  <select id="EM_DS_CFG_DYNA_SEARCH" resultType="org.umeframework.ems.entity.EmDsCfgDto">
+  <select id="EM_DS_CFG_FIND_LIST_MATCH" resultType="org.umeframework.ems.entity.EmDsCfgDto">
     SELECT
       ID AS "id",
       NAME AS "name",
@@ -277,6 +299,8 @@
       <if test="maxActive != null">AND MAX_ACTIVE = #{maxActive}</if>
       <if test="initialSize != null">AND INITIAL_SIZE = #{initialSize}</if>
   </select>
+
+
 
 </mapper>
 

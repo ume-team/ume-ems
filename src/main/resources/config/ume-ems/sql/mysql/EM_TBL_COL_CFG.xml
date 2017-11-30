@@ -52,7 +52,7 @@
       current_timestamp()
     )
   </insert>
-
+  
   <!-- Update with optimism check) -->
   <update id="EM_TBL_COL_CFG_UPDATE" parameterType="org.umeframework.ems.entity.EmTblColCfgDto">
     UPDATE EM_TBL_COL_CFG
@@ -118,6 +118,34 @@
     WHERE
       ENT_ID = #{entId} AND 
       COL_ID = #{colId} 
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </delete>
+
+  <!-- Delete all matched records -->
+  <delete id="EM_TBL_COL_CFG_DELETE_ALL" parameterType="org.umeframework.ems.entity.EmTblColCfgDto">
+    DELETE FROM EM_TBL_COL_CFG
+    WHERE 1=1
+      <if test="entId != null">AND ENT_ID = #{entId}</if>
+      <if test="colId != null">AND COL_ID = #{colId}</if>
+      <if test="colName != null">AND COL_NAME = #{colName}</if>
+      <if test="dataSubType != null">AND DATA_SUB_TYPE = #{dataSubType}</if>
+      <if test="notNull != null">AND NOT_NULL = #{notNull}</if>
+      <if test="defaultValue != null">AND DEFAULT_VALUE = #{defaultValue}</if>
+      <if test="dataLengthMin != null">AND DATA_LENGTH_MIN = #{dataLengthMin}</if>
+      <if test="dataLengthMax != null">AND DATA_LENGTH_MAX = #{dataLengthMax}</if>
+      <if test="dataRangeMin != null">AND DATA_RANGE_MIN = #{dataRangeMin}</if>
+      <if test="dataRangeMax != null">AND DATA_RANGE_MAX = #{dataRangeMax}</if>
+      <if test="constraintType != null">AND CONSTRAINT_TYPE = #{constraintType}</if>
+      <if test="constraintRef != null">AND CONSTRAINT_REF = #{constraintRef}</if>
+      <if test="dispType != null">AND DISP_TYPE = #{dispType}</if>
+      <if test="dispFormat != null">AND DISP_FORMAT = #{dispFormat}</if>
+      <if test="editFormat != null">AND EDIT_FORMAT = #{editFormat}</if>
+      <if test="preProcDisp != null">AND PRE_PROC_DISP = #{preProcDisp}</if>
+      <if test="preProcSave != null">AND PRE_PROC_SAVE = #{preProcSave}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
   </delete>
 
   <!-- Find by primary key -->
@@ -182,7 +210,7 @@
   </select>
 
   <!-- Search -->
-  <select id="EM_TBL_COL_CFG_SEARCH" resultType="org.umeframework.ems.entity.EmTblColCfgDto">
+  <select id="EM_TBL_COL_CFG_FIND_LIST" resultType="org.umeframework.ems.entity.EmTblColCfgDto">
     SELECT
       ENT_ID AS "entId",
       COL_ID AS "colId",
@@ -234,7 +262,7 @@
   </select>
 
   <!-- Like Search -->
-  <select id="EM_TBL_COL_CFG_LIKE_SEARCH" resultType="org.umeframework.ems.entity.EmTblColCfgDto">
+  <select id="EM_TBL_COL_CFG_FIND_LIST_LIKE" resultType="org.umeframework.ems.entity.EmTblColCfgDto">
     SELECT
       ENT_ID AS "entId",
       COL_ID AS "colId",
@@ -286,7 +314,7 @@
   </select>
   
   <!-- Dynamic Search -->
-  <select id="EM_TBL_COL_CFG_DYNA_SEARCH" resultType="org.umeframework.ems.entity.EmTblColCfgDto">
+  <select id="EM_TBL_COL_CFG_FIND_LIST_MATCH" resultType="org.umeframework.ems.entity.EmTblColCfgDto">
     SELECT
       ENT_ID AS "entId",
       COL_ID AS "colId",
@@ -358,6 +386,8 @@
       <if test="preProcDisp != null">AND PRE_PROC_DISP = #{preProcDisp}</if>
       <if test="preProcSave != null">AND PRE_PROC_SAVE = #{preProcSave}</if>
   </select>
+
+
 
 </mapper>
 

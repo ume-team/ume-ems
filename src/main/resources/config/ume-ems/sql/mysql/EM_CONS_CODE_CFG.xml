@@ -32,7 +32,7 @@
       current_timestamp()
     )
   </insert>
-
+  
   <!-- Update with optimism check) -->
   <update id="EM_CONS_CODE_CFG_UPDATE" parameterType="org.umeframework.ems.entity.EmConsCodeCfgDto">
     UPDATE EM_CONS_CODE_CFG
@@ -78,6 +78,24 @@
     WHERE
       CONS_ID = #{consId} AND 
       CONS_SEQ = #{consSeq} 
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </delete>
+
+  <!-- Delete all matched records -->
+  <delete id="EM_CONS_CODE_CFG_DELETE_ALL" parameterType="org.umeframework.ems.entity.EmConsCodeCfgDto">
+    DELETE FROM EM_CONS_CODE_CFG
+    WHERE 1=1
+      <if test="consId != null">AND CONS_ID = #{consId}</if>
+      <if test="consSeq != null">AND CONS_SEQ = #{consSeq}</if>
+      <if test="consName != null">AND CONS_NAME = #{consName}</if>
+      <if test="consDesc != null">AND CONS_DESC = #{consDesc}</if>
+      <if test="dispValue != null">AND DISP_VALUE = #{dispValue}</if>
+      <if test="storeValue != null">AND STORE_VALUE = #{storeValue}</if>
+      <if test="storeType != null">AND STORE_TYPE = #{storeType}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
   </delete>
 
   <!-- Find by primary key -->
@@ -122,7 +140,7 @@
   </select>
 
   <!-- Search -->
-  <select id="EM_CONS_CODE_CFG_SEARCH" resultType="org.umeframework.ems.entity.EmConsCodeCfgDto">
+  <select id="EM_CONS_CODE_CFG_FIND_LIST" resultType="org.umeframework.ems.entity.EmConsCodeCfgDto">
     SELECT
       CONS_ID AS "consId",
       CONS_SEQ AS "consSeq",
@@ -154,7 +172,7 @@
   </select>
 
   <!-- Like Search -->
-  <select id="EM_CONS_CODE_CFG_LIKE_SEARCH" resultType="org.umeframework.ems.entity.EmConsCodeCfgDto">
+  <select id="EM_CONS_CODE_CFG_FIND_LIST_LIKE" resultType="org.umeframework.ems.entity.EmConsCodeCfgDto">
     SELECT
       CONS_ID AS "consId",
       CONS_SEQ AS "consSeq",
@@ -186,7 +204,7 @@
   </select>
   
   <!-- Dynamic Search -->
-  <select id="EM_CONS_CODE_CFG_DYNA_SEARCH" resultType="org.umeframework.ems.entity.EmConsCodeCfgDto">
+  <select id="EM_CONS_CODE_CFG_FIND_LIST_MATCH" resultType="org.umeframework.ems.entity.EmConsCodeCfgDto">
     SELECT
       CONS_ID AS "consId",
       CONS_SEQ AS "consSeq",
@@ -228,6 +246,8 @@
       <if test="storeValue != null">AND STORE_VALUE = #{storeValue}</if>
       <if test="storeType != null">AND STORE_TYPE = #{storeType}</if>
   </select>
+
+
 
 </mapper>
 

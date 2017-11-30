@@ -151,7 +151,7 @@ public class ResourceManagerImpl extends BaseDBComponent implements ResourceMana
         }
         UmeResourceDto param = new UmeResourceDto();
         param.setResGroup(resGroup);
-        List<UmeResourceDto> emResList = getDao().queryForObjectList(UmeResourceDto.SQLID.SEARCH, param, UmeResourceDto.class);
+        List<UmeResourceDto> emResList = getDao().queryForObjectList(UmeResourceDto.SQLID.FIND_LIST, param, UmeResourceDto.class);
         List<String> msgList = new ArrayList<String>();
         for (UmeResourceDto emRes : emResList) {
             EmTblCfgDto entEnt = new EmTblCfgDto();
@@ -190,7 +190,7 @@ public class ResourceManagerImpl extends BaseDBComponent implements ResourceMana
         UmeResourceDto param = new UmeResourceDto();
         param.setResId(tableId);
         param.setResGroup(resGroup);
-        List<UmeResourceDto> emResList = getDao().queryForObjectList(UmeResourceDto.SQLID.SEARCH, param, UmeResourceDto.class);
+        List<UmeResourceDto> emResList = getDao().queryForObjectList(UmeResourceDto.SQLID.FIND_LIST, param, UmeResourceDto.class);
         List<String> msgList = new ArrayList<String>();
         for (UmeResourceDto emRes : emResList) {
             EmTblCfgDto entEnt = new EmTblCfgDto();

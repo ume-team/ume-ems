@@ -28,7 +28,7 @@
       current_timestamp()
     )
   </insert>
-
+  
   <!-- Update with optimism check) -->
   <update id="EM_CONS_SQL_CFG_UPDATE" parameterType="org.umeframework.ems.entity.EmConsSqlCfgDto">
     UPDATE EM_CONS_SQL_CFG
@@ -69,6 +69,22 @@
     DELETE FROM EM_CONS_SQL_CFG
     WHERE
       CONS_ID = #{consId} 
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </delete>
+
+  <!-- Delete all matched records -->
+  <delete id="EM_CONS_SQL_CFG_DELETE_ALL" parameterType="org.umeframework.ems.entity.EmConsSqlCfgDto">
+    DELETE FROM EM_CONS_SQL_CFG
+    WHERE 1=1
+      <if test="consId != null">AND CONS_ID = #{consId}</if>
+      <if test="consName != null">AND CONS_NAME = #{consName}</if>
+      <if test="consDesc != null">AND CONS_DESC = #{consDesc}</if>
+      <if test="consSqlr != null">AND CONS_SQLR = #{consSqlr}</if>
+      <if test="consSqlu != null">AND CONS_SQLU = #{consSqlu}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
   </delete>
 
   <!-- Find by primary key -->
@@ -107,7 +123,7 @@
   </select>
 
   <!-- Search -->
-  <select id="EM_CONS_SQL_CFG_SEARCH" resultType="org.umeframework.ems.entity.EmConsSqlCfgDto">
+  <select id="EM_CONS_SQL_CFG_FIND_LIST" resultType="org.umeframework.ems.entity.EmConsSqlCfgDto">
     SELECT
       CONS_ID AS "consId",
       CONS_NAME AS "consName",
@@ -135,7 +151,7 @@
   </select>
 
   <!-- Like Search -->
-  <select id="EM_CONS_SQL_CFG_LIKE_SEARCH" resultType="org.umeframework.ems.entity.EmConsSqlCfgDto">
+  <select id="EM_CONS_SQL_CFG_FIND_LIST_LIKE" resultType="org.umeframework.ems.entity.EmConsSqlCfgDto">
     SELECT
       CONS_ID AS "consId",
       CONS_NAME AS "consName",
@@ -163,7 +179,7 @@
   </select>
   
   <!-- Dynamic Search -->
-  <select id="EM_CONS_SQL_CFG_DYNA_SEARCH" resultType="org.umeframework.ems.entity.EmConsSqlCfgDto">
+  <select id="EM_CONS_SQL_CFG_FIND_LIST_MATCH" resultType="org.umeframework.ems.entity.EmConsSqlCfgDto">
     SELECT
       CONS_ID AS "consId",
       CONS_NAME AS "consName",
@@ -199,6 +215,8 @@
       <if test="consSqlr != null">AND CONS_SQLR = #{consSqlr}</if>
       <if test="consSqlu != null">AND CONS_SQLU = #{consSqlu}</if>
   </select>
+
+
 
 </mapper>
 

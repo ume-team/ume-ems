@@ -24,7 +24,7 @@
       current_timestamp()
     )
   </insert>
-
+  
   <!-- Update with optimism check) -->
   <update id="UME_ROLE_UPDATE" parameterType="org.umeframework.ems.uac.entity.UmeRoleDto">
     UPDATE UME_ROLE
@@ -61,6 +61,20 @@
     DELETE FROM UME_ROLE
     WHERE
       ROLE_ID = #{roleId} 
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </delete>
+
+  <!-- Delete all matched records -->
+  <delete id="UME_ROLE_DELETE_ALL" parameterType="org.umeframework.ems.uac.entity.UmeRoleDto">
+    DELETE FROM UME_ROLE
+    WHERE 1=1
+      <if test="roleId != null">AND ROLE_ID = #{roleId}</if>
+      <if test="roleName != null">AND ROLE_NAME = #{roleName}</if>
+      <if test="roleDesc != null">AND ROLE_DESC = #{roleDesc}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
   </delete>
 
   <!-- Find by primary key -->
@@ -95,7 +109,7 @@
   </select>
 
   <!-- Search -->
-  <select id="UME_ROLE_SEARCH" resultType="org.umeframework.ems.uac.entity.UmeRoleDto">
+  <select id="UME_ROLE_FIND_LIST" resultType="org.umeframework.ems.uac.entity.UmeRoleDto">
     SELECT
       ROLE_ID AS "roleId",
       ROLE_NAME AS "roleName",
@@ -119,7 +133,7 @@
   </select>
 
   <!-- Like Search -->
-  <select id="UME_ROLE_LIKE_SEARCH" resultType="org.umeframework.ems.uac.entity.UmeRoleDto">
+  <select id="UME_ROLE_FIND_LIST_LIKE" resultType="org.umeframework.ems.uac.entity.UmeRoleDto">
     SELECT
       ROLE_ID AS "roleId",
       ROLE_NAME AS "roleName",
@@ -143,7 +157,7 @@
   </select>
   
   <!-- Dynamic Search -->
-  <select id="UME_ROLE_DYNA_SEARCH" resultType="org.umeframework.ems.uac.entity.UmeRoleDto">
+  <select id="UME_ROLE_FIND_LIST_MATCH" resultType="org.umeframework.ems.uac.entity.UmeRoleDto">
     SELECT
       ROLE_ID AS "roleId",
       ROLE_NAME AS "roleName",
@@ -173,6 +187,8 @@
       <if test="roleName != null">AND ROLE_NAME = #{roleName}</if>
       <if test="roleDesc != null">AND ROLE_DESC = #{roleDesc}</if>
   </select>
+
+
 
 </mapper>
 

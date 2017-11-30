@@ -197,7 +197,7 @@ public class DynaDaoManagerImpl extends BaseDBComponent implements DynaDaoManage
 	@PostConstruct
 	public synchronized void init() throws SystemException {
 		try {
-			List<EmDsCfgDto> dsCfgDTOs = getDao().queryForObjectList(EmDsCfgDto.SQLID.SEARCH, null, EmDsCfgDto.class);
+			List<EmDsCfgDto> dsCfgDTOs = getDao().queryForObjectList(EmDsCfgDto.SQLID.FIND_LIST, null, EmDsCfgDto.class);
 			for (EmDsCfgDto cfg : dsCfgDTOs) {
 				this.initDataSource(cfg);
 			}

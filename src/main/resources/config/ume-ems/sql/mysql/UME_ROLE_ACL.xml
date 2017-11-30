@@ -26,7 +26,7 @@
       current_timestamp()
     )
   </insert>
-
+  
   <!-- Update with optimism check) -->
   <update id="UME_ROLE_ACL_UPDATE" parameterType="org.umeframework.ems.uac.entity.UmeRoleAclDto">
     UPDATE UME_ROLE_ACL
@@ -68,6 +68,21 @@
       ACC_RES_ID = #{accResId} AND 
       ACC_RES_TYPE = #{accResType} AND 
       ACC_LEVEL = #{accLevel} 
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </delete>
+
+  <!-- Delete all matched records -->
+  <delete id="UME_ROLE_ACL_DELETE_ALL" parameterType="org.umeframework.ems.uac.entity.UmeRoleAclDto">
+    DELETE FROM UME_ROLE_ACL
+    WHERE 1=1
+      <if test="roleId != null">AND ROLE_ID = #{roleId}</if>
+      <if test="accResId != null">AND ACC_RES_ID = #{accResId}</if>
+      <if test="accResType != null">AND ACC_RES_TYPE = #{accResType}</if>
+      <if test="accLevel != null">AND ACC_LEVEL = #{accLevel}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
   </delete>
 
   <!-- Find by primary key -->
@@ -110,7 +125,7 @@
   </select>
 
   <!-- Search -->
-  <select id="UME_ROLE_ACL_SEARCH" resultType="org.umeframework.ems.uac.entity.UmeRoleAclDto">
+  <select id="UME_ROLE_ACL_FIND_LIST" resultType="org.umeframework.ems.uac.entity.UmeRoleAclDto">
     SELECT
       ROLE_ID AS "roleId",
       ACC_RES_ID AS "accResId",
@@ -136,7 +151,7 @@
   </select>
 
   <!-- Like Search -->
-  <select id="UME_ROLE_ACL_LIKE_SEARCH" resultType="org.umeframework.ems.uac.entity.UmeRoleAclDto">
+  <select id="UME_ROLE_ACL_FIND_LIST_LIKE" resultType="org.umeframework.ems.uac.entity.UmeRoleAclDto">
     SELECT
       ROLE_ID AS "roleId",
       ACC_RES_ID AS "accResId",
@@ -162,7 +177,7 @@
   </select>
   
   <!-- Dynamic Search -->
-  <select id="UME_ROLE_ACL_DYNA_SEARCH" resultType="org.umeframework.ems.uac.entity.UmeRoleAclDto">
+  <select id="UME_ROLE_ACL_FIND_LIST_MATCH" resultType="org.umeframework.ems.uac.entity.UmeRoleAclDto">
     SELECT
       ROLE_ID AS "roleId",
       ACC_RES_ID AS "accResId",
@@ -195,6 +210,8 @@
       <if test="accResType != null">AND ACC_RES_TYPE = #{accResType}</if>
       <if test="accLevel != null">AND ACC_LEVEL = #{accLevel}</if>
   </select>
+
+
 
 </mapper>
 

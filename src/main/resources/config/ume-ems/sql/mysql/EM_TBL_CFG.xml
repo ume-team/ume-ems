@@ -44,7 +44,7 @@
       current_timestamp()
     )
   </insert>
-
+  
   <!-- Update with optimism check) -->
   <update id="EM_TBL_CFG_UPDATE" parameterType="org.umeframework.ems.entity.EmTblCfgDto">
     UPDATE EM_TBL_CFG
@@ -101,6 +101,30 @@
     DELETE FROM EM_TBL_CFG
     WHERE
       ENT_ID = #{entId} 
+      <if test="updateDatetime!=null"> AND UPDATE_DATETIME = #{updateDatetime}</if>
+  </delete>
+
+  <!-- Delete all matched records -->
+  <delete id="EM_TBL_CFG_DELETE_ALL" parameterType="org.umeframework.ems.entity.EmTblCfgDto">
+    DELETE FROM EM_TBL_CFG
+    WHERE 1=1
+      <if test="entId != null">AND ENT_ID = #{entId}</if>
+      <if test="entName != null">AND ENT_NAME = #{entName}</if>
+      <if test="entType != null">AND ENT_TYPE = #{entType}</if>
+      <if test="entLayout != null">AND ENT_LAYOUT = #{entLayout}</if>
+      <if test="refTblId != null">AND REF_TBL_ID = #{refTblId}</if>
+      <if test="refTblDatasource != null">AND REF_TBL_DATASOURCE = #{refTblDatasource}</if>
+      <if test="refTblReadonlyCols != null">AND REF_TBL_READONLY_COLS = #{refTblReadonlyCols}</if>
+      <if test="refTblHideCols != null">AND REF_TBL_HIDE_COLS = #{refTblHideCols}</if>
+      <if test="refTblDisableCols != null">AND REF_TBL_DISABLE_COLS = #{refTblDisableCols}</if>
+      <if test="preProcDisp != null">AND PRE_PROC_DISP = #{preProcDisp}</if>
+      <if test="preProcSave != null">AND PRE_PROC_SAVE = #{preProcSave}</if>
+      <if test="preProcValidate != null">AND PRE_PROC_VALIDATE = #{preProcValidate}</if>
+      <if test="cusEntityManager != null">AND CUS_ENTITY_MANAGER = #{cusEntityManager}</if>
+      <if test="createAuthor != null">AND CREATE_AUTHOR = #{createAuthor}</if>
+      <if test="updateAuthor != null">AND UPDATE_AUTHOR = #{updateAuthor}</if>
+      <if test="createDatetime != null">AND CREATE_DATETIME = #{createDatetime}</if>
+      <if test="updateDatetime != null">AND UPDATE_DATETIME = #{updateDatetime}</if>
   </delete>
 
   <!-- Find by primary key -->
@@ -155,7 +179,7 @@
   </select>
 
   <!-- Search -->
-  <select id="EM_TBL_CFG_SEARCH" resultType="org.umeframework.ems.entity.EmTblCfgDto">
+  <select id="EM_TBL_CFG_FIND_LIST" resultType="org.umeframework.ems.entity.EmTblCfgDto">
     SELECT
       ENT_ID AS "entId",
       ENT_NAME AS "entName",
@@ -199,7 +223,7 @@
   </select>
 
   <!-- Like Search -->
-  <select id="EM_TBL_CFG_LIKE_SEARCH" resultType="org.umeframework.ems.entity.EmTblCfgDto">
+  <select id="EM_TBL_CFG_FIND_LIST_LIKE" resultType="org.umeframework.ems.entity.EmTblCfgDto">
     SELECT
       ENT_ID AS "entId",
       ENT_NAME AS "entName",
@@ -243,7 +267,7 @@
   </select>
   
   <!-- Dynamic Search -->
-  <select id="EM_TBL_CFG_DYNA_SEARCH" resultType="org.umeframework.ems.entity.EmTblCfgDto">
+  <select id="EM_TBL_CFG_FIND_LIST_MATCH" resultType="org.umeframework.ems.entity.EmTblCfgDto">
     SELECT
       ENT_ID AS "entId",
       ENT_NAME AS "entName",
@@ -303,6 +327,8 @@
       <if test="preProcValidate != null">AND PRE_PROC_VALIDATE = #{preProcValidate}</if>
       <if test="cusEntityManager != null">AND CUS_ENTITY_MANAGER = #{cusEntityManager}</if>
   </select>
+
+
 
 </mapper>
 

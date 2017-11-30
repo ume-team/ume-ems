@@ -210,7 +210,7 @@ public class EntityDescManagerImpl extends BaseComponent implements EntityDescMa
 		// String tblId = entCfg.getRefTblId();
 		EmTblColCfgDto colCfgParam = new EmTblColCfgDto();
 		colCfgParam.setEntId(entId);
-		List<EmTblColCfgDto> tblColCfgs = masterCfgDao.queryForObjectList(EmTblColCfgDto.SQLID.SEARCH, colCfgParam, EmTblColCfgDto.class);
+		List<EmTblColCfgDto> tblColCfgs = masterCfgDao.queryForObjectList(EmTblColCfgDto.SQLID.FIND_LIST, colCfgParam, EmTblColCfgDto.class);
 
 		if (tblColCfgs != null) {
 			for (EmTblColCfgDto e : tblColCfgs) {
@@ -262,7 +262,7 @@ public class EntityDescManagerImpl extends BaseComponent implements EntityDescMa
 		colCfgParam.setEntId(entId);
 		colCfgParam.setColId(colId);
 
-		EmTblColCfgDto colCfg = masterCfgDao.queryForObject(EmTblColCfgDto.SQLID.SEARCH, colCfgParam, EmTblColCfgDto.class);
+		EmTblColCfgDto colCfg = masterCfgDao.queryForObject(EmTblColCfgDto.SQLID.FIND_LIST, colCfgParam, EmTblColCfgDto.class);
 		if (colCfg == null || colCfg.getConstraintRef() == null) {
 			return null;
 		}
@@ -271,7 +271,7 @@ public class EntityDescManagerImpl extends BaseComponent implements EntityDescMa
 		// query constraints define in code table firstly
 		EmConsCodeCfgDto codeCfgParam = new EmConsCodeCfgDto();
 		codeCfgParam.setConsId(colCfg.getConstraintRef());
-		List<EmConsCodeCfgDto> consCodeCfgs = masterCfgDao.queryForObjectList(EmConsCodeCfgDto.SQLID.SEARCH, codeCfgParam, EmConsCodeCfgDto.class);
+		List<EmConsCodeCfgDto> consCodeCfgs = masterCfgDao.queryForObjectList(EmConsCodeCfgDto.SQLID.FIND_LIST, codeCfgParam, EmConsCodeCfgDto.class);
 
 		// append constraints define by SQL query if exist
 		EmConsSqlCfgDto sqlCfgParam = new EmConsSqlCfgDto();
@@ -319,7 +319,7 @@ public class EntityDescManagerImpl extends BaseComponent implements EntityDescMa
 	public Map<String, List<EmConsCodeCfgDto>> getEntityConstraint(String entId) {
 		EmTblColCfgDto colCfgParam = new EmTblColCfgDto();
 		colCfgParam.setEntId(entId);
-		List<EmTblColCfgDto> colCfgs = masterCfgDao.queryForObjectList(EmTblColCfgDto.SQLID.SEARCH, colCfgParam, EmTblColCfgDto.class);
+		List<EmTblColCfgDto> colCfgs = masterCfgDao.queryForObjectList(EmTblColCfgDto.SQLID.FIND_LIST, colCfgParam, EmTblColCfgDto.class);
 		// get column refer rule configuration
 		Map<String, List<EmConsCodeCfgDto>> consCodeCfgMap = new LinkedHashMap<String, List<EmConsCodeCfgDto>>();
 		for (EmTblColCfgDto colCfg : colCfgs) {

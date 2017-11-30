@@ -185,11 +185,12 @@ public class UmeUserRoleDto extends TableEntity implements Serializable {
         public static final String UPDATE = "org.umeframework.ems.uac.entity.UME_USER_ROLE_UPDATE"; 
         public static final String SMART_UPDATE = "org.umeframework.ems.uac.entity.UME_USER_ROLE_SMART_UPDATE"; 
         public static final String DELETE = "org.umeframework.ems.uac.entity.UME_USER_ROLE_DELETE"; 
+        public static final String DELETE_ALL = "org.umeframework.ems.uac.entity.UME_USER_ROLE_DELETE_ALL"; 
         public static final String FIND = "org.umeframework.ems.uac.entity.UME_USER_ROLE_FIND"; 
         public static final String FIND_FOR_UPDATE = "org.umeframework.ems.uac.entity.UME_USER_ROLE_FIND_FOR_UPDATE"; 
-        public static final String SEARCH = "org.umeframework.ems.uac.entity.UME_USER_ROLE_SEARCH"; 
-        public static final String LIKE_SEARCH = "org.umeframework.ems.uac.entity.UME_USER_ROLE_LIKE_SEARCH"; 
-        public static final String DYNA_SEARCH = "org.umeframework.ems.uac.entity.UME_USER_ROLE_DYNA_SEARCH"; 
+        public static final String FIND_LIST = "org.umeframework.ems.uac.entity.UME_USER_ROLE_FIND_LIST"; 
+        public static final String FIND_LIST_LIKE = "org.umeframework.ems.uac.entity.UME_USER_ROLE_FIND_LIST_LIKE"; 
+        public static final String FIND_LIST_MATCH = "org.umeframework.ems.uac.entity.UME_USER_ROLE_FIND_LIST_MATCH"; 
         public static final String COUNT = "org.umeframework.ems.uac.entity.UME_USER_ROLE_COUNT";
     } 
 

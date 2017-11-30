@@ -1,15 +1,15 @@
-package org.umeframework.ems.uac.entity.crud;
+package org.umeframework.ems.entity.crud;
 
 import java.util.List;
 import java.util.Map;
-import org.umeframework.ems.uac.entity.UmeUserRoleDto;
+import org.umeframework.ems.entity.EmSeqDto;
 
 /*
- * UME用户角色关系表:UME_USER_ROLE CRUD service interface declare.<br>
+ * 采番表:EM_SEQ CRUD service interface declare.<br>
  *
  * @author UME-Generator
  */
-public interface UmeUserRoleCrudService {
+public interface EmSeqCrudService {
 
     /**
      * Insert entity.<br>
@@ -17,7 +17,7 @@ public interface UmeUserRoleCrudService {
      * @param entity - entity instance
      * @return
      */
-    Integer create(UmeUserRoleDto entity);
+    Integer create(EmSeqDto entity);
     
     /**
      * Insert entity list.<br>
@@ -25,7 +25,7 @@ public interface UmeUserRoleCrudService {
      * @param entityList - entity instance list
      * @return
      */
-    List<Integer> createList(List<UmeUserRoleDto> entityList);
+    List<Integer> createList(List<EmSeqDto> entityList);
     
     /**
      * Update entity when exist, insert new record if not exist.<br>
@@ -33,7 +33,7 @@ public interface UmeUserRoleCrudService {
      * @param entity - entity instance
      * @return
      */
-    Integer createOrUpdate(UmeUserRoleDto entity);
+    Integer createOrUpdate(EmSeqDto entity);
     
     /**
      * Update entity list when exist, insert new records if not exist.<br>
@@ -41,7 +41,7 @@ public interface UmeUserRoleCrudService {
      * @param entityList - entity instance list
      * @return
      */
-    List<Integer> createOrUpdateList(List<UmeUserRoleDto> entityList);
+    List<Integer> createOrUpdateList(List<EmSeqDto> entityList);
     
     /**
      * Update entity.<br>
@@ -49,7 +49,7 @@ public interface UmeUserRoleCrudService {
      * @param entity - entity instance
      * @return
      */
-    Integer update(UmeUserRoleDto entity);
+    Integer update(EmSeqDto entity);
     
     /**
      * Update entity list.<br>
@@ -57,7 +57,7 @@ public interface UmeUserRoleCrudService {
      * @param entityList - entity instance list
      * @return
      */
-    List<Integer> updateList(List<UmeUserRoleDto> entityList);
+    List<Integer> updateList(List<EmSeqDto> entityList);
     
     /**
      * Update entity (full filed update include null value).<br>
@@ -65,7 +65,7 @@ public interface UmeUserRoleCrudService {
      * @param entity - entity instance
      * @return
      */
-    Integer updateFully(UmeUserRoleDto entity);
+    Integer updateFully(EmSeqDto entity);
     
     /**
      * Update entity list (full filed update include null value).<br>
@@ -73,7 +73,7 @@ public interface UmeUserRoleCrudService {
      * @param entityList - entity instance list
      * @return
      */
-    List<Integer> updateFullyList(List<UmeUserRoleDto> entityList);
+    List<Integer> updateFullyList(List<EmSeqDto> entityList);
 
     /**
      * Delete entity.<br>
@@ -81,7 +81,7 @@ public interface UmeUserRoleCrudService {
      * @param entity - entity instance
      * @return
      */
-    Integer delete(UmeUserRoleDto entity);
+    Integer delete(EmSeqDto entity);
     
     /**
      * Delete entity list.<br>
@@ -89,7 +89,7 @@ public interface UmeUserRoleCrudService {
      * @param entityList - entity instance list
      * @return
      */
-    List<Integer> deleteList(List<UmeUserRoleDto> entityList);
+    List<Integer> deleteList(List<EmSeqDto> entityList);
     
     /**
      * Find entity by primary key set.<br>
@@ -97,7 +97,7 @@ public interface UmeUserRoleCrudService {
      * @param condition - query parameter
      * @return - matched entity instance
      */
-    UmeUserRoleDto find(UmeUserRoleDto condition);
+    EmSeqDto find(EmSeqDto condition);
     
     /**
      * Search entity list use equal match.<br>
@@ -105,7 +105,7 @@ public interface UmeUserRoleCrudService {
      * @param condition - query parameter describe by entity
      * @return - matched entity instance list
      */
-    List<UmeUserRoleDto> findList(UmeUserRoleDto condition);
+    List<EmSeqDto> findList(EmSeqDto condition);
     
     /**
      * Search entity list use like (%var%) match.<br>
@@ -113,7 +113,7 @@ public interface UmeUserRoleCrudService {
      * @param condition - query parameter describe by map
      * @return - matched entity instance list
      */
-    List<UmeUserRoleDto> findListLike(Map<String, String> condition);
+    List<EmSeqDto> findListLike(Map<String, String> condition);
     
     /**
      * Search entity list use dynamic condition.<br>
@@ -121,7 +121,7 @@ public interface UmeUserRoleCrudService {
      * @param dynaCondition - dynamic query parameter describe by map
      * @return - matched entity instance list
      */
-    List<UmeUserRoleDto> findListMatch(Map<String, String> dynaCondition);
+    List<EmSeqDto> findListMatch(Map<String, String> dynaCondition);
     
     /**
      * Count.<br>
