@@ -180,6 +180,10 @@ public class EntityDescManagerImpl extends BaseComponent implements EntityDescMa
 			refTblSchema = refTblId.substring(0, refTblId.indexOf("."));
 			refTblId = refTblId.substring(refTblId.indexOf(".") + 1);
 		}
+		if (refTblSchema == null) {
+			super.getLogger().warn("Schema was not specified for refer table:" + refTblId);
+		}
+		
 		List<EmColDescDto> colDescDTOs = getTableDescFromDictionary(entDescDTO.getRefTblDatasource(), refTblSchema, refTblId);
 		for (EmColDescDto e : colDescDTOs) {
 			// put into index map for append configuration information
