@@ -15,6 +15,7 @@ import org.umeframework.ems.uac.entity.UmeUserDto;
  */
 @Service
 public class DefaultAuthenticatorImpl extends BaseAuthenticator<UmeUserDto> {
+	
 	/**
 	 * 根据loginId，loginPassword等获取业务用户对象实体并返回。<br>
 	 * 

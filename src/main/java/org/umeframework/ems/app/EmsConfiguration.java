@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.umeframework.dora.service.user.UserAuthenticator;
+import org.umeframework.ems.jdbc.DynaDaoManager;
+import org.umeframework.ems.jdbc.impl.DynaDaoManagerImpl;
 import org.umeframework.ems.uac.user.dto.UserAuthDto;
 import org.umeframework.ems.uac.user.impl.DefaultAuthenticatorImpl;
 import org.umeframework.ems.util.UtilFactory;
@@ -108,6 +110,17 @@ public class EmsConfiguration {
 	@Bean(name = "userAuthenticator")
 	public UserAuthenticator<?> userAuthenticator() {
 		UserAuthenticator<UserAuthDto> instance = new DefaultAuthenticatorImpl();
+		return instance;
+	}
+	
+	/**
+	 * dynaDaoManager
+	 * 
+	 * @return
+	 */
+	@Bean(name = "dynaDaoManager", initMethod = "init")
+	public DynaDaoManager dynaDaoManager() {
+		DynaDaoManager instance = new DynaDaoManagerImpl();
 		return instance;
 	}
 

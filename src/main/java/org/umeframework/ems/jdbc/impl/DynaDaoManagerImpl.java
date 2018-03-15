@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+
 import org.springframework.stereotype.Service;
 import org.umeframework.dora.bean.BeanFactory;
 import org.umeframework.dora.connection.JdbcDataSourceManager;
@@ -18,10 +21,6 @@ import org.umeframework.dora.service.BaseDBComponent;
 import org.umeframework.dora.util.StringUtil;
 import org.umeframework.ems.entity.EmDsCfgDto;
 import org.umeframework.ems.jdbc.DynaDaoManager;
-
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import javax.sql.DataSource;
 
 /**
  * Dynamic select Dao instance accord to input data name.
@@ -51,7 +50,7 @@ public class DynaDaoManagerImpl extends BaseDBComponent implements DynaDaoManage
 	/**
 	 * Data source instance managed map
 	 */
-	private Map<String, RdbDao> daoMap = new java.util.concurrent.ConcurrentHashMap<String, RdbDao>();
+	private static final Map<String, RdbDao> daoMap = new java.util.concurrent.ConcurrentHashMap<String, RdbDao>();
 	
 	/*
 	 * (non-Javadoc)
@@ -194,8 +193,9 @@ public class DynaDaoManagerImpl extends BaseDBComponent implements DynaDaoManage
 	 * 
 	 * @throws SystemException
 	 */
-	@PostConstruct
+	//@PostConstruct // PostConstruct may due to 2 times invoke cause by @Bean and @Service
 	public synchronized void init() throws SystemException {
+		
 		try {
 			List<EmDsCfgDto> dsCfgDTOs = getDao().queryForObjectList(EmDsCfgDto.SQLID.FIND_LIST, null, EmDsCfgDto.class);
 			for (EmDsCfgDto cfg : dsCfgDTOs) {
@@ -210,7 +210,7 @@ public class DynaDaoManagerImpl extends BaseDBComponent implements DynaDaoManage
 			try {
 				dao = (RdbDao) beanFactory.autowireCapableCreateBean(JdbcDaoImpl.class, false);
 				dao.setDataSource(dataSource);
-				this.daoMap.put(DEFAULT_DATA_SOURCE, dao);
+				daoMap.put(DEFAULT_DATA_SOURCE, dao);
 				this.jdbcDataSourceManager.put(DEFAULT_DATA_SOURCE, dataSource);
 			} catch (Exception e) {
 				throw new SystemException(e, "Faild to get Dao instance with data source 'DEFAULT'");
@@ -223,7 +223,7 @@ public class DynaDaoManagerImpl extends BaseDBComponent implements DynaDaoManage
 	 * Release data source pool
 	 */
 	public synchronized void destroy() {
-		this.daoMap.clear();
+		daoMap.clear();
 		this.jdbcDataSourceManager.clear();
 	}
 
