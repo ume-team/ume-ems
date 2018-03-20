@@ -40,7 +40,7 @@ public class BaseCrudController extends BaseComponent implements MessageConst {
 	/**
 	 * BeanFactory instance
 	 */
-	@Resource(name = "beanFactory")
+	@Resource(name = "doraBeanFactory")
 	private BeanFactory beanFactory;
 	/**
 	 * EntityDESCManager instance
@@ -55,12 +55,12 @@ public class BaseCrudController extends BaseComponent implements MessageConst {
 	/**
 	 * Login service instance
 	 */
-	@Resource(name = "userLoginService")
+	@Resource(name = "doraUserLoginService")
 	private UserLoginService userLoginService;
 	/**
 	 * json data parser for selected entity manager instance
 	 */
-	@Resource(name = "ajaxParser")
+	@Resource(name = "doraAjaxParser")
 	private AjaxParser<String> ajaxParser;
 	/**
 	 * ACCESS level list

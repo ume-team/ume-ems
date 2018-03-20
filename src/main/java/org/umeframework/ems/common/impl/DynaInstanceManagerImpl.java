@@ -33,7 +33,7 @@ public class DynaInstanceManagerImpl<T> extends BaseComponent implements DynaIns
     /**
      * BeanFactory instance
      */
-    @Resource(name = "beanFactory")
+    @Resource(name = "doraBeanFactory")
     private BeanFactory beanFactory;
     /**
      * config

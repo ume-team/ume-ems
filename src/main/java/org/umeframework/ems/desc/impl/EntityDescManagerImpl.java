@@ -55,12 +55,12 @@ public class EntityDescManagerImpl extends BaseComponent implements EntityDescMa
 	/**
 	 * CacheManager instance
 	 */
-	@Resource(name = "cacheManager")
+	@Resource(name = "doraCacheManager")
 	private CacheManager cacheManager;
 	/**
 	 * MyBatis Dao instance which access configuration data
 	 */
-	@Resource(name = "dao")
+	@Resource(name = "doraRdbDao")
 	private RdbDao masterCfgDao;
 	/**
 	 * Table Desc Query SQLs define

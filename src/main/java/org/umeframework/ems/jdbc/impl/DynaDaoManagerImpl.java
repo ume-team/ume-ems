@@ -38,13 +38,13 @@ public class DynaDaoManagerImpl extends BaseDBComponent implements DynaDaoManage
 	/**
 	 * Bean factory instance
 	 */
-	@Resource(name = "beanFactory")
+	@Resource(name = "doraBeanFactory")
 	private BeanFactory beanFactory;
 
 	/**
 	 * jdbcDataSourceManager
 	 */
-	@Resource(name = "jdbcDataSourceManager")
+	@Resource(name = "doraJdbcDataSourceManager")
 	private JdbcDataSourceManager jdbcDataSourceManager;
 
 	/**
@@ -205,7 +205,7 @@ public class DynaDaoManagerImpl extends BaseDBComponent implements DynaDaoManage
 			super.getLogger().warn("Fail to init data source from EmDsCfg table!");
 		}
 		if (this.jdbcDataSourceManager.get(DEFAULT_DATA_SOURCE) == null) {
-			DataSource dataSource = (DataSource) beanFactory.getBean("dataSource");
+			DataSource dataSource = (DataSource) beanFactory.getBean("doraBasicDataSource");
 			RdbDao dao = null;
 			try {
 				dao = (RdbDao) beanFactory.autowireCapableCreateBean(JdbcDaoImpl.class, false);

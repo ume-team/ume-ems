@@ -32,7 +32,7 @@ public class AutoSequenceImpl extends BaseDBComponent implements AutoSequence {
 	/**
 	 * nestManualTransactionManager
 	 */
-	@Resource(name="transactionManager")
+	@Resource(name="doraTransactionManager")
 	private TransactionManager transactionManager;
     
 	/*
