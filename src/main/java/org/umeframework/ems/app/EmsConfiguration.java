@@ -86,7 +86,7 @@ public class EmsConfiguration {
 		prop.setProperty("LOBtoB64", "org.umeframework.ems.util.Base64Util#blobToBase64");
 		prop.setProperty("UTF8ENC", "org.umeframework.dora.util.CodecUtil#encodeAsUTF8");
 		prop.setProperty("UTF8DEC", "org.umeframework.dora.util.CodecUtil#decodeAsUTF8");
-		prop.setProperty("MD5ENC", "org.umeframework.dora.util.CodecUtil#encodeMD5Hex");
+		prop.setProperty("PasswordENC", "org.umeframework.ems.util.EncodeUtil#passwordToMD5");
 		return new UtilFactory(prop);
 	}
 
