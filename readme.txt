@@ -19,7 +19,7 @@
   
 【Web服务测试】
 打开浏览器窗口(浏览器推荐使用Firefox或Chrome，安装Json-handle插件以编译查看JSON格式的数据)，
-输入 http://localhost:8081/ume 打开默认页面(查看当前Web服务的状态)。
+输入 http://localhost:8081/ume-ems 打开默认页面(查看当前Web服务的状态)。
 
 或者直接输入如下的Web服务的URL，进行数据访问，默认开启的URL如下：
 # 默认启动的Web服务的列表及参数描述

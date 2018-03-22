@@ -1,0 +1,8 @@
+[Unit]
+Description=UME EMS Server
+After=syslog.target
+[Service]
+Type=simple
+ExecStart=java -jar /usr/local/ume/ume-ems-1.0.1.RELEASE-exec.jar --spring.config.location=/usr/local/ume/ume-ems.properties
+[Install]
+WantedBy=multi-user.target
