@@ -19,7 +19,7 @@ import org.umeframework.dora.context.SessionContext;
 import org.umeframework.dora.exception.ApplicationException;
 import org.umeframework.dora.exception.TimeoutException;
 import org.umeframework.dora.service.BaseComponent;
-import org.umeframework.dora.service.user.UserLoginService;
+import org.umeframework.dora.service.user.UserCacheService;
 import org.umeframework.dora.util.ReflectUtil;
 import org.umeframework.dora.util.StringUtil;
 import org.umeframework.ems.crud.EntityCrudManager;
@@ -53,10 +53,10 @@ public class BaseCrudController extends BaseComponent implements MessageConst {
 	@Resource
 	private EntityCrudManager<?, ?> entityCRUDManager;
 	/**
-	 * Login service instance
+	 * User cache service instance
 	 */
-	@Resource(name = "doraUserLoginService")
-	private UserLoginService userLoginService;
+	@Resource(name = "doraUserCacheService")
+	private UserCacheService userCacheService;
 	/**
 	 * json data parser for selected entity manager instance
 	 */
@@ -188,7 +188,7 @@ public class BaseCrudController extends BaseComponent implements MessageConst {
 	 */
 	protected void checkAuthorization(String entId, String category) throws TimeoutException {
 		String token = SessionContext.open().get(SessionContext.Key.Token);
-		UserAuthDto auth = (UserAuthDto) userLoginService.getUserObject(token);
+		UserAuthDto auth = (UserAuthDto) userCacheService.getUserObject(token);
 		Set<Map<String, Object>> userAclSet = auth.getAccResList();
 		for (Map<String, Object> acl : userAclSet) {
 			String accResId = (String) acl.get(UmeRoleAclDto.Property.accResId);
