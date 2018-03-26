@@ -54,14 +54,6 @@ public abstract class BaseAuthenticator<BIZ_USER> extends BaseDBComponent implem
 	abstract public BIZ_USER findBizUser(String loginId, String loginPassword, String... options);
 
 	/**
-	 * 创建内部Token串。<br>
-	 * 
-	 * @param bizUser
-	 * @return
-	 */
-	abstract public String createToken(BIZ_USER bizUser);
-
-	/**
 	 * 根据loginId，loginPassword等进行用户鉴权，并对获取用户进行授权处理后，返回UserAuthDto实体。<br>
 	 * 
 	 * @see org.umeframework.dora.service.user.UserAuthenticator#getUserObject(java.lang.String, java.lang.String, java.lang.String[])
@@ -112,9 +104,6 @@ public abstract class BaseAuthenticator<BIZ_USER> extends BaseDBComponent implem
 		if (uid != null) {
 			userAuth.setUid(uid.toString());
 		}
-		String token = this.createToken(bizUser);
-		userAuth.setToken(token);
-
 		// Invoke authorization process
 		this.doAuthorization(userAuth);
 		return userAuth;

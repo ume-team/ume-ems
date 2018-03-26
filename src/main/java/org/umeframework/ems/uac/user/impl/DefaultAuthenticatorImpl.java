@@ -43,16 +43,4 @@ public class DefaultAuthenticatorImpl extends BaseAuthenticator<UmeUserDto> {
 		return bizUser;
 	}
 
-	/**
-	 * 创建内部Token串。<br>
-	 * 
-	 * @see org.umeframework.ems.uac.user.BaseAuthenticator#createToken(java.lang.Object)
-	 */
-	@Override
-	public String createToken(UmeUserDto bizUser) {
-		// 此处仅提供简单创建Token串的默认规则
-		String token = CodecUtil.encodeMD5Hex(super.getCurrentTimestamp().toString()) + System.currentTimeMillis();
-		return token;
-	}
-
 }
