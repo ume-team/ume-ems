@@ -26,8 +26,8 @@ import org.umeframework.ems.crud.EntityCrudManager;
 import org.umeframework.ems.desc.EntityDescManager;
 import org.umeframework.ems.desc.dto.EmDescDto;
 import org.umeframework.ems.message.MessageConst;
-import org.umeframework.ems.uac.entity.UmeRoleAclDto;
-import org.umeframework.ems.uac.user.dto.UserAuthDto;
+import org.umeframework.uac.entity.UmeRoleAclDto;
+import org.umeframework.uac.user.dto.UserAclDto;
 
 /**
  * BaseCRUDController
@@ -188,7 +188,7 @@ public class BaseCrudController extends BaseComponent implements MessageConst {
 	 */
 	protected void checkAuthorization(String entId, String category) throws TimeoutException {
 		String token = SessionContext.open().get(SessionContext.Key.Token);
-		UserAuthDto auth = (UserAuthDto) userCacheService.getUserObject(token);
+		UserAclDto auth = (UserAclDto) userCacheService.getUserObject(token);
 		Set<Map<String, Object>> userAclSet = auth.getAccResList();
 		for (Map<String, Object> acl : userAclSet) {
 			String accResId = (String) acl.get(UmeRoleAclDto.Property.accResId);

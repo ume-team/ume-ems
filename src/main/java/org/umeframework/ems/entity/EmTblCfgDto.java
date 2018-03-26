@@ -12,7 +12,7 @@ import javax.persistence.Entity;
 import org.umeframework.dora.type.TableDesc;
 import javax.persistence.Id;
 import org.umeframework.dora.bean.BeanUtil;
-import org.umeframework.dora.service.TableEntity;
+import org.umeframework.dora.service.TableObject;
 
 /**
  * Entity class map to table "EM实体展示配置表"
@@ -22,7 +22,7 @@ import org.umeframework.dora.service.TableEntity;
 @Entity
 @Table(name="EM_TBL_CFG")
 @TableDesc(label="EM实体展示配置表")
-public class EmTblCfgDto extends TableEntity implements Serializable {
+public class EmTblCfgDto extends TableObject implements Serializable {
    /**
     * Default serial version code
     */

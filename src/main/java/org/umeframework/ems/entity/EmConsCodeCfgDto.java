@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import org.umeframework.dora.type.TableDesc;
 import javax.persistence.Id;
 import org.umeframework.dora.bean.BeanUtil;
-import org.umeframework.dora.service.TableEntity;
+import org.umeframework.dora.service.TableObject;
 
 /**
  * Entity class map to table "EM 编码配置表"
@@ -21,7 +21,7 @@ import org.umeframework.dora.service.TableEntity;
 @Entity
 @Table(name="EM_CONS_CODE_CFG")
 @TableDesc(label="EM 编码配置表")
-public class EmConsCodeCfgDto extends TableEntity implements Serializable {
+public class EmConsCodeCfgDto extends TableObject implements Serializable {
    /**
     * Default serial version code
     */

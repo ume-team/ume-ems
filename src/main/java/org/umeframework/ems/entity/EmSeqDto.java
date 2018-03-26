@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import org.umeframework.dora.type.TableDesc;
 import javax.persistence.Id;
 import org.umeframework.dora.bean.BeanUtil;
-import org.umeframework.dora.service.TableEntity;
+import org.umeframework.dora.service.TableObject;
 
 /**
  * Entity class map to table "采番表"
@@ -21,7 +21,7 @@ import org.umeframework.dora.service.TableEntity;
 @Entity
 @Table(name="EM_SEQ")
 @TableDesc(label="采番表")
-public class EmSeqDto extends TableEntity implements Serializable {
+public class EmSeqDto extends TableObject implements Serializable {
    /**
     * Default serial version code
     */
