@@ -188,7 +188,7 @@ public class BaseCrudController extends BaseComponent implements MessageConst {
 	 */
 	protected void checkAuthorization(String entId, String category) throws TimeoutException {
 		String token = SessionContext.open().get(SessionContext.Key.Token);
-		UserAclDto auth = (UserAclDto) userCacheService.getUserObject(token);
+		UserAclDto auth = (UserAclDto) userCacheService.getUser(token);
 		Set<Map<String, Object>> userAclSet = auth.getAccResList();
 		for (Map<String, Object> acl : userAclSet) {
 			String accResId = (String) acl.get(UmeRoleAclDto.Property.accResId);
