@@ -8,6 +8,9 @@ import java.util.Properties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.umeframework.dora.cache.CacheManager;
+import org.umeframework.dora.cache.impl.TempMemoryCachedImpl;
 import org.umeframework.dora.service.user.UserAuthenticator;
 import org.umeframework.ems.jdbc.DynaDaoManager;
 import org.umeframework.ems.jdbc.impl.DynaDaoManagerImpl;
@@ -125,4 +128,15 @@ public class EmsConfiguration {
 		return instance;
 	}
 
+	/**
+	 * cacheManager
+	 * 
+	 * @return
+	 */
+	@Scope("singleton")
+	@Bean(name = "cacheManager", initMethod = "init", destroyMethod = "shutdown")
+	public CacheManager cacheManager() {
+		TempMemoryCachedImpl instance = new TempMemoryCachedImpl(0);
+		return instance;
+	}
 }
