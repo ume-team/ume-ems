@@ -50,7 +50,7 @@ http://localhost:8081/ume-ems/rest/sys/EMS10010/["UME_ROLE_ACL"]
 #http://localhost:8081/ume-ems/rest/sys/EMS40001/["DCISZS","CIS", "TESTG01", "USR", 5]
 #http://localhost:8081/ume-ems/rest/sys/EMS40002/["TESTG01", "USR"]
 #http://localhost:8081/ume-ems/rest/sys/EMS40003/["TESTG01"]
-http://localhost:8081/ume-ems/rest/sys/EMS40004/["DS99","123^56^136^145","3306","umedbm01","doraTestAdm","doraTestAdm123","mysql"]
+http://localhost:8081/ume-ems/rest/sys/EMS40004/["DS99","123^56^136^145","3306","umedbm01","ume","umePW123!!","mysql"]
 
 ## SQL console query
 http://localhost:8081/ume-ems/rest/sys/EMS90031/["DEFAULT","UME_USER","*",{"user_status":">0"}]
