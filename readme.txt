@@ -23,38 +23,38 @@
 
 或者直接输入如下的Web服务的URL，进行数据访问，默认开启的URL如下：
 # 默认启动的Web服务的列表及参数描述
-http://localhost:8081/ume-ems/rest/sys/EMS99901/
+http://localhost:8081/ume-ems/capi/sys/EMS99901/
 
 # Web服务的样例
 ## Sequence
-http://localhost:8081/ume-ems/rest/sys/EMS00000/["MSG"]
+http://localhost:8081/ume-ems/capi/sys/EMS00000/["MSG"]
 
 ## login
-http://localhost:8081/ume-ems/rest/sys/EMS00001/["admin","88888888"]
+http://localhost:8081/ume-ems/capi/sys/EMS00001/["admin","88888888"]
 
 ## logout
-http://localhost:8081/ume-ems/rest/sys/EMS00002/["admin"]
+http://localhost:8081/ume-ems/capi/sys/EMS00002/["admin"]
 
 ## Table DESC
-http://localhost:8081/ume-ems/rest/sys/EMS30001/["DEFAULT","umedbm01"]
-http://localhost:8081/ume-ems/rest/sys/EMS30001/["DEFAULT","umedbm01","ROLE"]
-http://localhost:8081/ume-ems/rest/sys/EMS30002/["DEFAULT","umedbm01","UME_USER"]
+http://localhost:8081/ume-ems/capi/sys/EMS30001/["DEFAULT","umedbm01"]
+http://localhost:8081/ume-ems/capi/sys/EMS30001/["DEFAULT","umedbm01","ROLE"]
+http://localhost:8081/ume-ems/capi/sys/EMS30002/["DEFAULT","umedbm01","UME_USER"]
 
 ## Entity DESC
-http://localhost:8081/ume-ems/rest/sys/EMS10001/["UME_ROLE_ACL"]
-http://localhost:8081/ume-ems/rest/sys/EMS10002/["UME_ROLE_ACL"]
-http://localhost:8081/ume-ems/rest/sys/EMS10003/["UME_ROLE_ACL","ACC_LEVEL"]
-http://localhost:8081/ume-ems/rest/sys/EMS10010/["UME_ROLE_ACL"]
+http://localhost:8081/ume-ems/capi/sys/EMS10001/["UME_ROLE_ACL"]
+http://localhost:8081/ume-ems/capi/sys/EMS10002/["UME_ROLE_ACL"]
+http://localhost:8081/ume-ems/capi/sys/EMS10003/["UME_ROLE_ACL","ACC_LEVEL"]
+http://localhost:8081/ume-ems/capi/sys/EMS10010/["UME_ROLE_ACL"]
 
 ## Resource Management
-#http://localhost:8081/ume-ems/rest/sys/EMS40001/["DCISZS","CIS", "TESTG01", "USR", 5]
-#http://localhost:8081/ume-ems/rest/sys/EMS40002/["TESTG01", "USR"]
-#http://localhost:8081/ume-ems/rest/sys/EMS40003/["TESTG01"]
-http://localhost:8081/ume-ems/rest/sys/EMS40004/["DS99","123^56^136^145","3306","umedbm01","ume","umePW123!!","mysql"]
+#http://localhost:8081/ume-ems/capi/sys/EMS40001/["DCISZS","CIS", "TESTG01", "USR", 5]
+#http://localhost:8081/ume-ems/capi/sys/EMS40002/["TESTG01", "USR"]
+#http://localhost:8081/ume-ems/capi/sys/EMS40003/["TESTG01"]
+http://localhost:8081/ume-ems/capi/sys/EMS40004/["DS99","123^56^136^145","3306","umedbm01","ume","umePW123!!","mysql"]
 
 ## SQL console query
-http://localhost:8081/ume-ems/rest/sys/EMS90031/["DEFAULT","UME_USER","*",{"user_status":">0"}]
-http://localhost:8081/ume-ems/rest/sys/EMS90032/["DEFAULT","UME_USER","*",{"user_status":">0"}]
+http://localhost:8081/ume-ems/capi/sys/EMS90031/["DEFAULT","UME_USER","*",{"user_status":">0"}]
+http://localhost:8081/ume-ems/capi/sys/EMS90032/["DEFAULT","UME_USER","*",{"user_status":">0"}]
 
 
 
