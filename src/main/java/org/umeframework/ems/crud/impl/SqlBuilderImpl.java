@@ -73,7 +73,7 @@ public class SqlBuilderImpl implements SqlBuilder,MessageConst {
      * @return
      */
     protected String getValueOfColumnLastUpdateUser() {
-        return SessionContext.open().get(SessionContext.Key.UID);
+        return SessionContext.open().getUid();
     }
     
     /*
