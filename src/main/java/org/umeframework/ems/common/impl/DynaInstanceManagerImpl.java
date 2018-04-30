@@ -9,12 +9,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 import org.umeframework.dora.bean.BeanFactory;
+import org.umeframework.dora.exception.ApplicationException;
 import org.umeframework.dora.service.BaseComponent;
 import org.umeframework.ems.common.DynaInstanceManager;
-
-import javax.annotation.Resource;
 
 /**
  * Dynamic instance manager
@@ -59,7 +60,7 @@ public class DynaInstanceManagerImpl<T> extends BaseComponent implements DynaIns
                     }
                 } catch (Exception ex) {
                     getLogger().error("Failed in create instance. ID=" + key + " IMPL=" + value, ex);
-                    throw new RuntimeException(ex);
+                    throw new ApplicationException(ex, "Failed in create instance. ID=" + key + " IMPL=" + value);
                 }
             }
             getLogger().info("Plugin:" + this.getClass().getSimpleName() + " initialized.");

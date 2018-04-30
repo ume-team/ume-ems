@@ -3,13 +3,14 @@
  */
 package org.umeframework.ems.common.impl;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+import org.umeframework.dora.exception.ApplicationException;
 import org.umeframework.dora.service.BaseDBComponent;
 import org.umeframework.dora.transaction.TransactionManager;
 import org.umeframework.ems.common.AutoSequence;
 import org.umeframework.ems.entity.EmSeqDto;
-
-import javax.annotation.Resource;
 
 /**
  * AutoSeqServiceImpl
@@ -50,7 +51,7 @@ public class AutoSequenceImpl extends BaseDBComponent implements AutoSequence {
 			transactionManager.begin();
 			EmSeqDto seq = getDao().queryForObject(EmSeqDto.SQLID.FIND_FOR_UPDATE, itemName, EmSeqDto.class);
 			if (seq == null) {
-				throw new RuntimeException("No found valid sequence item:" + itemName + " current=" + itemName);
+				throw new ApplicationException("No found valid sequence item:" + itemName + " current=" + itemName);
 			}
 
 			int current = seq.getCurrentIndex();
@@ -61,7 +62,7 @@ public class AutoSequenceImpl extends BaseDBComponent implements AutoSequence {
 				if (getRepeatable().equalsIgnoreCase(seq.getRepeatable())) {
 					nextValue = seq.getMinValue();
 				} else {
-					throw new RuntimeException("Overflow error of sequence item:" + itemName + " current=" + current);
+					throw new ApplicationException("Overflow error of sequence item:" + itemName + " current=" + current);
 				}
 			}
 
@@ -77,7 +78,7 @@ public class AutoSequenceImpl extends BaseDBComponent implements AutoSequence {
 			return stb.toString();
 		} catch (Exception ex) {
 		    transactionManager.rollback();
-			throw new RuntimeException(ex.getMessage());
+			throw new ApplicationException(ex.getMessage());
 		} finally {
             transactionManager.setPropagation(oriPropagation);
 		}

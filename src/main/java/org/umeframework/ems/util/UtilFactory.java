@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
+import org.umeframework.dora.exception.ApplicationException;
 import org.umeframework.dora.util.ReflectUtil;
 
 /**
@@ -111,7 +112,7 @@ public class UtilFactory {
 	 */
 	public void put(String utilName, String value) throws Throwable {
 		if (!value.contains(WEB_SERVICE_CLASS_METHOD_SPLIT_CHAR)) {
-			throw new RuntimeException("Util define in UtilFactory define must split by '#' between class name and method name:" + value);
+			throw new ApplicationException("Util define in UtilFactory define must split by '#' between class name and method name:" + value);
 		}
 		
 		String[] elements = value.split(WEB_SERVICE_CLASS_METHOD_SPLIT_CHAR);

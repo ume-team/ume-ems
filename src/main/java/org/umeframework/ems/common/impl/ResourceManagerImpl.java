@@ -236,7 +236,7 @@ public class ResourceManagerImpl extends BaseDBComponent implements ResourceMana
     	} else if ("db2".equals(dbtype)) {
     		driverClass = "com.ibm.db2.jcc.DB2Driver";
     	} else {
-    		throw new RuntimeException("Unsupport database type:" + dbtype);
+    		throw new ApplicationException("Unsupport database type:" + dbtype);
     	}
     	StringBuilder url = new StringBuilder();
     	url.append("jdbc:");
