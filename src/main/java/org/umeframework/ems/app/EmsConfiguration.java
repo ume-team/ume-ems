@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
+import org.umeframework.dora.bean.BeanConfigConst;
 import org.umeframework.dora.cache.CacheManager;
 import org.umeframework.dora.cache.impl.TempMemoryCachedImpl;
 import org.umeframework.dora.service.user.UserAuthenticator;
@@ -111,7 +112,7 @@ public class EmsConfiguration {
 	 * 
 	 * @return
 	 */
-	@Bean(name = "userAuthenticator")
+	@Bean(name = BeanConfigConst.DEFAULT_USER_AUTHENTICATOR)
 	public UserAuthenticator<?> userAuthenticator() {
 		UserAuthenticator<UserAclDto> instance = new DefaultAuthenticatorImpl();
 		return instance;
